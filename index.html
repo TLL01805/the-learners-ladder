@@ -572,6 +572,35 @@
     .writing-btn:hover { background: var(--gold); color: var(--navy); }
 
     /* English articles below panels */
+    .subject-group-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 2.75rem;
+      margin-bottom: 1rem;
+      padding-top: 1rem;
+      padding-bottom: 0.6rem;
+      border-top: 2px solid rgba(184,150,62,0.35);
+      border-bottom: 2px solid rgba(184,150,62,0.35);
+    }
+    .subject-group-title {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.01em;
+    }
+    .subject-group-count {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.4);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    @media (max-width: 700px) {
+      .subject-group-title { font-size: 1.1rem; }
+      .subject-group-count { font-size: 0.7rem; }
+    }
     .english-articles {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -839,11 +868,12 @@
   </a>
   <ul class="nav-links">
     <li><a href="#english">English</a></li>
-    <li><a href="#">Science</a></li>
-    <li><a href="#">Mathematics</a></li>
-    <li><a href="#">Health</a></li>
-    <li><a href="#">General Knowledge</a></li>
-    <li><a href="#">Computer &amp; AI</a></li>
+    <li><a href="#activities">Practice</a></li>
+    <li><a href="#science">Science</a></li>
+    <li><a href="#mathematics">Mathematics</a></li>
+    <li><a href="#health">Health</a></li>
+    <li><a href="#general-knowledge">General Knowledge</a></li>
+    <li><a href="#computer-ai">Computer &amp; AI</a></li>
     <li><a href="#resources">Resources</a></li>
   </ul>
 </nav>
@@ -855,7 +885,7 @@
     <h1>Where knowledge becomes <em>understanding</em></h1>
     <p class="hero-desc">Scholarly articles, practical guides, and trusted resources across science, English language, history, and more — crafted for curious minds of all ages.</p>
     <div class="hero-actions">
-      <a class="btn-primary" href="grammar-article.html">Explore Articles</a>
+      <a class="btn-primary" href="index.html#english">Explore Articles</a>
       <a class="btn-outline" href="#english">English Language</a>
     </div>
   </div>
@@ -935,118 +965,6 @@
   </div>
 </div>
 
-<!-- FEATURED ARTICLES -->
-<div class="articles-section">
-  <div class="articles-inner">
-    <div class="section-header">
-      <div class="section-eyebrow">Editorial Selection</div>
-      <h2>Featured Articles</h2>
-      <p>Carefully chosen pieces from our editors across subjects — clear, rigorous, and written to be understood.</p>
-    </div>
-
-    <div class="featured-layout">
-      <div class="featured-main">
-        <div class="article-tag"><span class="article-tag-dot"></span>English Language · Grammar</div>
-        <div class="article-title">The Grammar Trap: 10 Mistakes That Make Smart People Look Careless</div>
-        <div class="article-excerpt">Grammar is not about being perfect — it is about clarity. This guide walks through ten of the most common English mistakes, with clear explanations, memory tricks and examples that make each rule easy to remember.</div>
-        <a href="grammar-article.html" class="read-more">Read Article →</a>
-        <div class="article-meta">
-          <span class="article-meta-author">The Learners Ladder Editorial Team</span>
-          <span class="article-meta-sep">|</span>
-          <span>9 min read</span>
-          <span class="article-meta-sep">|</span>
-          <span>Grammar</span>
-        </div>
-      </div>
-      <div class="featured-side">
-        <div class="featured-side-card" onclick="location.href='what-is-the-human-cell.html'" style="cursor:pointer;">
-          <div class="article-tag"><span class="article-tag-dot"></span>Science</div>
-          <div class="article-title">What is the Human Cell? A Simple Guide</div>
-          <div class="article-excerpt">Every living thing is made of cells. Discover what a cell is, its key parts, and why understanding it is fundamental to understanding life.</div>
-          <div class="article-meta">
-            <span class="article-meta-author">The Learners Ladder Editorial Team</span>
-            <span class="article-meta-sep">|</span>
-            <span>8 min read</span>
-          </div>
-        </div>
-        <div class="featured-side-card" onclick="location.href='what-is-a-balanced-diet.html'" style="cursor:pointer;">
-          <div class="article-tag"><span class="article-tag-dot"></span>Health</div>
-          <div class="article-title">What is a Balanced Diet and Why Does It Matter?</div>
-          <div class="article-excerpt">A clear, practical guide to what a balanced diet actually means — covering macronutrients, vitamins, fibre and water.</div>
-          <div class="article-meta">
-            <span class="article-meta-author">The Learners Ladder Editorial Team</span>
-            <span class="article-meta-sep">|</span>
-            <span>8 min read</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="articles-grid">
-      <div class="article-card" onclick="location.href='seven-wonders-of-the-world.html'" style="cursor:pointer;">
-        <div class="article-tag"><span class="article-tag-dot"></span>General Knowledge</div>
-        <div class="article-title">The Seven Wonders of the Modern World</div>
-        <div class="article-excerpt">From the Great Wall of China to the Taj Mahal — discover what makes each of the seven wonders truly extraordinary.</div>
-        <div class="article-meta">
-          <span class="article-meta-author">The Learners Ladder Editorial Team</span>
-          <span class="article-meta-sep">|</span>
-          <span>9 min read</span>
-        </div>
-      </div>
-      <div class="article-card" onclick="location.href='why-do-we-need-mathematics.html'" style="cursor:pointer;">
-        <div class="article-tag"><span class="article-tag-dot"></span>Mathematics</div>
-        <div class="article-title">Why Do We Need Mathematics in Daily Life?</div>
-        <div class="article-excerpt">A clear and honest answer to why mathematics matters — from everyday calculations to professional careers and modern technology.</div>
-        <div class="article-meta">
-          <span class="article-meta-author">The Learners Ladder Editorial Team</span>
-          <span class="article-meta-sep">|</span>
-          <span>7 min read</span>
-        </div>
-      </div>
-      <div class="article-card" onclick="location.href='what-is-artificial-intelligence.html'" style="cursor:pointer;">
-        <div class="article-tag"><span class="article-tag-dot"></span>Computer &amp; AI</div>
-        <div class="article-title">What is Artificial Intelligence and How Does It Work?</div>
-        <div class="article-excerpt">A clear, jargon-free guide to AI — what it is, how machine learning works, and what questions it raises for the world.</div>
-        <div class="article-meta">
-          <span class="article-meta-author">The Learners Ladder Editorial Team</span>
-          <span class="article-meta-sep">|</span>
-          <span>9 min read</span>
-        </div>
-      </div>
-      <div class="article-card" onclick="location.href='what-is-language.html'" style="cursor:pointer;">
-        <div class="article-tag"><span class="article-tag-dot"></span>English Language</div>
-        <div class="article-title">What is Language?</div>
-        <div class="article-excerpt">What makes human language unique? This article explores what language actually is and why it remains one of the most studied subjects in history.</div>
-        <div class="article-meta">
-          <span class="article-meta-author">The Learners Ladder Editorial Team</span>
-          <span class="article-meta-sep">|</span>
-          <span>7 min read</span>
-        </div>
-      </div>
-      <div class="article-card" onclick="location.href='how-to-write-a-perfect-paragraph.html'" style="cursor:pointer;">
-        <div class="article-tag"><span class="article-tag-dot"></span>English Language</div>
-        <div class="article-title">How to Write a Perfect Paragraph</div>
-        <div class="article-excerpt">The paragraph is the fundamental unit of all writing. Learn its structure, how to make it flow, and what mistakes to avoid.</div>
-        <div class="article-meta">
-          <span class="article-meta-author">The Learners Ladder Editorial Team</span>
-          <span class="article-meta-sep">|</span>
-          <span>7 min read</span>
-        </div>
-      </div>
-      <div class="article-card" onclick="location.href='what-is-the-human-cell.html'" style="cursor:pointer;">
-        <div class="article-tag"><span class="article-tag-dot"></span>Science</div>
-        <div class="article-title">What is the Human Cell? A Simple Guide</div>
-        <div class="article-excerpt">The human body contains 37 trillion cells. Discover what a cell is, its key parts, and why it is the foundation of all life.</div>
-        <div class="article-meta">
-          <span class="article-meta-author">The Learners Ladder Editorial Team</span>
-          <span class="article-meta-sep">|</span>
-          <span>8 min read</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- ENGLISH SECTION -->
 <section class="english-section" id="english">
   <div class="english-inner">
@@ -1056,159 +974,615 @@
       <p>Master the rules of the English language — then learn to use them with confidence and creativity.</p>
     </div>
 
-    <div class="english-grid">
-      <div class="english-panel">
-        <div class="english-panel-title">📚 Grammar Basics</div>
-        <div class="english-panel-sub">Build a solid, lasting foundation in English grammar</div>
-        <div class="panel-topic" onclick="location.href='parts-of-speech.html'" style="cursor:pointer;">
-          <span class="panel-topic-num">I.</span>
-          <div><div class="panel-topic-title">Parts of Speech</div><div class="panel-topic-sub">Nouns, verbs, adjectives, adverbs, pronouns and more</div></div>
-        </div>
-        <div class="panel-topic" onclick="location.href='sentence-structure.html'" style="cursor:pointer;">
-          <span class="panel-topic-num">II.</span>
-          <div><div class="panel-topic-title">Sentence Structure</div><div class="panel-topic-sub">Subjects, predicates, clauses and phrases</div></div>
-        </div>
-        <div class="panel-topic" onclick="location.href='punctuation-rules.html'" style="cursor:pointer;">
-          <span class="panel-topic-num">III.</span>
-          <div><div class="panel-topic-title">Punctuation Rules</div><div class="panel-topic-sub">Commas, colons, apostrophes and semicolons</div></div>
-        </div>
-        <div class="panel-topic" onclick="location.href='tenses-verb-forms.html'" style="cursor:pointer;">
-          <span class="panel-topic-num">IV.</span>
-          <div><div class="panel-topic-title">Tenses &amp; Verb Forms</div><div class="panel-topic-sub">Past, present and future — and all their variations</div></div>
-        </div>
-        <div class="panel-topic" onclick="location.href='common-errors.html'" style="cursor:pointer;">
-          <span class="panel-topic-num">V.</span>
-          <div><div class="panel-topic-title">Common Errors</div><div class="panel-topic-sub">Their/there/they're, affect/effect, and more</div></div>
-        </div>
-        <a href="grammar-article.html" class="panel-btn grammar-btn">Explore Grammar</a>
+          <div class="subject-group-header"><span class="subject-group-title">Foundational Concepts</span><span class="subject-group-count">4 articles</span></div>
+      <div class="english-articles">
+        <div class="english-article" onclick="location.href='what-is-language.html'" style="cursor:pointer;">
+                <div class="article-title">What is Language?</div>
+                <div class="article-excerpt">What makes human language unique? Explore the definition, components and features that set language apart from all other communication.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>7 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='language-and-its-need.html'" style="cursor:pointer;">
+                <div class="article-title">Language and Its Need</div>
+                <div class="article-excerpt">Why does every human society need language? Explore the six fundamental needs that language fulfils — from sharing thought to building identity.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>7 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='english-international-language.html'" style="cursor:pointer;">
+                <div class="article-title">English as an International Language</div>
+                <div class="article-excerpt">How did English become the world's international language? A clear look at its history, global use and what this means in practice.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>8 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='importance-of-english.html'" style="cursor:pointer;">
+                <div class="article-title">The Importance of the English Language</div>
+                <div class="article-excerpt">Why does English matter so much today? Explore its role in education, employment, information access and personal confidence.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>8 min read</span>
+                </div>
+              </div>
       </div>
 
-      <div class="english-panel">
-        <div class="english-panel-title">✍️ Creative Writing</div>
-        <div class="english-panel-sub">Find your voice and tell stories that resonate</div>
-        <div class="panel-topic">
-          <span class="panel-topic-num">I.</span>
-          <div><div class="panel-topic-title">Story Structure</div><div class="panel-topic-sub">Beginning, middle and end — and the three-act arc</div></div>
-        </div>
-        <div class="panel-topic">
-          <span class="panel-topic-num">II.</span>
-          <div><div class="panel-topic-title">Character Development</div><div class="panel-topic-sub">How to write people readers genuinely care about</div></div>
-        </div>
-        <div class="panel-topic">
-          <span class="panel-topic-num">III.</span>
-          <div><div class="panel-topic-title">Show, Don't Tell</div><div class="panel-topic-sub">The principle of vivid, immersive writing</div></div>
-        </div>
-        <div class="panel-topic">
-          <span class="panel-topic-num">IV.</span>
-          <div><div class="panel-topic-title">Dialogue &amp; Voice</div><div class="panel-topic-sub">Writing conversation that sounds natural and real</div></div>
-        </div>
-        <div class="panel-topic">
-          <span class="panel-topic-num">V.</span>
-          <div><div class="panel-topic-title">Editing Your Own Work</div><div class="panel-topic-sub">A step-by-step self-editing process for writers</div></div>
-        </div>
-        <a href="how-to-write-a-perfect-paragraph.html" class="panel-btn writing-btn">Explore Creative Writing</a>
+    <div class="subject-group-header"><span class="subject-group-title">Grammar Basics</span><span class="subject-group-count">5 articles</span></div>
+      <div class="english-articles">
+        <div class="english-article" onclick="location.href='parts-of-speech.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Grammar Basics</div>
+                <div class="article-title">Parts of Speech: The Building Blocks of English</div>
+                <div class="article-excerpt">Every sentence is built from just a handful of word types. Learn to recognise all eight parts of speech, with clear examples and a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>10 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='sentence-structure.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Grammar Basics</div>
+                <div class="article-title">Sentence Structure: From Basic to Advanced</div>
+                <div class="article-excerpt">Subjects, predicates, clauses, and the four sentence structures — everything from simple sentences to compound-complex, with a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>13 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='punctuation-rules.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Grammar Basics</div>
+                <div class="article-title">Punctuation Rules: The Complete Guide</div>
+                <div class="article-excerpt">Every punctuation mark in English, from the full stop to the em dash — clear rules, common errors, and real examples, with a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>15 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='tenses-verb-forms.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Grammar Basics</div>
+                <div class="article-title">Tenses &amp; Verb Forms: The Complete Guide</div>
+                <div class="article-excerpt">All twelve English tenses, irregular verbs, active and passive voice, mood, and modal verbs — explained clearly, with a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>16 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='common-errors.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Grammar Basics</div>
+                <div class="article-title">Common Errors in English: A Complete Guide</div>
+                <div class="article-excerpt">Their/there/they're, affect/effect, fewer/less, dangling modifiers, and more — the mistakes that trip up confident writers, with a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>14 min read</span>
+                </div>
+              </div>
+      </div>
+      <div class="subject-group-header"><span class="subject-group-title">Vocabulary Building</span><span class="subject-group-count">4 articles</span></div>
+      <div class="english-articles">
+        <div class="english-article" onclick="location.href='prefixes-suffixes-root-words.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Vocabulary Building</div>
+                <div class="article-title">Prefixes, Suffixes &amp; Root Words: The Complete Guide</div>
+                <div class="article-excerpt">Roots, prefixes, and suffixes, derivational vs. inflectional endings, affixation, and spelling rules — with a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>15 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='synonyms-antonyms.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Vocabulary Building</div>
+                <div class="article-title">Synonyms &amp; Antonyms: The Complete Guide</div>
+                <div class="article-excerpt">Gradable, complementary, and relational antonyms, connotation, register, and precise word choice — with a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>14 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='idioms-phrases.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Vocabulary Building</div>
+                <div class="article-title">Idioms &amp; Phrases: The Complete Guide</div>
+                <div class="article-excerpt">What makes an expression idiomatic, idioms vs. proverbs vs. phrasal verbs, and a themed reference list — with a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>15 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='formal-informal-english.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Vocabulary Building</div>
+                <div class="article-title">Formal vs. Informal English: The Complete Guide</div>
+                <div class="article-excerpt">Register, contractions, vocabulary choices, passive voice, and politeness — how to match your English to any situation, with a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>14 min read</span>
+                </div>
+              </div>
+      </div>
+      <div class="subject-group-header"><span class="subject-group-title">Reading Comprehension</span><span class="subject-group-count">5 articles</span></div>
+      <div class="english-articles">
+        <div class="english-article" onclick="location.href='main-idea-supporting-details.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Reading Comprehension</div>
+                <div class="article-title">Main Idea &amp; Supporting Details: The Complete Guide</div>
+                <div class="article-excerpt">Topic vs. main idea vs. thesis vs. title, explicit vs. implicit ideas, and how to extract a title from any paragraph — with a 12-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>17 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='making-inferences.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Reading Comprehension</div>
+                <div class="article-title">Making Inferences &amp; Drawing Conclusions</div>
+                <div class="article-excerpt">Inference vs. assumption vs. guess, the inference formula, and how to support an inference with textual evidence — with a 12-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>17 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='context-clues.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Reading Comprehension</div>
+                <div class="article-title">Context Clues: The Complete Guide</div>
+                <div class="article-excerpt">Five types of context clues, a step-by-step strategy for using them, and when a dictionary is genuinely still needed — with a 12-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>17 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='text-structure-organization.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Reading Comprehension</div>
+                <div class="article-title">Text Structure &amp; Organization</div>
+                <div class="article-excerpt">Chronological, cause-and-effect, compare-and-contrast, problem-and-solution, and description structures, plus how each connects to the main idea — with a 12-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>17 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='authors-purpose-tone-pov.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Reading Comprehension</div>
+                <div class="article-title">Author's Purpose, Tone &amp; Point of View</div>
+                <div class="article-excerpt">The PIE framework, tone vs. mood, diction, and how to detect bias in nonfiction writing — with a 12-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>18 min read</span>
+                </div>
+              </div>
+      </div>
+      <div class="subject-group-header"><span class="subject-group-title">Literary Forms</span><span class="subject-group-count">2 articles</span></div>
+      <div class="english-articles">
+        <div class="english-article" onclick="location.href='prose.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Literary Forms</div>
+                <div class="article-title">Prose: The Complete Guide</div>
+                <div class="article-excerpt">Fiction vs. nonfiction, novels vs. short stories, point of view, and the elements of prose writing — with a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>17 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='poetry.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Literary Forms</div>
+                <div class="article-title">Poetry: The Complete Guide</div>
+                <div class="article-excerpt">Meter, rhyme scheme, poetic forms, sound devices, and figurative language, plus how to read and analyse any poem — with a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>18 min read</span>
+                </div>
+              </div>
+      </div>
+      <div class="subject-group-header"><span class="subject-group-title">Creative Writing</span><span class="subject-group-count">6 articles</span></div>
+      <div class="english-articles">
+        <div class="english-article" onclick="location.href='how-to-write-a-perfect-paragraph.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Creative Writing</div>
+                <div class="article-title">How to Write a Perfect Paragraph</div>
+                <div class="article-excerpt">The paragraph is the fundamental unit of all writing. Learn its structure, coherence techniques and what mistakes to avoid.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>7 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='story-structure.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Creative Writing</div>
+                <div class="article-title">Story Structure: Beginning, Middle and End</div>
+                <div class="article-excerpt">Every story readers remember is built on the same invisible shape. Learn the three-act arc, rising tension, and how to plan a story that satisfies, with a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>12 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='character-development.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Creative Writing</div>
+                <div class="article-title">Character Development: Writing People Readers Care About</div>
+                <div class="article-excerpt">Desire, flaw, backstory, voice and arc — the building blocks that turn a name on a page into someone readers root for, with a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>13 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='show-dont-tell.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Creative Writing</div>
+                <div class="article-title">Show, Don't Tell: The Principle of Vivid Writing</div>
+                <div class="article-excerpt">The most repeated piece of writing advice, explained properly — sensory detail, action over adjectives, and when telling is actually the smarter choice, with a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>11 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='dialogue-and-voice.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Creative Writing</div>
+                <div class="article-title">Dialogue &amp; Voice: Writing Conversation That Sounds Real</div>
+                <div class="article-excerpt">Why real speech makes bad dialogue, how subtext works, and how to give every character a distinct voice, with a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>12 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='self-editing-process.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Creative Writing</div>
+                <div class="article-title">Editing Your Own Work: A Step-by-Step Process</div>
+                <div class="article-excerpt">A five-layer self-editing process, from structure down to proofreading, that turns a rough first draft into your best work, with a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>13 min read</span>
+                </div>
+              </div>
+      </div>
+      <div class="subject-group-header"><span class="subject-group-title">Academic & Essay Writing</span><span class="subject-group-count">5 articles</span></div>
+      <div class="english-articles">
+        <div class="english-article" onclick="location.href='essay-structure.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Academic &amp; Essay Writing</div>
+                <div class="article-title">Essay Structure &amp; the Five-Paragraph Essay</div>
+                <div class="article-excerpt">Introduction, body, and conclusion, the PEEL method for body paragraphs, and when to break the five-paragraph mold — with a 12-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>17 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='thesis-statements.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Academic &amp; Essay Writing</div>
+                <div class="article-title">Thesis Statements: The Complete Guide</div>
+                <div class="article-excerpt">What makes a thesis specific, arguable, and focused, the three thesis types, and a step-by-step process for writing one — with a 12-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>16 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='types-of-essays.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Academic &amp; Essay Writing</div>
+                <div class="article-title">Types of Essays: The Complete Guide</div>
+                <div class="article-excerpt">Argumentative, expository, narrative, descriptive, and compare-and-contrast essays, and how to recognize which type a prompt requires — with a 12-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>17 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='evidence-citations-plagiarism.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Academic &amp; Essay Writing</div>
+                <div class="article-title">Evidence, Citations &amp; Avoiding Plagiarism</div>
+                <div class="article-excerpt">Quoting vs. paraphrasing vs. summarizing, how citations work, and the four types of plagiarism — including the accidental kind — with a 12-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>17 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='transitions-cohesion.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Academic &amp; Essay Writing</div>
+                <div class="article-title">Transitions &amp; Cohesion</div>
+                <div class="article-excerpt">The six categories of transition words, cohesion vs. coherence, and techniques for linking ideas smoothly — with a 12-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>16 min read</span>
+                </div>
+              </div>
+      </div>
+      <div class="subject-group-header"><span class="subject-group-title">Speaking & Pronunciation</span><span class="subject-group-count">5 articles</span></div>
+      <div class="english-articles">
+        <div class="english-article" onclick="location.href='spoken-english-pronunciation.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Spoken English &amp; Pronunciation</div>
+                <div class="article-title">Spoken English &amp; Pronunciation</div>
+                <div class="article-excerpt">Common pronunciation mistakes, word and sentence stress, and intonation — with clickable audio so you can hear every example spoken aloud, plus a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>15 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='fluency-building-techniques.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Spoken English &amp; Pronunciation</div>
+                <div class="article-title">Fluency Building Techniques</div>
+                <div class="article-excerpt">Shadowing, chunking, thinking in English, and intentional pausing — five practical daily habits for smoother, more confident speech, with a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>14 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='word-and-sentence-stress.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Spoken English &amp; Pronunciation</div>
+                <div class="article-title">Word &amp; Sentence Stress Patterns</div>
+                <div class="article-excerpt">How suffixes shift word stress, the noun-verb stress shift, and how sentence stress carries meaning — with a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>13 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='intonation-in-conversation.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Spoken English &amp; Pronunciation</div>
+                <div class="article-title">Intonation in Conversation</div>
+                <div class="article-excerpt">How pitch alone can signal sincerity, sarcasm, or politeness — the three core intonation patterns and common mistakes to avoid, with a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>13 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='common-pronunciation-mistakes.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Spoken English &amp; Pronunciation</div>
+                <div class="article-title">Common Pronunciation Mistakes</div>
+                <div class="article-excerpt">A sound-by-sound look at consonant confusions, vowel length, tricky word endings, and spelling traps, plus how to fix them, with a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>13 min read</span>
+                </div>
+              </div>
+      </div>
+      <div class="subject-group-header"><span class="subject-group-title">Practical Writing</span><span class="subject-group-count">5 articles</span></div>
+      <div class="english-articles">
+        <div class="english-article" onclick="location.href='formal-letter-writing.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Letter &amp; Email Writing</div>
+                <div class="article-title">Formal Letter Writing</div>
+                <div class="article-excerpt">Structure, tone, and conventions for letters that need to be taken seriously — the address block, salutation, and sign-off, with a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>13 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='informal-letter-writing.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Letter &amp; Email Writing</div>
+                <div class="article-title">Informal Letter Writing</div>
+                <div class="article-excerpt">Personal letters follow looser rules than formal ones — how to write to friends and family in a way that actually sounds like you, with a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>11 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='job-applications-cover-letters.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Letter &amp; Email Writing</div>
+                <div class="article-title">Job Applications &amp; Cover Letters</div>
+                <div class="article-excerpt">A cover letter has one job: make the reader want to open your résumé. The structure that does exactly that, with a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>14 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='professional-email-etiquette.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Letter &amp; Email Writing</div>
+                <div class="article-title">Professional Email Etiquette</div>
+                <div class="article-excerpt">Subject lines, greetings, and structure for emails that get read and answered — the conventions that keep messages clear and polite, with a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>12 min read</span>
+                </div>
+              </div>
+        <div class="english-article" onclick="location.href='complaint-request-letters.html'" style="cursor:pointer;">
+                <div class="article-tag" style="color:var(--gold);">Letter &amp; Email Writing</div>
+                <div class="article-title">Complaint &amp; Request Letters</div>
+                <div class="article-excerpt">How to ask for what you need without burning the relationship — staying factual and calm to get real results, with a 10-question practice quiz.</div>
+                <div class="article-meta">
+                  <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+                  <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+                  <span>13 min read</span>
+                </div>
+              </div>
       </div>
     </div>
+</section>
 
-    <div class="english-articles">
-      <div class="english-article" onclick="location.href='parts-of-speech.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Grammar Basics</div>
-        <div class="article-title">Parts of Speech: The Building Blocks of English</div>
-        <div class="article-excerpt">Every sentence is built from just a handful of word types. Learn to recognise all eight parts of speech, with clear examples and a 10-question practice quiz.</div>
+<section class="english-section" id="activities">
+  <div class="english-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Interactive Practice</div>
+      <h2>Practice &amp; Activities</h2>
+      <p>Learning by doing — five hands-on activities to put grammar, vocabulary, and punctuation into practice.</p>
+    </div>
+
+    <div class="english-articles" style="margin-top:2.5rem;">
+      <div class="english-article" onclick="location.href='vocabulary-flashcards.html'" style="cursor:pointer;">
+        <div class="article-tag" style="color:var(--gold);">Interactive Practice</div>
+        <div class="article-title">Vocabulary Flashcards</div>
+        <div class="article-excerpt">40 words across prefixes &amp; roots, synonyms &amp; antonyms, idioms, and formal vs. informal English — tap to flip, mark words known, and track your progress.</div>
         <div class="article-meta">
           <span class="article-meta-author">The Learners Ladder Editorial Team</span>
           <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
-          <span>10 min read</span>
+          <span>40 words · self-paced</span>
         </div>
       </div>
-      <div class="english-article" onclick="location.href='sentence-structure.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Grammar Basics</div>
-        <div class="article-title">Sentence Structure: From Basic to Advanced</div>
-        <div class="article-excerpt">Subjects, predicates, clauses, and the four sentence structures — everything from simple sentences to compound-complex, with a 10-question practice quiz.</div>
+      <div class="english-article" onclick="location.href='sentence-scramble.html'" style="cursor:pointer;">
+        <div class="article-tag" style="color:var(--gold);">Interactive Practice</div>
+        <div class="article-title">Sentence Scramble</div>
+        <div class="article-excerpt">Tap scrambled words in the correct order to rebuild each sentence — 12 rounds of increasing difficulty, with live scoring.</div>
         <div class="article-meta">
           <span class="article-meta-author">The Learners Ladder Editorial Team</span>
           <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
-          <span>13 min read</span>
+          <span>12 sentences · self-paced</span>
         </div>
       </div>
-      <div class="english-article" onclick="location.href='punctuation-rules.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Grammar Basics</div>
-        <div class="article-title">Punctuation Rules: The Complete Guide</div>
-        <div class="article-excerpt">Every punctuation mark in English, from the full stop to the em dash — clear rules, common errors, and real examples, with a 10-question practice quiz.</div>
+      <div class="english-article" onclick="location.href='grammar-fix-it.html'" style="cursor:pointer;">
+        <div class="article-tag" style="color:var(--gold);">Interactive Practice</div>
+        <div class="article-title">Grammar Fix-It</div>
+        <div class="article-excerpt">Each sentence hides exactly one grammar mistake. Tap the error, choose the correction, and get an instant rule explanation.</div>
         <div class="article-meta">
           <span class="article-meta-author">The Learners Ladder Editorial Team</span>
           <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
-          <span>15 min read</span>
+          <span>12 sentences · self-paced</span>
         </div>
       </div>
-      <div class="english-article" onclick="location.href='tenses-verb-forms.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Grammar Basics</div>
-        <div class="article-title">Tenses &amp; Verb Forms: The Complete Guide</div>
-        <div class="article-excerpt">All twelve English tenses, irregular verbs, active and passive voice, mood, and modal verbs — explained clearly, with a 10-question practice quiz.</div>
+      <div class="english-article" onclick="location.href='idiom-matcher.html'" style="cursor:pointer;">
+        <div class="article-tag" style="color:var(--gold);">Interactive Practice</div>
+        <div class="article-title">Idiom Matcher</div>
+        <div class="article-excerpt">Match 12 idioms to their real meanings across 3 rounds — tap to pair, with instant feedback on every guess.</div>
         <div class="article-meta">
           <span class="article-meta-author">The Learners Ladder Editorial Team</span>
           <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
-          <span>16 min read</span>
+          <span>12 idioms · 3 rounds</span>
         </div>
       </div>
-      <div class="english-article" onclick="location.href='common-errors.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Grammar Basics</div>
-        <div class="article-title">Common Errors in English: A Complete Guide</div>
-        <div class="article-excerpt">Their/there/they're, affect/effect, fewer/less, dangling modifiers, and more — the mistakes that trip up confident writers, with a 10-question practice quiz.</div>
+      <div class="english-article" onclick="location.href='punctuation-practice.html'" style="cursor:pointer;">
+        <div class="article-tag" style="color:var(--gold);">Interactive Practice</div>
+        <div class="article-title">Punctuation Practice</div>
+        <div class="article-excerpt">Tap the gap where punctuation belongs, then choose the correct mark — 12 sentences covering commas, apostrophes, colons, and more.</div>
         <div class="article-meta">
           <span class="article-meta-author">The Learners Ladder Editorial Team</span>
           <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
-          <span>14 min read</span>
+          <span>12 sentences · self-paced</span>
         </div>
       </div>
-      <div class="english-article" onclick="location.href='what-is-language.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Linguistics</div>
-        <div class="article-title">What is Language?</div>
-        <div class="article-excerpt">What makes human language unique? Explore the definition, components and features that set language apart from all other communication.</div>
-        <div class="article-meta">
-          <span class="article-meta-author">The Learners Ladder Editorial Team</span>
-          <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
-          <span>7 min read</span>
-        </div>
-      </div>
-      <div class="english-article" onclick="location.href='language-and-its-need.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Linguistics</div>
-        <div class="article-title">Language and Its Need</div>
-        <div class="article-excerpt">Why does every human society need language? Explore the six fundamental needs that language fulfils — from sharing thought to building identity.</div>
-        <div class="article-meta">
-          <span class="article-meta-author">The Learners Ladder Editorial Team</span>
-          <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
-          <span>7 min read</span>
-        </div>
-      </div>
-      <div class="english-article" onclick="location.href='english-international-language.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Global English</div>
-        <div class="article-title">English as an International Language</div>
-        <div class="article-excerpt">How did English become the world's international language? A clear look at its history, global use and what this means in practice.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SCIENCE SECTION -->
+<section class="english-section" id="science">
+  <div class="english-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Science</div>
+      <h2>Explore Science</h2>
+      <p>Physics, chemistry, and biology, explained clearly from first principles.</p>
+    </div>
+    <div class="english-articles" style="grid-template-columns: 1fr; max-width: 560px;">
+      <div class="english-article" onclick="location.href='what-is-the-human-cell.html'" style="cursor:pointer;">
+        <div class="article-tag" style="color:var(--gold);">Science · Biology</div>
+        <div class="article-title">What is the Human Cell? A Simple Guide</div>
+        <div class="article-excerpt">The human body contains 37 trillion cells. Discover what a cell is, its key parts, and why it is the foundation of all life.</div>
         <div class="article-meta">
           <span class="article-meta-author">The Learners Ladder Editorial Team</span>
           <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
           <span>8 min read</span>
         </div>
       </div>
-      <div class="english-article" onclick="location.href='importance-of-english.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">English Language</div>
-        <div class="article-title">The Importance of the English Language</div>
-        <div class="article-excerpt">Why does English matter so much today? Explore its role in education, employment, information access and personal confidence.</div>
+    </div>
+  </div>
+</section>
+
+<!-- MATHEMATICS SECTION -->
+<section class="english-section" id="mathematics" style="background: var(--navy-mid, #1C3151);">
+  <div class="english-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Mathematics</div>
+      <h2>Explore Mathematics</h2>
+      <p>Arithmetic, algebra, and geometry — building real number sense from the ground up.</p>
+    </div>
+    <div class="english-articles" style="grid-template-columns: 1fr; max-width: 560px;">
+      <div class="english-article" onclick="location.href='why-do-we-need-mathematics.html'" style="cursor:pointer;">
+        <div class="article-tag" style="color:var(--gold);">Mathematics</div>
+        <div class="article-title">Why Do We Need Mathematics in Daily Life?</div>
+        <div class="article-excerpt">A clear and honest answer to why mathematics matters — from everyday calculations to professional careers and modern technology.</div>
+        <div class="article-meta">
+          <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+          <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+          <span>7 min read</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HEALTH SECTION -->
+<section class="english-section" id="health">
+  <div class="english-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Health</div>
+      <h2>Explore Health</h2>
+      <p>Nutrition, wellbeing, and the human body — practical knowledge for everyday life.</p>
+    </div>
+    <div class="english-articles" style="grid-template-columns: 1fr; max-width: 560px;">
+      <div class="english-article" onclick="location.href='what-is-a-balanced-diet.html'" style="cursor:pointer;">
+        <div class="article-tag" style="color:var(--gold);">Health · Nutrition</div>
+        <div class="article-title">What is a Balanced Diet and Why Does It Matter?</div>
+        <div class="article-excerpt">A clear, practical guide to what a balanced diet actually means — covering macronutrients, vitamins, fibre and water.</div>
         <div class="article-meta">
           <span class="article-meta-author">The Learners Ladder Editorial Team</span>
           <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
           <span>8 min read</span>
         </div>
       </div>
-      <div class="english-article" onclick="location.href='how-to-write-a-perfect-paragraph.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Writing Skills</div>
-        <div class="article-title">How to Write a Perfect Paragraph</div>
-        <div class="article-excerpt">The paragraph is the fundamental unit of all writing. Learn its structure, coherence techniques and what mistakes to avoid.</div>
+    </div>
+  </div>
+</section>
+
+<!-- GENERAL KNOWLEDGE SECTION -->
+<section class="english-section" id="general-knowledge" style="background: var(--navy-mid, #1C3151);">
+  <div class="english-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">General Knowledge</div>
+      <h2>Explore General Knowledge</h2>
+      <p>History, geography, and current affairs — the world in context.</p>
+    </div>
+    <div class="english-articles" style="grid-template-columns: 1fr; max-width: 560px;">
+      <div class="english-article" onclick="location.href='seven-wonders-of-the-world.html'" style="cursor:pointer;">
+        <div class="article-tag" style="color:var(--gold);">General Knowledge</div>
+        <div class="article-title">The Seven Wonders of the Modern World</div>
+        <div class="article-excerpt">From the Great Wall of China to the Taj Mahal — discover what makes each of the seven wonders truly extraordinary.</div>
         <div class="article-meta">
           <span class="article-meta-author">The Learners Ladder Editorial Team</span>
           <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
-          <span>7 min read</span>
+          <span>9 min read</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPUTER & AI SECTION -->
+<section class="english-section" id="computer-ai">
+  <div class="english-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Computer &amp; AI</div>
+      <h2>Explore Computer &amp; AI</h2>
+      <p>Technology, artificial intelligence, and the digital skills that matter now.</p>
+    </div>
+    <div class="english-articles" style="grid-template-columns: 1fr; max-width: 560px;">
+      <div class="english-article" onclick="location.href='what-is-artificial-intelligence.html'" style="cursor:pointer;">
+        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI</div>
+        <div class="article-title">What is Artificial Intelligence and How Does It Work?</div>
+        <div class="article-excerpt">A clear, jargon-free guide to AI — what it is, how machine learning works, and what questions it raises for the world.</div>
+        <div class="article-meta">
+          <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+          <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+          <span>9 min read</span>
         </div>
       </div>
     </div>
@@ -1302,11 +1676,11 @@
       <h4>Content</h4>
       <ul>
         <li><a href="#english">English Language</a></li>
-        <li><a href="#">Science</a></li>
-        <li><a href="#">Mathematics</a></li>
-        <li><a href="#">Health</a></li>
-        <li><a href="#">General Knowledge</a></li>
-        <li><a href="#">Computer &amp; AI</a></li>
+        <li><a href="#science">Science</a></li>
+        <li><a href="#mathematics">Mathematics</a></li>
+        <li><a href="#health">Health</a></li>
+        <li><a href="#general-knowledge">General Knowledge</a></li>
+        <li><a href="#computer-ai">Computer &amp; AI</a></li>
         <li><a href="#resources">Resources</a></li>
       </ul>
     </div>
