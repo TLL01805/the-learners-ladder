@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>What is a Balanced Diet and Why Does It Matter? — The Learners Ladder</title>
+<title>Times Tables Trainer: Strategies for Fast, Confident Multiplication — The Learners Ladder</title>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -279,11 +279,17 @@
   .quiz-q .qnum { color: var(--red); margin-right: 0.4rem; }
   .quiz-options { list-style: none; margin: 0 0 0.9rem; }
   .quiz-options li {
-    padding: 0.4rem 0;
+    padding: 0.4rem 0.6rem;
     color: var(--slate);
     font-size: 0.96rem;
     padding-left: 1.4rem;
     position: relative;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .quiz-options li:hover {
+    background: rgba(212,175,55,0.1);
   }
   .quiz-options li::before {
     content: "";
@@ -291,6 +297,15 @@
     width: 6px; height: 6px;
     background: var(--border);
     border-radius: 50%;
+    transition: background 0.15s;
+  }
+  .quiz-options li.selected {
+    background: rgba(212,175,55,0.22);
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .quiz-options li.selected::before {
+    background: var(--red);
   }
   .show-answer-btn {
     background: var(--navy);
@@ -359,6 +374,64 @@
     .article-hero h1 { font-size: 1.7rem; }
     .article-wrap { padding: 2rem 1.25rem 3rem; }
   }
+  /* ── PRACTICE ARENA (interactive drill) ── */
+  .drill-section {
+    background: var(--navy);
+    border-radius: var(--radius);
+    padding: 2rem 1.7rem;
+    margin-top: 3rem;
+  }
+  .drill-section .section-eyebrow { color: var(--gold); }
+  .drill-section h2 { border: none; margin: 0 0 0.4rem; padding: 0; color: white; }
+  .drill-intro { color: rgba(255,255,255,0.65); font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .drill-controls { display: flex; gap: 0.8rem; align-items: center; margin-bottom: 1.3rem; flex-wrap: wrap; }
+  .drill-btn {
+    background: var(--red);
+    color: white;
+    border: none;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 0.55rem 1.1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .drill-btn:hover { background: var(--red-mid); }
+  .drill-score { color: var(--gold); font-size: 0.88rem; font-weight: 600; }
+  .drill-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+  }
+  @media (max-width: 600px) { .drill-grid { grid-template-columns: 1fr; } }
+  .drill-item {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius);
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+  }
+  .drill-q { color: white; font-size: 1rem; font-weight: 500; }
+  .drill-input {
+    width: 60px;
+    padding: 0.4rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.95);
+    font-size: 1rem;
+    text-align: center;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+  .drill-input.correct { outline: 3px solid #4CAF50; }
+  .drill-input.incorrect { outline: 3px solid #E57373; }
+  .drill-feedback { margin-top: 1.2rem; color: white; font-size: 0.95rem; min-height: 1.4rem; }
+  .drill-weak { margin-top: 0.6rem; color: rgba(255,255,255,0.55); font-size: 0.85rem; }
+
   @media (max-width: 680px) {
     .top-bar { display: none; }
     nav {
@@ -433,115 +506,6 @@
     .footer-top { grid-template-columns: 1fr 1fr; }
     footer { padding: 2rem 1.25rem 0; }
   }
-
-  /* SCORED QUIZ (click-to-highlight + real scoring) */
-  .squiz-progress {
-    background: var(--cream);
-    border-radius: 30px;
-    height: 8px;
-    overflow: hidden;
-    margin-bottom: 0.4rem;
-  }
-  .squiz-progress-fill {
-    background: var(--gold);
-    height: 100%;
-    width: 0%;
-    transition: width 0.25s ease;
-  }
-  .squiz-progress-label {
-    font-size: 0.78rem;
-    color: var(--muted);
-    text-align: right;
-    margin-bottom: 1.3rem;
-  }
-  .squiz-item {
-    background: var(--white);
-    border: 1px solid var(--border-lt);
-    border-radius: var(--radius);
-    padding: 1.1rem 1.3rem;
-    margin-bottom: 1rem;
-  }
-  .squiz-q {
-    font-weight: 600;
-    color: var(--ink);
-    margin-bottom: 0.8rem;
-    font-size: 1rem;
-  }
-  .squiz-q .qnum { color: var(--red); margin-right: 0.4rem; }
-  .squiz-option {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
-    padding: 0.6rem 0.8rem;
-    border: 1px solid var(--border-lt);
-    border-radius: var(--radius);
-    margin-bottom: 0.5rem;
-    cursor: pointer;
-    transition: border-color 0.15s, background 0.15s;
-  }
-  .squiz-option:hover { border-color: var(--gold); }
-  .squiz-option input[type="radio"] { accent-color: var(--red); width: 16px; height: 16px; flex-shrink: 0; }
-  .squiz-option label { cursor: pointer; font-size: 0.94rem; color: var(--slate); flex: 1; }
-  .squiz-option.selected { border-color: var(--red); background: rgba(139,0,0,0.04); }
-  .squiz-option.correct-answer { border-color: #2e7d32; background: rgba(46,125,50,0.08); }
-  .squiz-option.wrong-answer { border-color: var(--red); background: rgba(139,0,0,0.08); }
-  .squiz-submit-btn {
-    display: block;
-    width: 100%;
-    background: var(--red);
-    color: white;
-    border: none;
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 0.98rem;
-    font-weight: 600;
-    padding: 0.9rem;
-    border-radius: var(--radius);
-    cursor: pointer;
-    margin-top: 0.6rem;
-    transition: background 0.2s;
-  }
-  .squiz-submit-btn:hover { background: var(--red-mid); }
-  .squiz-submit-btn:disabled { background: var(--border); cursor: not-allowed; }
-  .squiz-results {
-    display: none;
-    background: var(--navy);
-    border-radius: var(--radius);
-    padding: 2rem 1.6rem;
-    text-align: center;
-    margin-bottom: 1.8rem;
-  }
-  .squiz-results.visible { display: block; }
-  .squiz-results .squiz-score-big {
-    font-family: 'EB Garamond', serif;
-    font-size: 2.8rem;
-    font-weight: 600;
-    color: var(--gold);
-    line-height: 1;
-    margin-bottom: 0.3rem;
-  }
-  .squiz-results .squiz-score-label { color: rgba(255,255,255,0.7); font-size: 0.98rem; margin-bottom: 1rem; }
-  .squiz-results .squiz-score-tier {
-    display: inline-block;
-    font-size: 0.82rem;
-    font-weight: 600;
-    padding: 0.4rem 1rem;
-    border-radius: 30px;
-    background: rgba(184,150,62,0.15);
-    color: var(--gold);
-    margin-bottom: 1.2rem;
-  }
-  .squiz-retake-btn {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.3);
-    color: white;
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 0.88rem;
-    font-weight: 600;
-    padding: 0.65rem 1.4rem;
-    border-radius: 30px;
-    cursor: pointer;
-  }
-  .squiz-retake-btn:hover { background: rgba(255,255,255,0.1); }
 </style>
 </head>
 <body>
@@ -575,277 +539,291 @@
     <li><a href="index.html#resources">Resources</a></li>
   </ul>
 </nav>
-
-<!-- ARTICLE HERO -->
 <div class="article-hero">
-  <div class="breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; <a href="index.html">Health</a> &nbsp;/&nbsp; What is a Balanced Diet?</div>
-  <div class="article-hero-tag">Health · Nutrition</div>
-  <h1>What is a Balanced Diet and Why Does It Matter?</h1>
-  <p class="sub">The phrase "balanced diet" appears constantly in health advice, school lessons and food labels — yet it is rarely explained with real clarity. This guide sets out exactly what it means, and why it matters.</p>
+  <div class="breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; <a href="index.html">Mathematics</a> &nbsp;/&nbsp; Times Tables Trainer</div>
+  <div class="article-hero-tag">Number Sense · Topic I</div>
+  <h1>Times Tables Trainer: Strategies for Fast, Confident Multiplication</h1>
+  <p class="sub">Memorising times tables by brute force fades. Understanding the six strategies behind them lasts a lifetime — and makes recall faster in the process.</p>
   <div class="article-hero-meta">
     <span>The Learners Ladder Editorial Team</span>
     <span>|</span>
-    <span>8 min read</span>
+    <span>14 min read</span>
     <span>|</span>
-    <span>Nutrition</span>
+    <span>Mathematics</span>
   </div>
 </div>
 
-<!-- ARTICLE BODY -->
 <div class="article-wrap">
 
-  <p class="lead">No single food, however nutritious, can supply everything the body needs. A balanced diet is not about any one meal or food group — it is about the overall pattern of eating across days and weeks, and it remains one of the most powerful things a person can do for their long-term health.</p>
+  <p class="lead">Multiplication tables are not a list to memorise — they are a set of patterns to understand. Learn the patterns, and the facts become obvious rather than forgettable.</p>
 
-  <h2><span class="num">1.</span>What Does "Balanced" Actually Mean?</h2>
-  <p>A balanced diet is one that provides the body with all the nutrients it needs — in the right amounts — to function properly, maintain health, and support growth and repair. The word "balanced" does not mean eating equal amounts of everything; it means achieving the right <em>proportions</em> of different types of food and nutrients.</p>
+  <p>Most students are handed a multiplication grid and told to remember it. This works for a while, but the facts fade because they were never anchored to meaning. This guide takes the opposite approach: six strategies that show <strong>why</strong> each fact is true, so that even if a number is forgotten under pressure, it can be rebuilt in seconds.</p>
 
-  <h2><span class="num">2.</span>The Three Macronutrients</h2>
-  <p>Macronutrients are the nutrients the body needs in large amounts. They supply the energy — measured in calories — that powers everything the body does.</p>
-  <div class="table-wrap">
-    <table class="pos-table">
-      <tr><th>Macronutrient</th><th>Main Role</th><th>Good Sources</th></tr>
-      <tr><td>Carbohydrates</td><td>The body's primary source of energy; broken down into glucose to fuel the brain and muscles</td><td>Bread, rice, pasta, potatoes, fruit, vegetables</td></tr>
-      <tr><td>Proteins</td><td>The building blocks of the body — used to build and repair cells, tissues, enzymes and hormones</td><td>Meat, fish, eggs, dairy, legumes, nuts</td></tr>
-      <tr><td>Fats</td><td>Essential for brain function, hormone production, and absorbing certain vitamins</td><td>Olive oil, avocados, nuts, oily fish</td></tr>
-    </table>
-  </div>
+  <p>Work through each strategy, try the worked examples, then test your fluency in the Practice Arena and the quiz below.</p>
+
+  <h2><span class="num">1.</span>Why Multiplication Is Repeated Addition</h2>
+  <p>Multiplication is a shortcut for adding the same number again and again. <strong>4 × 3</strong> means "four groups of three," or 3 + 3 + 3 + 3. Seeing multiplication this way turns an abstract fact into something you can picture — and count, if you ever get stuck.</p>
   <div class="example-box">
     <div class="ex-label">Example</div>
-    <p>Complex carbohydrates — found in wholegrains and vegetables — release energy slowly and steadily. Simple sugars, by contrast, cause rapid spikes in blood glucose, which is why wholegrain bread is generally a better everyday choice than sugary cereal.</p>
+    <p>A classroom has 5 tables, each seating 6 students. Instead of counting one by one, 5 × 6 gives the total instantly: 6 + 6 + 6 + 6 + 6 = 30.</p>
   </div>
 
-  <h2><span class="num">3.</span>Vitamins and Minerals</h2>
-  <p>Micronutrients are needed in smaller amounts, but they are no less essential. A deficiency in any one of them can cause serious health problems, even when a person is consuming enough calories overall.</p>
-  <ul>
-    <li><strong>Vitamin C</strong> — found in citrus fruits, bell peppers and broccoli — supports immune function and wound healing</li>
-    <li><strong>Vitamin D</strong> — obtained from sunlight and found in oily fish and fortified foods — is essential for bone health</li>
-    <li><strong>Iron</strong> — found in red meat, lentils and spinach — is needed to produce haemoglobin, which carries oxygen in the blood</li>
-    <li><strong>Calcium</strong> — found in dairy products and leafy greens — builds and maintains strong bones and teeth</li>
-    <li><strong>Vitamin B12</strong> — found almost exclusively in animal products — is essential for nerve function and red blood cells</li>
-  </ul>
-
-  <h2><span class="num">4.</span>Fibre and Water — Two Overlooked Essentials</h2>
-  <p><strong>Dietary fibre</strong> — found in wholegrains, fruit, vegetables, legumes and nuts — is not digested by the body, but plays a vital role in digestive health, regulating blood sugar, and lowering cholesterol. Most people eat far less fibre than is recommended.</p>
-  <p><strong>Water</strong> is not a nutrient in the conventional sense, but it is essential for survival. The body is approximately 60% water, and it is required for every chemical reaction, for regulating temperature, and for removing waste.</p>
-
-  <h2><span class="num">5.</span>What a Balanced Diet Looks Like in Practice</h2>
-  <p>Rather than counting calories or following rigid meal plans, a simple and practical approach is to think in terms of proportions on a plate, across the day and week:</p>
-
-  <div style="margin: 1.5rem 0 1.75rem;">
-    <div style="display:flex; width:100%; height:2.75rem; border-radius:4px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,0.15);">
-      <div style="width:50%; background:var(--red); display:flex; align-items:center; justify-content:center; color:white; font-size:0.85rem; font-weight:600;">Vegetables &amp; Fruit — 50%</div>
-      <div style="width:25%; background:var(--gold); display:flex; align-items:center; justify-content:center; color:white; font-size:0.8rem; font-weight:600;">Wholegrains — 25%</div>
-      <div style="width:25%; background:var(--navy-mid); display:flex; align-items:center; justify-content:center; color:white; font-size:0.8rem; font-weight:600;">Protein — 25%</div>
-    </div>
-    <p style="text-align:center; font-size:0.85rem; color:var(--muted); margin-top:0.5rem;">A simple visual guide to plate proportions at a typical meal</p>
+  <h2><span class="num">2.</span>Skip Counting — Building the Bridge</h2>
+  <p>Skip counting is the bridge between addition and multiplication. Counting "5, 10, 15, 20…" is the same as reciting the 5-times table one step at a time. Practising skip counting out loud, or with claps and jumps, builds the rhythm that later recall depends on.</p>
+  <div class="example-box">
+    <div class="ex-label">Example</div>
+    <p>To find 5 × 7, skip count in fives seven times: 5, 10, 15, 20, 25, 30, 35. The seventh number reached is the answer.</p>
   </div>
 
-  <ul>
-    <li>Fill roughly <strong>half your plate</strong> with vegetables and fruit at each meal</li>
-    <li>Fill roughly <strong>a quarter</strong> with wholegrains or starchy carbohydrates</li>
-    <li>Fill the remaining <strong>quarter</strong> with protein — from animal or plant sources</li>
-    <li>Include small amounts of healthy fats, and limit added sugar, salt and processed foods</li>
-    <li>Drink water as the primary beverage</li>
-  </ul>
+  <h2><span class="num">3.</span>Arrays and Grids — Seeing Multiplication</h2>
+  <p>An array arranges objects into rows and columns. A 4-by-6 array of dots has 4 rows of 6 — and counting the dots always gives the same total no matter which way you count them. This is what makes multiplication <strong>commutative</strong>, a fact used constantly in the strategies below.</p>
+  <div class="example-box">
+    <div class="ex-label">Example</div>
+    <p>A muffin tray with 3 rows of 4 muffins holds 12 muffins. Turn the tray sideways and it becomes 4 rows of 3 — still 12. The picture proves 3 × 4 = 4 × 3 without any calculation.</p>
+  </div>
+
+  <h2><span class="num">4.</span>Doubling — Turn One Fact Into Four</h2>
+  <p>If you know your 2-times table, you already know far more than it seems. Doubling a fact twice gives the 4-times table; doubling three times gives the 8-times table. This single strategy quietly covers three tables at once.</p>
+  <div class="example-box">
+    <div class="ex-label">Example</div>
+    <p>To find 6 × 8: double 6 to get 12 (that's 6 × 2), double again to get 24 (6 × 4), double once more to get 48 (6 × 8).</p>
+  </div>
+
+  <h2><span class="num">5.</span>The Nines Trick</h2>
+  <p>The 9-times table has a pattern that makes it one of the easiest to master, not the hardest. For any 9 × n (where n is 1–10), the tens digit of the answer is always one less than n, and the two digits always add up to 9.</p>
+  <div class="example-box">
+    <div class="ex-label">Example</div>
+    <p>For 9 × 7: one less than 7 is 6 (the tens digit). Since 6 + 3 = 9, the ones digit is 3. The answer is 63 — check: 9 × 7 = 63.</p>
+  </div>
+  <p>A physical version: hold up ten fingers and fold down the finger matching the number you are multiplying by 9. The fingers to the left of the folded one are the tens digit; the fingers to the right are the ones digit.</p>
+
+  <h2><span class="num">6.</span>Commutative Property — Cut Your Work in Half</h2>
+  <p>Because 3 × 7 always equals 7 × 3, every times table fact you learn is really two facts learned at once. This alone cuts the number of "new" facts to memorise nearly in half — a fact worth remembering when a table looks intimidating.</p>
+  <div class="example-box">
+    <div class="ex-label">Example</div>
+    <p>Struggling with 8 × 3? Flip it to 3 × 8. If the 3-times table feels more familiar, use it — the answer, 24, is identical either way.</p>
+  </div>
+
+  <h2><span class="num">7.</span>Decomposition — Breaking Down Hard Facts</h2>
+  <p>The trickiest facts (like 7 × 8 or 6 × 9) can be broken into two easier pieces using the <strong>distributive property</strong>: split one factor into a sum, multiply each part separately, then add the results back together.</p>
+  <div class="example-box">
+    <div class="ex-label">Example</div>
+    <p>7 × 8 = 7 × (10 − 2) = (7 × 10) − (7 × 2) = 70 − 14 = 56. Alternatively: 7 × 8 = (5 × 8) + (2 × 8) = 40 + 16 = 56.</p>
+  </div>
+
+  <h2><span class="num">8.</span>Choosing the Right Strategy</h2>
+  <p>Different facts respond better to different strategies. Over time, most students settle into using two or three favourites — but knowing all six means there is always a fallback when memory alone is not enough.</p>
+  <div class="table-wrap">
+    <table class="pos-table">
+      <tr><th>Situation</th><th>Best Strategy</th><th>Why It Works</th></tr>
+      <tr><td>Small numbers, unsure of the pattern</td><td>Skip counting</td><td>Builds the sequence step by step</td></tr>
+      <tr><td>Visualising a real grouping</td><td>Arrays</td><td>Shows the total directly, proves commutativity</td></tr>
+      <tr><td>×4 or ×8 facts</td><td>Doubling</td><td>Reuses the easier ×2 facts</td></tr>
+      <tr><td>Any ×9 fact</td><td>Nines trick</td><td>Digit pattern gives instant answers</td></tr>
+      <tr><td>Table feels unfamiliar (e.g. ×7)</td><td>Commutative flip</td><td>Swaps to a more familiar table</td></tr>
+      <tr><td>Large or "stuck" facts (7×8, 6×9)</td><td>Decomposition</td><td>Splits into two manageable pieces</td></tr>
+    </table>
+  </div>
 
   <div class="real-world-box">
     <div class="rw-label">Real-World Example</div>
-    <p>Consider two people eating the same 2,000 calories a day. One eats mostly white bread, crisps and soft drinks; the other eats vegetables, wholegrains, lean protein and fruit. Despite consuming the same number of calories, the second person is receiving far more vitamins, minerals and fibre — demonstrating that a balanced diet is about <strong>quality and proportion</strong>, not just quantity.</p>
+    <p>A baker needs to scale a recipe that makes 6 loaves, but a catering order calls for 8 batches. Rather than adding six repeatedly, the baker uses doubling: 6 × 2 = 12, 12 × 2 = 24, 24 × 2 = 48 loaves for 8 batches — the same doubling strategy used above, applied instantly in a working kitchen.</p>
   </div>
 
-  <h2>A Closing Thought</h2>
-  <p>A balanced diet does not require expensive foods, complicated recipes, or rigid restriction. It requires variety, moderation, and an awareness of what the body actually needs — judged across a week, not a single meal. Food is not the enemy of health; it is one of its greatest foundations.</p>
+  <h2><span class="num">9.</span>Why This Matters</h2>
+  <p>A student who only memorises facts has nothing to fall back on when a fact slips their mind under exam pressure. A student who understands these six strategies can always rebuild the answer — and, over time, stops needing to rebuild it at all, because the patterns make the facts stick on their own.</p>
+
+  <!-- PRACTICE ARENA -->
+  <div class="drill-section">
+    <div class="section-eyebrow">Practice Arena</div>
+    <h2>Quick-Fire Drill</h2>
+    <p class="drill-intro">Answer all eight facts, then tap Check. Tap New Set for a fresh round — your best score is saved on this device.</p>
+    <div class="drill-controls">
+      <button class="drill-btn" onclick="checkDrill()">Check Answers</button>
+      <button class="drill-btn" onclick="newDrillSet()">New Set</button>
+      <span class="drill-score" id="drillScore"></span>
+    </div>
+    <div class="drill-grid" id="drillGrid"></div>
+    <div class="drill-feedback" id="drillFeedback"></div>
+  </div>
 
   <!-- QUIZ SECTION -->
   <div class="quiz-section">
     <div class="section-eyebrow">Test Your Understanding</div>
-    <h2>Practice Quiz</h2>
-    <p class="quiz-intro">10 questions. Select an answer for each, then submit to see your score instantly.</p>
+    <h2>Practice Questions</h2>
+    <p class="quiz-intro">Ten multiple-choice questions covering recall, application, and strategy selection. Tap "Show Answer" under any question to check it individually, or reveal the full answer key at the end.</p>
 
-    <div class="squiz-progress"><div class="squiz-progress-fill" id="squizProgressFill"></div></div>
-    <div class="squiz-progress-label" id="squizProgressLabel">0 of 10 answered</div>
-
-    <div class="squiz-results" id="squizResults">
-      <div class="squiz-score-big" id="squizScoreBig">0/10</div>
-      <div class="squiz-score-label" id="squizScoreLabel">You scored 0%</div>
-      <div class="squiz-score-tier" id="squizScoreTier">Keep practicing</div>
-      <div><button class="squiz-retake-btn" onclick="retakeQuiz()">Retake Quiz</button></div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">1.</span>Multiplication is best understood as which of the following?</div>
+      <ul class="quiz-options"><li>A. Repeated subtraction</li><li>B. Repeated addition of equal groups</li><li>C. A random pattern of numbers</li><li>D. Division in reverse only</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a1')">Show Answer</button>
+      <div class="quiz-answer" id="a1"><strong>Answer: B.</strong> 4 × 3 means four equal groups of three, added together.</div>
     </div>
 
-    <form id="squizForm">
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">2.</span>Which strategy would work best for finding 4 × 8 if you already know 2 × 8 = 16?</div>
+      <ul class="quiz-options"><li>A. Skip counting from zero</li><li>B. The nines trick</li><li>C. Doubling</li><li>D. Decomposition</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a2')">Show Answer</button>
+      <div class="quiz-answer" id="a2"><strong>Answer: C — Doubling.</strong> Double 16 to get 32, since 4 × 8 is double 2 × 8.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">1.</span>What does the word "balanced" mean in the context of diet?</div>
-        <div class="squiz-option"><input type="radio" name="sq1" id="sq1a" value="0"><label for="sq1a">A. Eating exactly equal amounts of every food</label></div>
-        <div class="squiz-option"><input type="radio" name="sq1" id="sq1b" value="1"><label for="sq1b">B. Eating the right proportions of different foods and nutrients</label></div>
-        <div class="squiz-option"><input type="radio" name="sq1" id="sq1c" value="2"><label for="sq1c">C. Eating the same meal every day</label></div>
-        <div class="squiz-option"><input type="radio" name="sq1" id="sq1d" value="3"><label for="sq1d">D. Avoiding all fats and sugars</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">3.</span>Using the nines trick, what is 9 × 6?</div>
+      <ul class="quiz-options"><li>A. 45</li><li>B. 54</li><li>C. 56</li><li>D. 63</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a3')">Show Answer</button>
+      <div class="quiz-answer" id="a3"><strong>Answer: B — 54.</strong> One less than 6 is 5 (tens digit); 5 + 4 = 9, so the ones digit is 4.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="2">
-        <div class="squiz-q"><span class="qnum">2.</span>Which macronutrient is the body's primary source of energy?</div>
-        <div class="squiz-option"><input type="radio" name="sq2" id="sq2a" value="0"><label for="sq2a">A. Protein</label></div>
-        <div class="squiz-option"><input type="radio" name="sq2" id="sq2b" value="1"><label for="sq2b">B. Water</label></div>
-        <div class="squiz-option"><input type="radio" name="sq2" id="sq2c" value="2"><label for="sq2c">C. Carbohydrates</label></div>
-        <div class="squiz-option"><input type="radio" name="sq2" id="sq2d" value="3"><label for="sq2d">D. Fibre</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">4.</span>What property explains why 6 × 9 gives the same answer as 9 × 6?</div>
+      <ul class="quiz-options"><li>A. The distributive property</li><li>B. The associative property</li><li>C. The commutative property</li><li>D. The identity property</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a4')">Show Answer</button>
+      <div class="quiz-answer" id="a4"><strong>Answer: C.</strong> The commutative property means the order of the factors does not change the product.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">3.</span>Which macronutrient acts as the main building block for cells, tissues and hormones?</div>
-        <div class="squiz-option"><input type="radio" name="sq3" id="sq3a" value="0"><label for="sq3a">A. Fat</label></div>
-        <div class="squiz-option"><input type="radio" name="sq3" id="sq3b" value="1"><label for="sq3b">B. Protein</label></div>
-        <div class="squiz-option"><input type="radio" name="sq3" id="sq3c" value="2"><label for="sq3c">C. Carbohydrates</label></div>
-        <div class="squiz-option"><input type="radio" name="sq3" id="sq3d" value="3"><label for="sq3d">D. Vitamin C</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">5.</span>Using decomposition, 7 × 8 can be rewritten as which of the following?</div>
+      <ul class="quiz-options"><li>A. (7 × 10) + (7 × 2)</li><li>B. (7 × 10) − (7 × 2)</li><li>C. (7 × 5) − (7 × 3)</li><li>D. (7 + 10) − (7 + 2)</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a5')">Show Answer</button>
+      <div class="quiz-answer" id="a5"><strong>Answer: B.</strong> 7 × 8 = 7 × (10 − 2) = 70 − 14 = 56.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="2">
-        <div class="squiz-q"><span class="qnum">4.</span>Which nutrient is essential for brain function, hormone production and absorbing certain vitamins?</div>
-        <div class="squiz-option"><input type="radio" name="sq4" id="sq4a" value="0"><label for="sq4a">A. Fibre</label></div>
-        <div class="squiz-option"><input type="radio" name="sq4" id="sq4b" value="1"><label for="sq4b">B. Iron</label></div>
-        <div class="squiz-option"><input type="radio" name="sq4" id="sq4c" value="2"><label for="sq4c">C. Fat</label></div>
-        <div class="squiz-option"><input type="radio" name="sq4" id="sq4d" value="3"><label for="sq4d">D. Water</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">6.</span>A tray has 5 rows of 9 cupcakes. How many cupcakes in total?</div>
+      <ul class="quiz-options"><li>A. 14</li><li>B. 40</li><li>C. 45</li><li>D. 54</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a6')">Show Answer</button>
+      <div class="quiz-answer" id="a6"><strong>Answer: C — 45.</strong> 5 × 9 = 45, confirmed by the nines trick: one less than 5 is 4, and 4 + 5 = 9.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="3">
-        <div class="squiz-q"><span class="qnum">5.</span>Which vitamin, obtained mainly from sunlight, is essential for bone health?</div>
-        <div class="squiz-option"><input type="radio" name="sq5" id="sq5a" value="0"><label for="sq5a">A. Vitamin C</label></div>
-        <div class="squiz-option"><input type="radio" name="sq5" id="sq5b" value="1"><label for="sq5b">B. Vitamin B12</label></div>
-        <div class="squiz-option"><input type="radio" name="sq5" id="sq5c" value="2"><label for="sq5c">C. Calcium</label></div>
-        <div class="squiz-option"><input type="radio" name="sq5" id="sq5d" value="3"><label for="sq5d">D. Vitamin D</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">7.</span>Why does turning a 3-by-4 array of dots sideways still give 12 dots?</div>
+      <ul class="quiz-options"><li>A. Because addition is commutative only</li><li>B. Because the array demonstrates that 3 × 4 = 4 × 3</li><li>C. Because dots do not have a fixed total</li><li>D. Because multiplication only works one way</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a7')">Show Answer</button>
+      <div class="quiz-answer" id="a7"><strong>Answer: B.</strong> The array visually proves the commutative property — rows and columns can swap without changing the total.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">6.</span>Which mineral is needed to produce haemoglobin, which carries oxygen in the blood?</div>
-        <div class="squiz-option"><input type="radio" name="sq6" id="sq6a" value="0"><label for="sq6a">A. Calcium</label></div>
-        <div class="squiz-option"><input type="radio" name="sq6" id="sq6b" value="1"><label for="sq6b">B. Iron</label></div>
-        <div class="squiz-option"><input type="radio" name="sq6" id="sq6c" value="2"><label for="sq6c">C. Vitamin C</label></div>
-        <div class="squiz-option"><input type="radio" name="sq6" id="sq6d" value="3"><label for="sq6d">D. Vitamin B12</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">8.</span>A recipe scaling problem doubles repeatedly: 5 loaves become 10, then 20, then 40. What multiplication fact does this find?</div>
+      <ul class="quiz-options"><li>A. 5 × 4</li><li>B. 5 × 6</li><li>C. 5 × 8</li><li>D. 5 × 10</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a8')">Show Answer</button>
+      <div class="quiz-answer" id="a8"><strong>Answer: C — 5 × 8.</strong> Doubling three times (×2, ×2, ×2) multiplies the original amount by 8.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">7.</span>What is dietary fibre mainly responsible for?</div>
-        <div class="squiz-option"><input type="radio" name="sq7" id="sq7a" value="0"><label for="sq7a">A. Building muscle tissue</label></div>
-        <div class="squiz-option"><input type="radio" name="sq7" id="sq7b" value="1"><label for="sq7b">B. Digestive health and regulating blood sugar</label></div>
-        <div class="squiz-option"><input type="radio" name="sq7" id="sq7c" value="2"><label for="sq7c">C. Producing red blood cells</label></div>
-        <div class="squiz-option"><input type="radio" name="sq7" id="sq7d" value="3"><label for="sq7d">D. Absorbing vitamin D</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">9.</span>Which strategy is most useful when you forget a fact completely and need to rebuild it from scratch?</div>
+      <ul class="quiz-options"><li>A. Guessing</li><li>B. Skip counting from zero</li><li>C. Ignoring the question</li><li>D. Multiplying by zero</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a9')">Show Answer</button>
+      <div class="quiz-answer" id="a9"><strong>Answer: B.</strong> Skip counting always works as a fallback, since it rebuilds the fact one step at a time.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="2">
-        <div class="squiz-q"><span class="qnum">8.</span>Roughly what percentage of the human body is water?</div>
-        <div class="squiz-option"><input type="radio" name="sq8" id="sq8a" value="0"><label for="sq8a">A. About 25%</label></div>
-        <div class="squiz-option"><input type="radio" name="sq8" id="sq8b" value="1"><label for="sq8b">B. About 40%</label></div>
-        <div class="squiz-option"><input type="radio" name="sq8" id="sq8c" value="2"><label for="sq8c">C. About 60%</label></div>
-        <div class="squiz-option"><input type="radio" name="sq8" id="sq8d" value="3"><label for="sq8d">D. About 90%</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">10.</span>Why is understanding these strategies more valuable than memorising facts alone?</div>
+      <ul class="quiz-options"><li>A. It replaces the need to know any facts</li><li>B. It gives a fallback method when a fact is forgotten, and builds lasting understanding</li><li>C. It only works for the 9-times table</li><li>D. It is slower than memorisation in every case</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a10')">Show Answer</button>
+      <div class="quiz-answer" id="a10"><strong>Answer: B.</strong> Strategies provide a reliable way to rebuild any fact, so understanding never fully disappears the way rote memory can.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">9.</span>In the practical "plate" method described in the article, what proportion should be vegetables and fruit?</div>
-        <div class="squiz-option"><input type="radio" name="sq9" id="sq9a" value="0"><label for="sq9a">A. A quarter</label></div>
-        <div class="squiz-option"><input type="radio" name="sq9" id="sq9b" value="1"><label for="sq9b">B. About half</label></div>
-        <div class="squiz-option"><input type="radio" name="sq9" id="sq9c" value="2"><label for="sq9c">C. All of it</label></div>
-        <div class="squiz-option"><input type="radio" name="sq9" id="sq9d" value="3"><label for="sq9d">D. A tenth</label></div>
-      </div>
-
-      <div class="squiz-item" data-correct="2">
-        <div class="squiz-q"><span class="qnum">10.</span>According to the article, over what timeframe should a balanced diet be judged?</div>
-        <div class="squiz-option"><input type="radio" name="sq10" id="sq10a" value="0"><label for="sq10a">A. A single meal</label></div>
-        <div class="squiz-option"><input type="radio" name="sq10" id="sq10b" value="1"><label for="sq10b">B. One day only</label></div>
-        <div class="squiz-option"><input type="radio" name="sq10" id="sq10c" value="2"><label for="sq10c">C. Across a week, not meal by meal</label></div>
-        <div class="squiz-option"><input type="radio" name="sq10" id="sq10d" value="3"><label for="sq10d">D. A full calendar year</label></div>
-      </div>
-
-<button type="button" class="squiz-submit-btn" id="squizSubmitBtn" onclick="submitQuiz()" disabled>Answer all questions to submit</button>
-    </form>
+    <button class="answer-key-toggle" id="keyToggleBtn" onclick="toggleAllAnswers()">Show Full Answer Key</button>
   </div>
 
   <div class="article-footer-nav">
-    <a href="index.html">← Back to Health</a>
-    <a href="index.html">More Health Topics →</a>
+    <a href="index.html">← Back to Mathematics</a>
+    <a href="fraction-fix-it.html">Next: Fraction Fix-It →</a>
   </div>
 
 </div>
-
 <script>
-  (function() {
-    const form = document.getElementById('squizForm');
-    const submitBtn = document.getElementById('squizSubmitBtn');
-    const progressFill = document.getElementById('squizProgressFill');
-    const progressLabel = document.getElementById('squizProgressLabel');
-    const totalQuestions = document.querySelectorAll('.squiz-item').length;
-
-    function countAnswered() {
-      let count = 0;
-      for (let i = 1; i <= totalQuestions; i++) {
-        if (form.querySelector(`input[name="sq${i}"]:checked`)) count++;
-      }
-      return count;
-    }
-
-    function updateProgress() {
-      const answered = countAnswered();
-      progressFill.style.width = (answered / totalQuestions * 100) + '%';
-      progressLabel.textContent = answered + ' of ' + totalQuestions + ' answered';
-      submitBtn.disabled = answered < totalQuestions;
-      submitBtn.textContent = answered < totalQuestions ? 'Answer all questions to submit' : 'Submit Quiz';
-      document.querySelectorAll('.squiz-option').forEach(opt => opt.classList.remove('selected'));
-      form.querySelectorAll('input[type="radio"]:checked').forEach(input => {
-        input.closest('.squiz-option').classList.add('selected');
-      });
-    }
-
-    form.addEventListener('change', updateProgress);
-
-    window.submitQuiz = function() {
-      let score = 0;
-      const questions = document.querySelectorAll('.squiz-item');
-      questions.forEach((q, idx) => {
-        const qnum = idx + 1;
-        const correctIdx = q.getAttribute('data-correct');
-        const selected = form.querySelector(`input[name="sq${qnum}"]:checked`);
-        const options = q.querySelectorAll('.squiz-option');
-        options.forEach((opt, optIdx) => {
-          opt.querySelector('input').disabled = true;
-          if (String(optIdx) === correctIdx) opt.classList.add('correct-answer');
+  function toggleAnswer(id) {
+    document.getElementById(id).classList.toggle('visible');
+  }
+  function initQuizOptionSelection() {
+    document.querySelectorAll('.quiz-item').forEach(function(item) {
+      var options = item.querySelectorAll('.quiz-options li');
+      options.forEach(function(li) {
+        li.addEventListener('click', function() {
+          options.forEach(function(o) { o.classList.remove('selected'); });
+          li.classList.add('selected');
         });
-        if (selected && selected.value === correctIdx) {
-          score++;
-        } else if (selected) {
-          selected.closest('.squiz-option').classList.add('wrong-answer');
-        }
       });
+    });
+  }
+  initQuizOptionSelection();
+  function toggleAllAnswers() {
+    var answers = document.querySelectorAll('.quiz-answer');
+    var btn = document.getElementById('keyToggleBtn');
+    var anyHidden = Array.prototype.some.call(answers, function(a){ return !a.classList.contains('visible'); });
+    answers.forEach(function(a) {
+      if (anyHidden) { a.classList.add('visible'); } else { a.classList.remove('visible'); }
+    });
+    btn.textContent = anyHidden ? 'Hide Full Answer Key' : 'Show Full Answer Key';
+  }
 
-      const percent = Math.round((score / totalQuestions) * 100);
-      document.getElementById('squizScoreBig').textContent = score + '/' + totalQuestions;
-      document.getElementById('squizScoreLabel').textContent = 'You scored ' + percent + '%';
+  var drillFacts = [];
+  var STORAGE_KEY = 'ttt_best_score';
 
-      let tier = 'Keep practicing';
-      if (percent === 100) tier = 'Perfect score!';
-      else if (percent >= 80) tier = 'Excellent work';
-      else if (percent >= 60) tier = 'Good effort';
-      else if (percent >= 40) tier = 'Getting there';
-      document.getElementById('squizScoreTier').textContent = tier;
+  function genDrillSet() {
+    drillFacts = [];
+    var used = {};
+    while (drillFacts.length < 8) {
+      var a = Math.floor(Math.random() * 11) + 2; // 2-12
+      var b = Math.floor(Math.random() * 11) + 2;
+      var key = a + 'x' + b;
+      if (used[key]) continue;
+      used[key] = true;
+      drillFacts.push({a: a, b: b});
+    }
+    renderDrill();
+  }
 
-      document.getElementById('squizResults').classList.add('visible');
-      submitBtn.style.display = 'none';
-      document.getElementById('squizResults').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
+  function renderDrill() {
+    var grid = document.getElementById('drillGrid');
+    grid.innerHTML = '';
+    drillFacts.forEach(function(f, i) {
+      var item = document.createElement('div');
+      item.className = 'drill-item';
+      item.innerHTML = '<span class="drill-q">' + f.a + ' &times; ' + f.b + ' =</span>' +
+        '<input type="number" class="drill-input" id="drillInput' + i + '" inputmode="numeric">';
+      grid.appendChild(item);
+    });
+    document.getElementById('drillFeedback').textContent = '';
+    updateScoreDisplay();
+  }
 
-    window.retakeQuiz = function() {
-      form.reset();
-      document.querySelectorAll('.squiz-option').forEach(opt => {
-        opt.classList.remove('selected', 'correct-answer', 'wrong-answer');
-        opt.querySelector('input').disabled = false;
-      });
-      document.getElementById('squizResults').classList.remove('visible');
-      submitBtn.style.display = 'block';
-      updateProgress();
-      document.getElementById('squizForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
+  function checkDrill() {
+    var correctCount = 0;
+    drillFacts.forEach(function(f, i) {
+      var input = document.getElementById('drillInput' + i);
+      var val = parseInt(input.value, 10);
+      var correct = f.a * f.b;
+      input.classList.remove('correct', 'incorrect');
+      if (val === correct) {
+        input.classList.add('correct');
+        correctCount++;
+      } else {
+        input.classList.add('incorrect');
+      }
+    });
+    var feedback = document.getElementById('drillFeedback');
+    feedback.textContent = correctCount + ' out of ' + drillFacts.length + ' correct.';
 
-    updateProgress();
-  })();
+    var best = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
+    if (correctCount > best) {
+      localStorage.setItem(STORAGE_KEY, correctCount);
+    }
+    updateScoreDisplay();
+  }
+
+  function updateScoreDisplay() {
+    var best = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
+    document.getElementById('drillScore').textContent = 'Best score: ' + best + ' / 8';
+  }
+
+  function newDrillSet() {
+    genDrillSet();
+  }
+
+  genDrillSet();
 </script>
-
 <footer>
   <div class="footer-top">
     <div class="footer-brand">

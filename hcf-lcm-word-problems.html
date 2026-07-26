@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>What is a Balanced Diet and Why Does It Matter? — The Learners Ladder</title>
+<title>HCF & LCM Word Problems: Real-Life Applications — The Learners Ladder</title>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -279,11 +279,17 @@
   .quiz-q .qnum { color: var(--red); margin-right: 0.4rem; }
   .quiz-options { list-style: none; margin: 0 0 0.9rem; }
   .quiz-options li {
-    padding: 0.4rem 0;
+    padding: 0.4rem 0.6rem;
     color: var(--slate);
     font-size: 0.96rem;
     padding-left: 1.4rem;
     position: relative;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .quiz-options li:hover {
+    background: rgba(212,175,55,0.1);
   }
   .quiz-options li::before {
     content: "";
@@ -291,6 +297,15 @@
     width: 6px; height: 6px;
     background: var(--border);
     border-radius: 50%;
+    transition: background 0.15s;
+  }
+  .quiz-options li.selected {
+    background: rgba(212,175,55,0.22);
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .quiz-options li.selected::before {
+    background: var(--red);
   }
   .show-answer-btn {
     background: var(--navy);
@@ -359,6 +374,306 @@
     .article-hero h1 { font-size: 1.7rem; }
     .article-wrap { padding: 2rem 1.25rem 3rem; }
   }
+  /* ── FUN FACT BOX (reusable) ── */
+  .fun-fact-box {
+    background: linear-gradient(135deg, rgba(212,175,55,0.12), rgba(212,175,55,0.04));
+    border: 1.5px dashed var(--gold);
+    border-radius: var(--radius);
+    padding: 1.3rem 1.5rem;
+    margin: 1.8rem 0;
+    position: relative;
+  }
+  .fun-fact-label {
+    font-weight: 700;
+    color: var(--red);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .fun-fact-box p { margin: 0; }
+
+  /* ── FIX-IT CHALLENGE CARDS (reusable) ── */
+  .fixit-challenge {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-left: 5px solid var(--red);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.4rem;
+    margin: 1.2rem 0;
+  }
+  .fixit-wrong {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.15rem;
+    color: var(--red);
+    text-decoration: line-through;
+    margin-bottom: 0.4rem;
+  }
+  .fixit-toggle-btn {
+    background: none;
+    border: 1.5px solid var(--red);
+    color: var(--red);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.4rem 0.9rem;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 0.3rem;
+  }
+  .fixit-explain { display: none; margin-top: 0.7rem; padding-top: 0.7rem; border-top: 1px dashed rgba(0,0,0,0.15); }
+  .fixit-explain.visible { display: block; }
+
+  /* ── PRACTICE ARENA / DRILL (reusable) ── */
+  .drill-section {
+    background: var(--navy);
+    border-radius: var(--radius);
+    padding: 2rem 1.7rem;
+    margin-top: 3rem;
+  }
+  .drill-section .section-eyebrow { color: var(--gold); }
+  .drill-section h2 { border: none; margin: 0 0 0.4rem; padding: 0; color: white; }
+  .drill-intro { color: rgba(255,255,255,0.65); font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .drill-controls { display: flex; gap: 0.8rem; align-items: center; margin-bottom: 1.3rem; flex-wrap: wrap; }
+  .drill-btn {
+    background: var(--red);
+    color: white;
+    border: none;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 0.55rem 1.1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .drill-btn:hover { background: var(--red-mid); }
+  .drill-score { color: var(--gold); font-size: 0.88rem; font-weight: 600; }
+  .drill-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+  @media (max-width: 600px) { .drill-grid { grid-template-columns: 1fr; } }
+  .drill-item {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius);
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+  .drill-q { color: white; font-size: 1rem; font-weight: 500; }
+  .drill-fraction-inputs { display: flex; align-items: center; gap: 0.3rem; }
+  .drill-input {
+    width: 46px;
+    padding: 0.35rem 0.3rem;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.95);
+    font-size: 0.95rem;
+    text-align: center;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+  .drill-slash { color: white; font-size: 1.2rem; }
+  .drill-input.correct { outline: 3px solid #4CAF50; }
+  .drill-input.incorrect { outline: 3px solid #E57373; }
+  .drill-feedback { margin-top: 1.2rem; color: white; font-size: 0.95rem; min-height: 1.4rem; }
+
+  /* ── NUMBER LINE VISUAL (static, for examples) ── */
+  .number-line-visual {
+    position: relative;
+    height: 60px;
+    margin: 1.6rem 0.5rem 2.2rem;
+  }
+  .nl-track { position: absolute; top: 28px; left: 0; right: 0; height: 3px; background: var(--navy); }
+  .nl-tick { position: absolute; top: 21px; width: 2px; height: 17px; background: var(--navy); }
+  .nl-tick-label { position: absolute; top: 42px; transform: translateX(-50%); font-size: 0.8rem; color: var(--slate); }
+  .nl-point { position: absolute; top: 19px; width: 14px; height: 14px; border-radius: 50%; background: var(--red); transform: translateX(-50%); border: 2px solid white; box-shadow: 0 0 0 1.5px var(--red); }
+  .nl-point-label { position: absolute; top: -24px; transform: translateX(-50%); font-size: 0.85rem; font-weight: 700; color: var(--red); white-space: nowrap; }
+
+  /* ── NUMBER LINE JUMP VISUAL (static, for addition/subtraction examples) ── */
+  .nl-jump-visual { position: relative; height: 95px; margin: 2rem 0.5rem 2.4rem; }
+  .nl-jump-track { position: absolute; top: 55px; left: 0; right: 0; height: 3px; background: var(--navy); }
+  .nl-jump-tick { position: absolute; top: 48px; width: 2px; height: 17px; background: var(--navy); }
+  .nl-jump-tick-label { position: absolute; top: 76px; transform: translateX(-50%); font-size: 0.8rem; color: var(--slate); }
+  .nl-jump-arc { position: absolute; top: 30px; height: 3px; background: var(--red); border-radius: 2px; }
+  .nl-jump-arrowhead { position: absolute; top: 19px; font-size: 1.15rem; color: var(--red); font-weight: 700; transform: translateX(-50%); line-height: 1; }
+  .nl-jump-label { position: absolute; top: 0px; transform: translateX(-50%); font-size: 0.9rem; font-weight: 700; color: var(--red); white-space: nowrap; }
+  .nl-start-pt { position: absolute; top: 49px; width: 12px; height: 12px; border-radius: 50%; background: white; transform: translateX(-50%); border: 3px solid var(--navy); z-index: 2; }
+  .nl-end-pt { position: absolute; top: 48px; width: 14px; height: 14px; border-radius: 50%; background: var(--red); transform: translateX(-50%); border: 2px solid white; box-shadow: 0 0 0 1.5px var(--red); z-index: 3; }
+
+  /* ── NUMBER LINE DRILL: start-point reference marker ── */
+  .nl-drill-start-marker {
+    position: absolute; top: 27px; width: 14px; height: 14px;
+    border-radius: 50%; transform: translateX(-50%);
+    background: rgba(255,255,255,0.85); border: 3px solid var(--gold);
+    z-index: 1;
+  }
+
+  /* ── NUMBER LINE DRILL (interactive, click-to-place) ── */
+  .nl-drill-progress { color: var(--gold); text-align: center; font-size: 0.85rem; margin-bottom: 0.6rem; letter-spacing: 0.03em; }
+  .nl-drill-target { color: white; text-align: center; font-size: 1.25rem; font-weight: 700; margin-bottom: 1.8rem; }
+  .nl-drill-track {
+    position: relative;
+    height: 70px;
+    margin: 0 0.5rem 1.5rem;
+    cursor: crosshair;
+    touch-action: none;
+  }
+  .nl-drill-line { position: absolute; top: 34px; left: 0; right: 0; height: 3px; background: rgba(255,255,255,0.45); }
+  .nl-drill-tick { position: absolute; top: 27px; width: 2px; height: 17px; background: rgba(255,255,255,0.5); }
+  .nl-drill-tick-label { position: absolute; top: 46px; transform: translateX(-50%); font-size: 0.78rem; color: rgba(255,255,255,0.55); }
+  .nl-drill-marker {
+    position: absolute; top: 25px; width: 18px; height: 18px;
+    border-radius: 50%; transform: translateX(-50%);
+    border: 2px solid white;
+  }
+  .nl-drill-marker.user { background: var(--gold); }
+  .nl-drill-marker.correct-pos { background: #4CAF50; }
+  .nl-drill-marker.incorrect-pos { background: #E57373; }
+  .nl-drill-feedback-text { color: white; text-align: center; margin-top: 0.4rem; min-height: 1.4rem; font-size: 0.95rem; }
+  .nl-drill-actions { display: flex; justify-content: center; gap: 0.8rem; margin-top: 1rem; flex-wrap: wrap; }
+
+  /* ── PLACE VALUE: DIGIT DETECTIVE (reusable interactive) ── */
+  .pv-system-toggle { display: flex; gap: 0.6rem; justify-content: center; margin-bottom: 1.4rem; flex-wrap: wrap; }
+  .pv-toggle-btn {
+    background: #fff;
+    border: 1.5px solid var(--navy);
+    color: var(--navy);
+    padding: 0.5rem 1.1rem;
+    border-radius: 30px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .pv-toggle-btn.active { background: var(--navy); color: #fff; }
+  .pv-comma-display {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--red);
+    margin: 0.6rem 0 0.3rem;
+    font-family: 'EB Garamond', serif;
+    letter-spacing: 0.02em;
+  }
+  .pv-word-form { text-align: center; color: var(--slate); font-size: 0.92rem; margin-bottom: 1.3rem; font-style: italic; }
+  .pv-digit-row { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: center; margin: 1.2rem 0; }
+  .pv-digit-box {
+    width: 44px; height: 54px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; font-weight: 700;
+    font-family: 'Source Sans 3', sans-serif;
+    background: #fff; border: 2px solid var(--border);
+    border-radius: 8px; cursor: pointer; color: var(--navy);
+    transition: all 0.15s;
+  }
+  .pv-digit-box:hover { border-color: var(--gold); background: rgba(212,175,55,0.1); }
+  .pv-digit-box.active { background: var(--red); color: #fff; border-color: var(--red); transform: scale(1.08); }
+  .pv-info-panel {
+    background: var(--gold-lt);
+    border: 1px solid rgba(184,150,62,0.35);
+    border-left: 4px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.4rem;
+    margin-top: 1rem;
+    min-height: 34px;
+  }
+  .pv-info-placeholder { color: var(--slate); font-style: italic; margin: 0; }
+  .pv-info-result { margin: 0; font-size: 1rem; }
+  .pv-info-result strong { color: var(--red); }
+
+  /* ── PLACE VALUE: CLICK-CHOICE PRACTICE CARDS ── */
+  .pv-drill-question { color: white; font-size: 1.1rem; font-weight: 600; text-align: center; margin-bottom: 1.3rem; }
+  .pv-drill-choices { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; margin-bottom: 1rem; }
+  @media (max-width: 600px) { .pv-drill-choices { grid-template-columns: 1fr; } }
+  .pv-choice-btn {
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(255,255,255,0.25);
+    color: white;
+    padding: 0.8rem 1rem;
+    border-radius: var(--radius);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s;
+  }
+  .pv-choice-btn:hover { background: rgba(212,175,55,0.18); border-color: var(--gold); }
+  .pv-choice-btn.correct { background: rgba(76,175,80,0.35); border-color: #4CAF50; }
+  .pv-choice-btn.incorrect { background: rgba(229,115,115,0.35); border-color: #E57373; }
+  .pv-choice-btn:disabled { cursor: default; }
+
+  /* ── NUMBER SYSTEMS: NESTED DIAGRAM ── */
+  .ns-real-box { border: 3px solid var(--navy); border-radius: 12px; padding: 2rem 1.2rem 1.2rem; position: relative; margin: 2rem 0; }
+  .ns-real-label { position: absolute; top: -14px; left: 16px; background: #fff; padding: 0 8px; font-weight: 700; color: var(--navy); font-size: 0.92rem; }
+  .ns-real-children { display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-start; }
+  .ns-rational-box { flex: 2; min-width: 220px; border: 3px solid var(--red); border-radius: 10px; padding: 1.7rem 1rem 1rem; position: relative; }
+  .ns-rational-label { position: absolute; top: -13px; left: 14px; background: #fff; padding: 0 6px; font-weight: 700; color: var(--red); font-size: 0.82rem; }
+  .ns-irrational-box { flex: 1; min-width: 140px; border: 3px solid var(--gold); border-radius: 10px; padding: 1.5rem 1rem; text-align: center; position: relative; display: flex; align-items: center; justify-content: center; }
+  .ns-irrational-label { position: absolute; top: -13px; left: 14px; background: #fff; padding: 0 6px; font-weight: 700; color: var(--gold); font-size: 0.82rem; }
+  .ns-irrational-box .ns-examples { font-size: 0.85rem; color: var(--slate); }
+  .ns-integers-box { border: 2px solid var(--navy); border-radius: 8px; padding: 1.5rem 0.9rem 0.9rem; position: relative; margin-top: 0.3rem; }
+  .ns-integers-label { position: absolute; top: -12px; left: 12px; background: #fff; padding: 0 6px; font-weight: 700; color: var(--navy); font-size: 0.78rem; }
+  .ns-whole-box { border: 2px solid var(--slate); border-radius: 6px; padding: 1.3rem 0.8rem 0.8rem; position: relative; margin-top: 0.3rem; }
+  .ns-whole-label { position: absolute; top: -11px; left: 10px; background: #fff; padding: 0 6px; font-weight: 700; color: var(--slate); font-size: 0.75rem; }
+  .ns-natural-box { border: 2px dashed var(--slate); border-radius: 6px; padding: 0.9rem; text-align: center; font-size: 0.8rem; color: var(--slate); }
+
+  /* ── NUMBER SYSTEMS: NUMBER EXPLORER (reusable interactive) ── */
+  .ns-chip-row { display: flex; gap: 0.6rem; flex-wrap: wrap; justify-content: center; margin: 1.3rem 0; }
+  .ns-chip {
+    background: #fff; border: 2px solid var(--border); border-radius: 30px;
+    padding: 0.5rem 1.1rem; font-size: 1.05rem; font-weight: 700;
+    font-family: 'Source Sans 3', sans-serif; color: var(--navy);
+    cursor: pointer; transition: all 0.15s;
+  }
+  .ns-chip:hover { border-color: var(--gold); background: rgba(212,175,55,0.1); }
+  .ns-chip.active { background: var(--red); color: #fff; border-color: var(--red); }
+  .ns-category-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-top: 1rem; }
+  @media (max-width: 600px) { .ns-category-grid { grid-template-columns: repeat(2, 1fr); } }
+  .ns-category-item {
+    border-radius: var(--radius); padding: 0.6rem 0.7rem; font-size: 0.85rem; font-weight: 600;
+    text-align: center; border: 1.5px solid var(--border); color: var(--slate);
+    background: rgba(0,0,0,0.02);
+  }
+  .ns-category-item.yes { background: rgba(76,175,80,0.15); border-color: #4CAF50; color: #2e6b31; }
+  .ns-category-item.no { background: rgba(229,115,115,0.1); border-color: rgba(229,115,115,0.5); color: #a94442; opacity: 0.75; }
+  .ns-explorer-reason { text-align: center; color: var(--slate); font-size: 0.9rem; font-style: italic; margin-top: 0.9rem; min-height: 1.3rem; }
+
+  /* ── BASE SYSTEMS: CONVERSION GRID (reusable) ── */
+  .bs-base-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; margin-top: 1.2rem; }
+  @media (max-width: 680px) { .bs-base-grid { grid-template-columns: repeat(2, 1fr); } }
+  .bs-base-item {
+    border-radius: var(--radius); padding: 0.8rem 0.6rem; text-align: center;
+    border: 1.5px solid var(--gold); background: rgba(212,150,62,0.08);
+  }
+  .bs-base-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--slate); margin-bottom: 0.3rem; }
+  .bs-base-value { font-size: 1.25rem; font-weight: 700; color: var(--navy); font-family: 'Source Sans 3', sans-serif; word-break: break-all; }
+  .bs-breakdown { margin-top: 1rem; text-align: center; color: var(--slate); font-size: 0.9rem; font-style: italic; }
+
+  /* ── VINCULUM / BAR BRACKET (reusable) ── */
+  .vinculum { text-decoration: overline; text-decoration-thickness: 2px; padding-top: 2px; }
+
+  /* ── WORD PROBLEM CARD (reusable, hidden/reveal solution) ── */
+  .word-problem-card {
+    background: #fff; border: 1px solid var(--border);
+    border-left: 4px solid var(--navy); border-radius: var(--radius);
+    padding: 1.3rem 1.5rem; margin: 1.3rem 0;
+  }
+  .wp-label { font-weight: 700; color: var(--navy); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.6rem; }
+  .wp-statement { margin-bottom: 0.9rem; }
+  .wp-reveal-btn {
+    background: var(--navy); color: #fff; border: none;
+    font-family: 'Source Sans 3', sans-serif; font-size: 0.82rem; font-weight: 600;
+    padding: 0.55rem 1.1rem; border-radius: 30px; cursor: pointer;
+  }
+  .wp-reveal-btn:hover { background: var(--navy-mid); }
+  .wp-solution { display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed var(--border); }
+  .wp-solution.visible { display: block; }
+  .wp-solution p { margin: 0.4rem 0; }
+
   @media (max-width: 680px) {
     .top-bar { display: none; }
     nav {
@@ -433,115 +748,6 @@
     .footer-top { grid-template-columns: 1fr 1fr; }
     footer { padding: 2rem 1.25rem 0; }
   }
-
-  /* SCORED QUIZ (click-to-highlight + real scoring) */
-  .squiz-progress {
-    background: var(--cream);
-    border-radius: 30px;
-    height: 8px;
-    overflow: hidden;
-    margin-bottom: 0.4rem;
-  }
-  .squiz-progress-fill {
-    background: var(--gold);
-    height: 100%;
-    width: 0%;
-    transition: width 0.25s ease;
-  }
-  .squiz-progress-label {
-    font-size: 0.78rem;
-    color: var(--muted);
-    text-align: right;
-    margin-bottom: 1.3rem;
-  }
-  .squiz-item {
-    background: var(--white);
-    border: 1px solid var(--border-lt);
-    border-radius: var(--radius);
-    padding: 1.1rem 1.3rem;
-    margin-bottom: 1rem;
-  }
-  .squiz-q {
-    font-weight: 600;
-    color: var(--ink);
-    margin-bottom: 0.8rem;
-    font-size: 1rem;
-  }
-  .squiz-q .qnum { color: var(--red); margin-right: 0.4rem; }
-  .squiz-option {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
-    padding: 0.6rem 0.8rem;
-    border: 1px solid var(--border-lt);
-    border-radius: var(--radius);
-    margin-bottom: 0.5rem;
-    cursor: pointer;
-    transition: border-color 0.15s, background 0.15s;
-  }
-  .squiz-option:hover { border-color: var(--gold); }
-  .squiz-option input[type="radio"] { accent-color: var(--red); width: 16px; height: 16px; flex-shrink: 0; }
-  .squiz-option label { cursor: pointer; font-size: 0.94rem; color: var(--slate); flex: 1; }
-  .squiz-option.selected { border-color: var(--red); background: rgba(139,0,0,0.04); }
-  .squiz-option.correct-answer { border-color: #2e7d32; background: rgba(46,125,50,0.08); }
-  .squiz-option.wrong-answer { border-color: var(--red); background: rgba(139,0,0,0.08); }
-  .squiz-submit-btn {
-    display: block;
-    width: 100%;
-    background: var(--red);
-    color: white;
-    border: none;
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 0.98rem;
-    font-weight: 600;
-    padding: 0.9rem;
-    border-radius: var(--radius);
-    cursor: pointer;
-    margin-top: 0.6rem;
-    transition: background 0.2s;
-  }
-  .squiz-submit-btn:hover { background: var(--red-mid); }
-  .squiz-submit-btn:disabled { background: var(--border); cursor: not-allowed; }
-  .squiz-results {
-    display: none;
-    background: var(--navy);
-    border-radius: var(--radius);
-    padding: 2rem 1.6rem;
-    text-align: center;
-    margin-bottom: 1.8rem;
-  }
-  .squiz-results.visible { display: block; }
-  .squiz-results .squiz-score-big {
-    font-family: 'EB Garamond', serif;
-    font-size: 2.8rem;
-    font-weight: 600;
-    color: var(--gold);
-    line-height: 1;
-    margin-bottom: 0.3rem;
-  }
-  .squiz-results .squiz-score-label { color: rgba(255,255,255,0.7); font-size: 0.98rem; margin-bottom: 1rem; }
-  .squiz-results .squiz-score-tier {
-    display: inline-block;
-    font-size: 0.82rem;
-    font-weight: 600;
-    padding: 0.4rem 1rem;
-    border-radius: 30px;
-    background: rgba(184,150,62,0.15);
-    color: var(--gold);
-    margin-bottom: 1.2rem;
-  }
-  .squiz-retake-btn {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.3);
-    color: white;
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 0.88rem;
-    font-weight: 600;
-    padding: 0.65rem 1.4rem;
-    border-radius: 30px;
-    cursor: pointer;
-  }
-  .squiz-retake-btn:hover { background: rgba(255,255,255,0.1); }
 </style>
 </head>
 <body>
@@ -575,277 +781,372 @@
     <li><a href="index.html#resources">Resources</a></li>
   </ul>
 </nav>
-
-<!-- ARTICLE HERO -->
 <div class="article-hero">
-  <div class="breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; <a href="index.html">Health</a> &nbsp;/&nbsp; What is a Balanced Diet?</div>
-  <div class="article-hero-tag">Health · Nutrition</div>
-  <h1>What is a Balanced Diet and Why Does It Matter?</h1>
-  <p class="sub">The phrase "balanced diet" appears constantly in health advice, school lessons and food labels — yet it is rarely explained with real clarity. This guide sets out exactly what it means, and why it matters.</p>
+  <div class="breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; <a href="index.html">Mathematics</a> &nbsp;/&nbsp; HCF &amp; LCM Word Problems</div>
+  <div class="article-hero-tag">Number Sense · Topic XVII</div>
+  <h1>HCF &amp; LCM Word Problems: Real-Life Applications</h1>
+  <p class="sub">The hardest part of an HCF or LCM word problem is rarely the calculation — it's figuring out which one you actually need. This guide is entirely about that decision.</p>
   <div class="article-hero-meta">
     <span>The Learners Ladder Editorial Team</span>
     <span>|</span>
-    <span>8 min read</span>
+    <span>18 min read</span>
     <span>|</span>
-    <span>Nutrition</span>
+    <span>Mathematics</span>
   </div>
 </div>
 
-<!-- ARTICLE BODY -->
 <div class="article-wrap">
 
-  <p class="lead">No single food, however nutritious, can supply everything the body needs. A balanced diet is not about any one meal or food group — it is about the overall pattern of eating across days and weeks, and it remains one of the most powerful things a person can do for their long-term health.</p>
+  <p class="lead">Our <a href="hcf-and-lcm.html">HCF &amp; LCM</a> article covered how to calculate both. This guide is about something different: reading a real-life story problem and knowing, immediately, which one it's actually asking for.</p>
 
-  <h2><span class="num">1.</span>What Does "Balanced" Actually Mean?</h2>
-  <p>A balanced diet is one that provides the body with all the nutrients it needs — in the right amounts — to function properly, maintain health, and support growth and repair. The word "balanced" does not mean eating equal amounts of everything; it means achieving the right <em>proportions</em> of different types of food and nutrients.</p>
-
-  <h2><span class="num">2.</span>The Three Macronutrients</h2>
-  <p>Macronutrients are the nutrients the body needs in large amounts. They supply the energy — measured in calories — that powers everything the body does.</p>
+  <h2><span class="num">1.</span>How to Tell HCF and LCM Problems Apart</h2>
+  <p>Every HCF or LCM word problem gives itself away with a pattern in the question, once you know what to look for.</p>
   <div class="table-wrap">
     <table class="pos-table">
-      <tr><th>Macronutrient</th><th>Main Role</th><th>Good Sources</th></tr>
-      <tr><td>Carbohydrates</td><td>The body's primary source of energy; broken down into glucose to fuel the brain and muscles</td><td>Bread, rice, pasta, potatoes, fruit, vegetables</td></tr>
-      <tr><td>Proteins</td><td>The building blocks of the body — used to build and repair cells, tissues, enzymes and hormones</td><td>Meat, fish, eggs, dairy, legumes, nuts</td></tr>
-      <tr><td>Fats</td><td>Essential for brain function, hormone production, and absorbing certain vitamins</td><td>Olive oil, avocados, nuts, oily fish</td></tr>
+      <tr><th>Signal Words / Situation</th><th>Use</th></tr>
+      <tr><td>"Largest / greatest possible size," splitting into equal groups, dividing evenly with nothing left over</td><td>HCF</td></tr>
+      <tr><td>"Smallest / least amount," things happening together again, repeating events lining up</td><td>LCM</td></tr>
     </table>
   </div>
-  <div class="example-box">
-    <div class="ex-label">Example</div>
-    <p>Complex carbohydrates — found in wholegrains and vegetables — release energy slowly and steadily. Simple sugars, by contrast, cause rapid spikes in blood glucose, which is why wholegrain bread is generally a better everyday choice than sugary cereal.</p>
-  </div>
+  <p>The core idea: <strong>HCF problems break something bigger into the largest possible equal pieces.</strong> <strong>LCM problems find the soonest point where repeating events line up again.</strong></p>
 
-  <h2><span class="num">3.</span>Vitamins and Minerals</h2>
-  <p>Micronutrients are needed in smaller amounts, but they are no less essential. A deficiency in any one of them can cause serious health problems, even when a person is consuming enough calories overall.</p>
-  <ul>
-    <li><strong>Vitamin C</strong> — found in citrus fruits, bell peppers and broccoli — supports immune function and wound healing</li>
-    <li><strong>Vitamin D</strong> — obtained from sunlight and found in oily fish and fortified foods — is essential for bone health</li>
-    <li><strong>Iron</strong> — found in red meat, lentils and spinach — is needed to produce haemoglobin, which carries oxygen in the blood</li>
-    <li><strong>Calcium</strong> — found in dairy products and leafy greens — builds and maintains strong bones and teeth</li>
-    <li><strong>Vitamin B12</strong> — found almost exclusively in animal products — is essential for nerve function and red blood cells</li>
-  </ul>
+  <h2><span class="num">2.</span>HCF Word Problems, Worked in Full</h2>
 
-  <h2><span class="num">4.</span>Fibre and Water — Two Overlooked Essentials</h2>
-  <p><strong>Dietary fibre</strong> — found in wholegrains, fruit, vegetables, legumes and nuts — is not digested by the body, but plays a vital role in digestive health, regulating blood sugar, and lowering cholesterol. Most people eat far less fibre than is recommended.</p>
-  <p><strong>Water</strong> is not a nutrient in the conventional sense, but it is essential for survival. The body is approximately 60% water, and it is required for every chemical reaction, for regulating temperature, and for removing waste.</p>
-
-  <h2><span class="num">5.</span>What a Balanced Diet Looks Like in Practice</h2>
-  <p>Rather than counting calories or following rigid meal plans, a simple and practical approach is to think in terms of proportions on a plate, across the day and week:</p>
-
-  <div style="margin: 1.5rem 0 1.75rem;">
-    <div style="display:flex; width:100%; height:2.75rem; border-radius:4px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,0.15);">
-      <div style="width:50%; background:var(--red); display:flex; align-items:center; justify-content:center; color:white; font-size:0.85rem; font-weight:600;">Vegetables &amp; Fruit — 50%</div>
-      <div style="width:25%; background:var(--gold); display:flex; align-items:center; justify-content:center; color:white; font-size:0.8rem; font-weight:600;">Wholegrains — 25%</div>
-      <div style="width:25%; background:var(--navy-mid); display:flex; align-items:center; justify-content:center; color:white; font-size:0.8rem; font-weight:600;">Protein — 25%</div>
+  <div class="word-problem-card">
+    <div class="wp-label">Problem 1</div>
+    <p class="wp-statement">Two ropes measuring 72 metres and 96 metres need to be cut into equal pieces, as long as possible, with none left over. How long should each piece be?</p>
+    <button class="wp-reveal-btn" onclick="toggleWp('wp1')">Reveal Solution</button>
+    <div class="wp-solution" id="wp1">
+      <p><strong>Why HCF:</strong> "as long as possible" with "none left over" signals the largest equal split — that's HCF.</p>
+      <p><strong>Solution:</strong> Find HCF(72, 96). 72 = 2×2×2×3×3, 96 = 2×2×2×2×2×3. Shared primes: three 2's and one 3, giving HCF = 8×3 = <strong>24</strong>.</p>
+      <p><strong>Answer:</strong> Each piece should be 24 metres long.</p>
     </div>
-    <p style="text-align:center; font-size:0.85rem; color:var(--muted); margin-top:0.5rem;">A simple visual guide to plate proportions at a typical meal</p>
   </div>
 
-  <ul>
-    <li>Fill roughly <strong>half your plate</strong> with vegetables and fruit at each meal</li>
-    <li>Fill roughly <strong>a quarter</strong> with wholegrains or starchy carbohydrates</li>
-    <li>Fill the remaining <strong>quarter</strong> with protein — from animal or plant sources</li>
-    <li>Include small amounts of healthy fats, and limit added sugar, salt and processed foods</li>
-    <li>Drink water as the primary beverage</li>
-  </ul>
-
-  <div class="real-world-box">
-    <div class="rw-label">Real-World Example</div>
-    <p>Consider two people eating the same 2,000 calories a day. One eats mostly white bread, crisps and soft drinks; the other eats vegetables, wholegrains, lean protein and fruit. Despite consuming the same number of calories, the second person is receiving far more vitamins, minerals and fibre — demonstrating that a balanced diet is about <strong>quality and proportion</strong>, not just quantity.</p>
+  <div class="word-problem-card">
+    <div class="wp-label">Problem 2</div>
+    <p class="wp-statement">A teacher has 48 pencils and 60 erasers. She wants to make identical gift kits with no items left over, using the greatest number of kits possible. How many kits can she make?</p>
+    <button class="wp-reveal-btn" onclick="toggleWp('wp2')">Reveal Solution</button>
+    <div class="wp-solution" id="wp2">
+      <p><strong>Why HCF:</strong> "greatest number of kits" with identical, evenly-divided contents signals HCF.</p>
+      <p><strong>Solution:</strong> Find HCF(48, 60). Common factors of 48 and 60 include 1, 2, 3, 4, 6, 12 — the highest is <strong>12</strong>.</p>
+      <p><strong>Answer:</strong> She can make 12 kits (each with 4 pencils and 5 erasers).</p>
+    </div>
   </div>
 
-  <h2>A Closing Thought</h2>
-  <p>A balanced diet does not require expensive foods, complicated recipes, or rigid restriction. It requires variety, moderation, and an awareness of what the body actually needs — judged across a week, not a single meal. Food is not the enemy of health; it is one of its greatest foundations.</p>
+  <div class="word-problem-card">
+    <div class="wp-label">Problem 3 (Three Numbers)</div>
+    <p class="wp-statement">Three containers hold 120 litres, 180 litres, and 240 litres of water. What is the largest container size that can measure each amount exactly, with nothing left over?</p>
+    <button class="wp-reveal-btn" onclick="toggleWp('wp3')">Reveal Solution</button>
+    <div class="wp-solution" id="wp3">
+      <p><strong>Why HCF:</strong> "largest" size that divides every amount exactly — HCF works the same way with three numbers as it does with two.</p>
+      <p><strong>Solution:</strong> Find HCF(120, 180, 240). All three share 2×2×3×5 = <strong>60</strong> as their highest common factor.</p>
+      <p><strong>Answer:</strong> The largest measuring container is 60 litres.</p>
+    </div>
+  </div>
+
+  <h2><span class="num">3.</span>LCM Word Problems, Worked in Full</h2>
+
+  <div class="word-problem-card">
+    <div class="wp-label">Problem 4</div>
+    <p class="wp-statement">Two bells ring every 15 minutes and every 20 minutes. If they both ring together right now, how soon will they next ring together?</p>
+    <button class="wp-reveal-btn" onclick="toggleWp('wp4')">Reveal Solution</button>
+    <div class="wp-solution" id="wp4">
+      <p><strong>Why LCM:</strong> "next ring together" describes two repeating events lining up again — that's LCM.</p>
+      <p><strong>Solution:</strong> Find LCM(15, 20). Multiples of 15: 15,30,45,60... Multiples of 20: 20,40,60... First shared value: <strong>60</strong>.</p>
+      <p><strong>Answer:</strong> The bells will next ring together in 60 minutes.</p>
+    </div>
+  </div>
+
+  <div class="word-problem-card">
+    <div class="wp-label">Problem 5</div>
+    <p class="wp-statement">A gardener has two plants: one blooms every 4 days, the other every 6 days. If both bloom today, in how many days will they bloom together again?</p>
+    <button class="wp-reveal-btn" onclick="toggleWp('wp5')">Reveal Solution</button>
+    <div class="wp-solution" id="wp5">
+      <p><strong>Why LCM:</strong> "bloom together again" is another repeating-event alignment — LCM.</p>
+      <p><strong>Solution:</strong> Find LCM(4, 6). Multiples of 4: 4,8,12... Multiples of 6: 6,12... First shared value: <strong>12</strong>.</p>
+      <p><strong>Answer:</strong> They will bloom together again in 12 days.</p>
+    </div>
+  </div>
+
+  <div class="word-problem-card">
+    <div class="wp-label">Problem 6 (Three Numbers)</div>
+    <p class="wp-statement">Three runners complete a lap of a track in 8 minutes, 12 minutes, and 16 minutes. If they all start together, after how many minutes will they all be back at the starting point at the same time?</p>
+    <button class="wp-reveal-btn" onclick="toggleWp('wp6')">Reveal Solution</button>
+    <div class="wp-solution" id="wp6">
+      <p><strong>Why LCM:</strong> "all back at the same time" is three repeating events lining up again — LCM works with three numbers just like it does with two.</p>
+      <p><strong>Solution:</strong> Find LCM(8, 12, 16). Using prime factorization: 8=2×2×2, 12=2×2×3, 16=2×2×2×2. Highest powers: 2⁴×3 = <strong>48</strong>.</p>
+      <p><strong>Answer:</strong> All three runners will be at the starting point together after 48 minutes.</p>
+    </div>
+  </div>
+
+  <div class="fixit-challenge">
+    <div class="fixit-wrong">Using LCM for the ribbon-cutting problem, because "the ropes are long numbers"</div>
+    <p>Choosing HCF or LCM should never depend on how big the numbers look — only on what the question is actually asking for.</p>
+    <button class="fixit-toggle-btn" onclick="toggleFix('fix1')">Show the Fix</button>
+    <div class="fixit-explain" id="fix1">
+      <p><strong>The fix:</strong> always locate the actual signal phrase. "Cut into equal pieces, as long as possible" is a splitting-into-equal-parts situation — HCF, regardless of how large or small the original numbers are. Re-read the question's action, not its numbers, before deciding.</p>
+    </div>
+  </div>
+
+  <!-- WORD PROBLEM CLASSIFIER INTERACTIVE -->
+  <div class="drill-section">
+    <div class="section-eyebrow">Practice Arena</div>
+    <h2>HCF or LCM?</h2>
+    <p class="drill-intro">Read each scenario and decide: does it need HCF or LCM? Your score is tracked as you go, and your best score is saved on this device.</p>
+    <div class="nl-drill-progress" id="wpProgress">Question 1 of 8 &nbsp;&middot;&nbsp; Best score: <span id="wpBestScore">0</span> / 8</div>
+    <div class="pv-drill-question" id="wpDrillQuestion"></div>
+    <div class="pv-drill-choices" id="wpDrillChoices"></div>
+    <div class="drill-feedback" id="wpDrillFeedback"></div>
+    <div class="nl-drill-actions">
+      <button class="drill-btn" id="wpNextBtn" onclick="nextWpQuestion()" style="display:none;">Next Question</button>
+      <button class="drill-btn" id="wpNewSetBtn" onclick="newWpSet()" style="display:none;">Play Again</button>
+    </div>
+  </div>
+
+  <div class="fun-fact-box">
+    <div class="fun-fact-label">Did You Know?</div>
+    <p>Traffic engineers use LCM-style thinking to design traffic light timing across a city, making sure lights on major routes align to create "green wave" corridors — letting cars hit a string of green lights in a row if they travel at the right speed.</p>
+  </div>
+
+  <h2><span class="num">4.</span>Why This Topic Matters</h2>
+  <p>Word problems are where math actually gets used — recognizing an HCF or LCM situation hidden inside a real scenario is a far more valuable skill than calculating either one in isolation. This same skill — spotting which tool a problem is really asking for — carries directly into every other area of math, from algebra word problems to real-world engineering and planning.</p>
 
   <!-- QUIZ SECTION -->
   <div class="quiz-section">
     <div class="section-eyebrow">Test Your Understanding</div>
-    <h2>Practice Quiz</h2>
-    <p class="quiz-intro">10 questions. Select an answer for each, then submit to see your score instantly.</p>
+    <h2>Practice Questions</h2>
+    <p class="quiz-intro">Twelve real-life word problems requiring HCF or LCM. Tap "Show Answer" under any question to check it individually, or reveal the full answer key at the end.</p>
 
-    <div class="squiz-progress"><div class="squiz-progress-fill" id="squizProgressFill"></div></div>
-    <div class="squiz-progress-label" id="squizProgressLabel">0 of 10 answered</div>
-
-    <div class="squiz-results" id="squizResults">
-      <div class="squiz-score-big" id="squizScoreBig">0/10</div>
-      <div class="squiz-score-label" id="squizScoreLabel">You scored 0%</div>
-      <div class="squiz-score-tier" id="squizScoreTier">Keep practicing</div>
-      <div><button class="squiz-retake-btn" onclick="retakeQuiz()">Retake Quiz</button></div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">1.</span>Two wires, 18m and 24m long, are cut into equal pieces as long as possible with none wasted. How long is each piece?</div>
+      <ul class="quiz-options"><li>A. 3m</li><li>B. 6m</li><li>C. 9m</li><li>D. 12m</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a1')">Show Answer</button>
+      <div class="quiz-answer" id="a1"><strong>Answer: B — 6m.</strong> HCF(18,24) = 6, since "as long as possible" with none wasted signals HCF.</div>
     </div>
 
-    <form id="squizForm">
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">2.</span>Two joggers complete a lap in 6 and 9 minutes. If they start together, when will they next be at the start together?</div>
+      <ul class="quiz-options"><li>A. 15 minutes</li><li>B. 3 minutes</li><li>C. 18 minutes</li><li>D. 54 minutes</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a2')">Show Answer</button>
+      <div class="quiz-answer" id="a2"><strong>Answer: C — 18 minutes.</strong> LCM(6,9) = 18, since "next together" signals LCM.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">1.</span>What does the word "balanced" mean in the context of diet?</div>
-        <div class="squiz-option"><input type="radio" name="sq1" id="sq1a" value="0"><label for="sq1a">A. Eating exactly equal amounts of every food</label></div>
-        <div class="squiz-option"><input type="radio" name="sq1" id="sq1b" value="1"><label for="sq1b">B. Eating the right proportions of different foods and nutrients</label></div>
-        <div class="squiz-option"><input type="radio" name="sq1" id="sq1c" value="2"><label for="sq1c">C. Eating the same meal every day</label></div>
-        <div class="squiz-option"><input type="radio" name="sq1" id="sq1d" value="3"><label for="sq1d">D. Avoiding all fats and sugars</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">3.</span>A shopkeeper has 30 apples and 45 oranges, to be packed into identical bags with none left over, using the maximum number of bags. How many bags?</div>
+      <ul class="quiz-options"><li>A. 5</li><li>B. 10</li><li>C. 15</li><li>D. 3</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a3')">Show Answer</button>
+      <div class="quiz-answer" id="a3"><strong>Answer: C — 15.</strong> HCF(30,45) = 15, since "maximum number of bags" with even splitting signals HCF.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="2">
-        <div class="squiz-q"><span class="qnum">2.</span>Which macronutrient is the body's primary source of energy?</div>
-        <div class="squiz-option"><input type="radio" name="sq2" id="sq2a" value="0"><label for="sq2a">A. Protein</label></div>
-        <div class="squiz-option"><input type="radio" name="sq2" id="sq2b" value="1"><label for="sq2b">B. Water</label></div>
-        <div class="squiz-option"><input type="radio" name="sq2" id="sq2c" value="2"><label for="sq2c">C. Carbohydrates</label></div>
-        <div class="squiz-option"><input type="radio" name="sq2" id="sq2d" value="3"><label for="sq2d">D. Fibre</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">4.</span>Two lighthouses flash every 10 seconds and every 15 seconds. If they flash together now, when do they next flash together?</div>
+      <ul class="quiz-options"><li>A. 5 seconds</li><li>B. 25 seconds</li><li>C. 150 seconds</li><li>D. 30 seconds</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a4')">Show Answer</button>
+      <div class="quiz-answer" id="a4"><strong>Answer: D — 30 seconds.</strong> LCM(10,15) = 30, since "next flash together" signals LCM.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">3.</span>Which macronutrient acts as the main building block for cells, tissues and hormones?</div>
-        <div class="squiz-option"><input type="radio" name="sq3" id="sq3a" value="0"><label for="sq3a">A. Fat</label></div>
-        <div class="squiz-option"><input type="radio" name="sq3" id="sq3b" value="1"><label for="sq3b">B. Protein</label></div>
-        <div class="squiz-option"><input type="radio" name="sq3" id="sq3c" value="2"><label for="sq3c">C. Carbohydrates</label></div>
-        <div class="squiz-option"><input type="radio" name="sq3" id="sq3d" value="3"><label for="sq3d">D. Vitamin C</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">5.</span>What signal phrase usually points to an HCF problem?</div>
+      <ul class="quiz-options"><li>A. "Happen together again"</li><li>B. "Largest possible equal size, nothing left over"</li><li>C. "Repeats every"</li><li>D. "Smallest amount"</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a5')">Show Answer</button>
+      <div class="quiz-answer" id="a5"><strong>Answer: B.</strong> Splitting into the largest possible equal parts, with nothing left over, is the classic HCF signal.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="2">
-        <div class="squiz-q"><span class="qnum">4.</span>Which nutrient is essential for brain function, hormone production and absorbing certain vitamins?</div>
-        <div class="squiz-option"><input type="radio" name="sq4" id="sq4a" value="0"><label for="sq4a">A. Fibre</label></div>
-        <div class="squiz-option"><input type="radio" name="sq4" id="sq4b" value="1"><label for="sq4b">B. Iron</label></div>
-        <div class="squiz-option"><input type="radio" name="sq4" id="sq4c" value="2"><label for="sq4c">C. Fat</label></div>
-        <div class="squiz-option"><input type="radio" name="sq4" id="sq4d" value="3"><label for="sq4d">D. Water</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">6.</span>What signal phrase usually points to an LCM problem?</div>
+      <ul class="quiz-options"><li>A. "Divide evenly into groups"</li><li>B. "Largest possible size"</li><li>C. "Happen together again" or "next align"</li><li>D. "Split into equal pieces"</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a6')">Show Answer</button>
+      <div class="quiz-answer" id="a6"><strong>Answer: C.</strong> Repeating events lining up again in the future is the classic LCM signal.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="3">
-        <div class="squiz-q"><span class="qnum">5.</span>Which vitamin, obtained mainly from sunlight, is essential for bone health?</div>
-        <div class="squiz-option"><input type="radio" name="sq5" id="sq5a" value="0"><label for="sq5a">A. Vitamin C</label></div>
-        <div class="squiz-option"><input type="radio" name="sq5" id="sq5b" value="1"><label for="sq5b">B. Vitamin B12</label></div>
-        <div class="squiz-option"><input type="radio" name="sq5" id="sq5c" value="2"><label for="sq5c">C. Calcium</label></div>
-        <div class="squiz-option"><input type="radio" name="sq5" id="sq5d" value="3"><label for="sq5d">D. Vitamin D</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">7.</span>Three ribbons of 40cm, 60cm, and 100cm are cut into equal pieces as long as possible. How long is each piece?</div>
+      <ul class="quiz-options"><li>A. 10cm</li><li>B. 20cm</li><li>C. 5cm</li><li>D. 40cm</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a7')">Show Answer</button>
+      <div class="quiz-answer" id="a7"><strong>Answer: B — 20cm.</strong> HCF(40,60,100) = 20.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">6.</span>Which mineral is needed to produce haemoglobin, which carries oxygen in the blood?</div>
-        <div class="squiz-option"><input type="radio" name="sq6" id="sq6a" value="0"><label for="sq6a">A. Calcium</label></div>
-        <div class="squiz-option"><input type="radio" name="sq6" id="sq6b" value="1"><label for="sq6b">B. Iron</label></div>
-        <div class="squiz-option"><input type="radio" name="sq6" id="sq6c" value="2"><label for="sq6c">C. Vitamin C</label></div>
-        <div class="squiz-option"><input type="radio" name="sq6" id="sq6d" value="3"><label for="sq6d">D. Vitamin B12</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">8.</span>Three alarms go off every 6, 8, and 12 minutes. If they all go off together now, when will they next all go off together?</div>
+      <ul class="quiz-options"><li>A. 2 minutes</li><li>B. 24 minutes</li><li>C. 48 minutes</li><li>D. 576 minutes</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a8')">Show Answer</button>
+      <div class="quiz-answer" id="a8"><strong>Answer: B — 24 minutes.</strong> LCM(6,8,12) = 24.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">7.</span>What is dietary fibre mainly responsible for?</div>
-        <div class="squiz-option"><input type="radio" name="sq7" id="sq7a" value="0"><label for="sq7a">A. Building muscle tissue</label></div>
-        <div class="squiz-option"><input type="radio" name="sq7" id="sq7b" value="1"><label for="sq7b">B. Digestive health and regulating blood sugar</label></div>
-        <div class="squiz-option"><input type="radio" name="sq7" id="sq7c" value="2"><label for="sq7c">C. Producing red blood cells</label></div>
-        <div class="squiz-option"><input type="radio" name="sq7" id="sq7d" value="3"><label for="sq7d">D. Absorbing vitamin D</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">9.</span>A carpenter has planks of 84cm and 126cm and wants to cut them into the longest possible equal-length pieces. How long should each piece be?</div>
+      <ul class="quiz-options"><li>A. 21cm</li><li>B. 42cm</li><li>C. 14cm</li><li>D. 7cm</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a9')">Show Answer</button>
+      <div class="quiz-answer" id="a9"><strong>Answer: B — 42cm.</strong> HCF(84,126) = 42.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="2">
-        <div class="squiz-q"><span class="qnum">8.</span>Roughly what percentage of the human body is water?</div>
-        <div class="squiz-option"><input type="radio" name="sq8" id="sq8a" value="0"><label for="sq8a">A. About 25%</label></div>
-        <div class="squiz-option"><input type="radio" name="sq8" id="sq8b" value="1"><label for="sq8b">B. About 40%</label></div>
-        <div class="squiz-option"><input type="radio" name="sq8" id="sq8c" value="2"><label for="sq8c">C. About 60%</label></div>
-        <div class="squiz-option"><input type="radio" name="sq8" id="sq8d" value="3"><label for="sq8d">D. About 90%</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">10.</span>Two friends visit a library every 9 days and every 12 days. If they visit together today, when will they next visit together?</div>
+      <ul class="quiz-options"><li>A. 3 days</li><li>B. 21 days</li><li>C. 36 days</li><li>D. 108 days</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a10')">Show Answer</button>
+      <div class="quiz-answer" id="a10"><strong>Answer: C — 36 days.</strong> LCM(9,12) = 36.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">9.</span>In the practical "plate" method described in the article, what proportion should be vegetables and fruit?</div>
-        <div class="squiz-option"><input type="radio" name="sq9" id="sq9a" value="0"><label for="sq9a">A. A quarter</label></div>
-        <div class="squiz-option"><input type="radio" name="sq9" id="sq9b" value="1"><label for="sq9b">B. About half</label></div>
-        <div class="squiz-option"><input type="radio" name="sq9" id="sq9c" value="2"><label for="sq9c">C. All of it</label></div>
-        <div class="squiz-option"><input type="radio" name="sq9" id="sq9d" value="3"><label for="sq9d">D. A tenth</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">11.</span>A school has 64 boys and 96 girls and wants to form the largest possible identical teams with no student left out. How many teams?</div>
+      <ul class="quiz-options"><li>A. 16</li><li>B. 32</li><li>C. 8</li><li>D. 160</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a11')">Show Answer</button>
+      <div class="quiz-answer" id="a11"><strong>Answer: B — 32.</strong> HCF(64,96) = 32.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="2">
-        <div class="squiz-q"><span class="qnum">10.</span>According to the article, over what timeframe should a balanced diet be judged?</div>
-        <div class="squiz-option"><input type="radio" name="sq10" id="sq10a" value="0"><label for="sq10a">A. A single meal</label></div>
-        <div class="squiz-option"><input type="radio" name="sq10" id="sq10b" value="1"><label for="sq10b">B. One day only</label></div>
-        <div class="squiz-option"><input type="radio" name="sq10" id="sq10c" value="2"><label for="sq10c">C. Across a week, not meal by meal</label></div>
-        <div class="squiz-option"><input type="radio" name="sq10" id="sq10d" value="3"><label for="sq10d">D. A full calendar year</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">12.</span>Why must you identify HCF vs. LCM by reading the question's action, not the size of its numbers?</div>
+      <ul class="quiz-options"><li>A. Bigger numbers always mean LCM</li><li>B. Smaller numbers always mean HCF</li><li>C. The correct method depends only on what relationship the question describes, not how large the numbers are</li><li>D. Number size determines the method automatically</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a12')">Show Answer</button>
+      <div class="quiz-answer" id="a12"><strong>Answer: C.</strong> Whether a problem needs HCF or LCM depends entirely on the situation it describes — splitting evenly (HCF) versus repeating events aligning (LCM) — never on how big or small the numbers happen to be.</div>
+    </div>
 
-<button type="button" class="squiz-submit-btn" id="squizSubmitBtn" onclick="submitQuiz()" disabled>Answer all questions to submit</button>
-    </form>
+    <button class="answer-key-toggle" id="keyToggleBtn" onclick="toggleAllAnswers()">Show Full Answer Key</button>
   </div>
 
   <div class="article-footer-nav">
-    <a href="index.html">← Back to Health</a>
-    <a href="index.html">More Health Topics →</a>
+    <a href="hcf-and-lcm.html">← Back to HCF &amp; LCM</a>
+    <a href="squares-cubes-roots.html">Next: Squares, Square Roots, Cubes &amp; Cube Roots →</a>
   </div>
 
 </div>
-
 <script>
-  (function() {
-    const form = document.getElementById('squizForm');
-    const submitBtn = document.getElementById('squizSubmitBtn');
-    const progressFill = document.getElementById('squizProgressFill');
-    const progressLabel = document.getElementById('squizProgressLabel');
-    const totalQuestions = document.querySelectorAll('.squiz-item').length;
-
-    function countAnswered() {
-      let count = 0;
-      for (let i = 1; i <= totalQuestions; i++) {
-        if (form.querySelector(`input[name="sq${i}"]:checked`)) count++;
-      }
-      return count;
-    }
-
-    function updateProgress() {
-      const answered = countAnswered();
-      progressFill.style.width = (answered / totalQuestions * 100) + '%';
-      progressLabel.textContent = answered + ' of ' + totalQuestions + ' answered';
-      submitBtn.disabled = answered < totalQuestions;
-      submitBtn.textContent = answered < totalQuestions ? 'Answer all questions to submit' : 'Submit Quiz';
-      document.querySelectorAll('.squiz-option').forEach(opt => opt.classList.remove('selected'));
-      form.querySelectorAll('input[type="radio"]:checked').forEach(input => {
-        input.closest('.squiz-option').classList.add('selected');
-      });
-    }
-
-    form.addEventListener('change', updateProgress);
-
-    window.submitQuiz = function() {
-      let score = 0;
-      const questions = document.querySelectorAll('.squiz-item');
-      questions.forEach((q, idx) => {
-        const qnum = idx + 1;
-        const correctIdx = q.getAttribute('data-correct');
-        const selected = form.querySelector(`input[name="sq${qnum}"]:checked`);
-        const options = q.querySelectorAll('.squiz-option');
-        options.forEach((opt, optIdx) => {
-          opt.querySelector('input').disabled = true;
-          if (String(optIdx) === correctIdx) opt.classList.add('correct-answer');
+  function toggleAnswer(id) {
+    document.getElementById(id).classList.toggle('visible');
+  }
+  function toggleAllAnswers() {
+    var answers = document.querySelectorAll('.quiz-answer');
+    var btn = document.getElementById('keyToggleBtn');
+    var anyHidden = Array.prototype.some.call(answers, function(a){ return !a.classList.contains('visible'); });
+    answers.forEach(function(a) {
+      if (anyHidden) { a.classList.add('visible'); } else { a.classList.remove('visible'); }
+    });
+    btn.textContent = anyHidden ? 'Hide Full Answer Key' : 'Show Full Answer Key';
+  }
+  function toggleFix(id) {
+    document.getElementById(id).classList.toggle('visible');
+  }
+  function toggleWp(id) {
+    document.getElementById(id).classList.toggle('visible');
+  }
+  function initQuizOptionSelection() {
+    document.querySelectorAll('.quiz-item').forEach(function(item) {
+      var options = item.querySelectorAll('.quiz-options li');
+      options.forEach(function(li) {
+        li.addEventListener('click', function() {
+          options.forEach(function(o) { o.classList.remove('selected'); });
+          li.classList.add('selected');
         });
-        if (selected && selected.value === correctIdx) {
-          score++;
-        } else if (selected) {
-          selected.closest('.squiz-option').classList.add('wrong-answer');
-        }
       });
+    });
+  }
+  initQuizOptionSelection();
 
-      const percent = Math.round((score / totalQuestions) * 100);
-      document.getElementById('squizScoreBig').textContent = score + '/' + totalQuestions;
-      document.getElementById('squizScoreLabel').textContent = 'You scored ' + percent + '%';
+  /* ── PRACTICE ARENA: HCF or LCM? ── */
+  var WP_QUESTION_POOL = [
+    {q: "Two ropes are cut into equal pieces, as long as possible, with none wasted. Which do you need?", choices: ["HCF", "LCM"], correct: 0},
+    {q: "Two bells ring on a schedule and you need to know when they next ring together. Which do you need?", choices: ["HCF", "LCM"], correct: 1},
+    {q: "Packing items into identical kits with none left over, using the maximum number of kits. Which do you need?", choices: ["HCF", "LCM"], correct: 0},
+    {q: "Two joggers run laps at different speeds and you need to know when they're next at the start together. Which do you need?", choices: ["HCF", "LCM"], correct: 1},
+    {q: "Finding the largest container that measures several different volumes exactly. Which do you need?", choices: ["HCF", "LCM"], correct: 0},
+    {q: "Two flowering plants bloom on different cycles and you need their next shared bloom day. Which do you need?", choices: ["HCF", "LCM"], correct: 1},
+    {q: "Cutting several planks into the longest possible equal-length pieces. Which do you need?", choices: ["HCF", "LCM"], correct: 0},
+    {q: "Three alarms go off on different intervals and you need when they next all align. Which do you need?", choices: ["HCF", "LCM"], correct: 1}
+  ];
+  var WP_TOTAL_QUESTIONS = 8;
+  var WP_STORAGE_KEY = 'wp_best_score';
+  var wpQuestions = [];
+  var wpIndex = 0;
+  var wpCorrectCount = 0;
 
-      let tier = 'Keep practicing';
-      if (percent === 100) tier = 'Perfect score!';
-      else if (percent >= 80) tier = 'Excellent work';
-      else if (percent >= 60) tier = 'Good effort';
-      else if (percent >= 40) tier = 'Getting there';
-      document.getElementById('squizScoreTier').textContent = tier;
+  function shuffleWpArray(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
 
-      document.getElementById('squizResults').classList.add('visible');
-      submitBtn.style.display = 'none';
-      document.getElementById('squizResults').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
+  function newWpSet() {
+    wpQuestions = shuffleWpArray(WP_QUESTION_POOL).slice(0, WP_TOTAL_QUESTIONS);
+    wpIndex = 0;
+    wpCorrectCount = 0;
+    document.getElementById('wpNewSetBtn').style.display = 'none';
+    renderWpQuestion();
+    updateWpBestScoreDisplay();
+  }
 
-    window.retakeQuiz = function() {
-      form.reset();
-      document.querySelectorAll('.squiz-option').forEach(opt => {
-        opt.classList.remove('selected', 'correct-answer', 'wrong-answer');
-        opt.querySelector('input').disabled = false;
-      });
-      document.getElementById('squizResults').classList.remove('visible');
-      submitBtn.style.display = 'block';
-      updateProgress();
-      document.getElementById('squizForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
+  function renderWpQuestion() {
+    var q = wpQuestions[wpIndex];
+    document.getElementById('wpProgress').innerHTML = 'Question ' + (wpIndex + 1) + ' of ' + wpQuestions.length + ' &nbsp;\u00b7&nbsp; Best score: <span id="wpBestScore">' + getWpBestScore() + '</span> / ' + WP_TOTAL_QUESTIONS;
+    document.getElementById('wpDrillQuestion').textContent = q.q;
+    document.getElementById('wpDrillFeedback').textContent = '';
+    document.getElementById('wpNextBtn').style.display = 'none';
 
-    updateProgress();
-  })();
+    var choicesEl = document.getElementById('wpDrillChoices');
+    choicesEl.innerHTML = '';
+    q.choices.forEach(function(choice, i) {
+      var btn = document.createElement('button');
+      btn.className = 'pv-choice-btn';
+      btn.textContent = choice;
+      btn.onclick = function() { checkWpAnswer(i, btn); };
+      choicesEl.appendChild(btn);
+    });
+  }
+
+  function checkWpAnswer(selectedIdx, btnEl) {
+    var q = wpQuestions[wpIndex];
+    var allBtns = document.querySelectorAll('#wpDrillChoices .pv-choice-btn');
+    allBtns.forEach(function(b) { b.disabled = true; });
+
+    var isCorrect = selectedIdx === q.correct;
+    if (isCorrect) {
+      wpCorrectCount++;
+      btnEl.classList.add('correct');
+    } else {
+      btnEl.classList.add('incorrect');
+      allBtns[q.correct].classList.add('correct');
+    }
+
+    document.getElementById('wpDrillFeedback').textContent = isCorrect ? 'Correct!' : 'Not quite — the correct answer is highlighted.';
+
+    if (wpIndex < wpQuestions.length - 1) {
+      document.getElementById('wpNextBtn').style.display = 'inline-block';
+    } else {
+      finishWpSet();
+    }
+  }
+
+  function nextWpQuestion() {
+    wpIndex++;
+    renderWpQuestion();
+  }
+
+  function finishWpSet() {
+    document.getElementById('wpProgress').textContent = 'Finished! You got ' + wpCorrectCount + ' out of ' + wpQuestions.length + ' correct.';
+    document.getElementById('wpDrillQuestion').textContent = '';
+    document.getElementById('wpDrillChoices').innerHTML = '';
+    var best = getWpBestScore();
+    if (wpCorrectCount > best) {
+      localStorage.setItem(WP_STORAGE_KEY, wpCorrectCount);
+    }
+    document.getElementById('wpNewSetBtn').style.display = 'inline-block';
+    updateWpBestScoreDisplay();
+  }
+
+  function getWpBestScore() {
+    return parseInt(localStorage.getItem(WP_STORAGE_KEY) || '0', 10);
+  }
+
+  function updateWpBestScoreDisplay() {
+    var el = document.getElementById('wpBestScore');
+    if (el) el.textContent = getWpBestScore();
+  }
+
+  newWpSet();
 </script>
-
 <footer>
   <div class="footer-top">
     <div class="footer-brand">

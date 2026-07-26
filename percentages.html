@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>What is a Balanced Diet and Why Does It Matter? — The Learners Ladder</title>
+<title>Percentages: Averages, Profit & Loss, Discounts & Interest — The Learners Ladder</title>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -279,11 +279,17 @@
   .quiz-q .qnum { color: var(--red); margin-right: 0.4rem; }
   .quiz-options { list-style: none; margin: 0 0 0.9rem; }
   .quiz-options li {
-    padding: 0.4rem 0;
+    padding: 0.4rem 0.6rem;
     color: var(--slate);
     font-size: 0.96rem;
     padding-left: 1.4rem;
     position: relative;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .quiz-options li:hover {
+    background: rgba(212,175,55,0.1);
   }
   .quiz-options li::before {
     content: "";
@@ -291,6 +297,15 @@
     width: 6px; height: 6px;
     background: var(--border);
     border-radius: 50%;
+    transition: background 0.15s;
+  }
+  .quiz-options li.selected {
+    background: rgba(212,175,55,0.22);
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .quiz-options li.selected::before {
+    background: var(--red);
   }
   .show-answer-btn {
     background: var(--navy);
@@ -359,6 +374,306 @@
     .article-hero h1 { font-size: 1.7rem; }
     .article-wrap { padding: 2rem 1.25rem 3rem; }
   }
+  /* ── FUN FACT BOX (reusable) ── */
+  .fun-fact-box {
+    background: linear-gradient(135deg, rgba(212,175,55,0.12), rgba(212,175,55,0.04));
+    border: 1.5px dashed var(--gold);
+    border-radius: var(--radius);
+    padding: 1.3rem 1.5rem;
+    margin: 1.8rem 0;
+    position: relative;
+  }
+  .fun-fact-label {
+    font-weight: 700;
+    color: var(--red);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .fun-fact-box p { margin: 0; }
+
+  /* ── FIX-IT CHALLENGE CARDS (reusable) ── */
+  .fixit-challenge {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-left: 5px solid var(--red);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.4rem;
+    margin: 1.2rem 0;
+  }
+  .fixit-wrong {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.15rem;
+    color: var(--red);
+    text-decoration: line-through;
+    margin-bottom: 0.4rem;
+  }
+  .fixit-toggle-btn {
+    background: none;
+    border: 1.5px solid var(--red);
+    color: var(--red);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.4rem 0.9rem;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 0.3rem;
+  }
+  .fixit-explain { display: none; margin-top: 0.7rem; padding-top: 0.7rem; border-top: 1px dashed rgba(0,0,0,0.15); }
+  .fixit-explain.visible { display: block; }
+
+  /* ── PRACTICE ARENA / DRILL (reusable) ── */
+  .drill-section {
+    background: var(--navy);
+    border-radius: var(--radius);
+    padding: 2rem 1.7rem;
+    margin-top: 3rem;
+  }
+  .drill-section .section-eyebrow { color: var(--gold); }
+  .drill-section h2 { border: none; margin: 0 0 0.4rem; padding: 0; color: white; }
+  .drill-intro { color: rgba(255,255,255,0.65); font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .drill-controls { display: flex; gap: 0.8rem; align-items: center; margin-bottom: 1.3rem; flex-wrap: wrap; }
+  .drill-btn {
+    background: var(--red);
+    color: white;
+    border: none;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 0.55rem 1.1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .drill-btn:hover { background: var(--red-mid); }
+  .drill-score { color: var(--gold); font-size: 0.88rem; font-weight: 600; }
+  .drill-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+  @media (max-width: 600px) { .drill-grid { grid-template-columns: 1fr; } }
+  .drill-item {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius);
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+  .drill-q { color: white; font-size: 1rem; font-weight: 500; }
+  .drill-fraction-inputs { display: flex; align-items: center; gap: 0.3rem; }
+  .drill-input {
+    width: 46px;
+    padding: 0.35rem 0.3rem;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.95);
+    font-size: 0.95rem;
+    text-align: center;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+  .drill-slash { color: white; font-size: 1.2rem; }
+  .drill-input.correct { outline: 3px solid #4CAF50; }
+  .drill-input.incorrect { outline: 3px solid #E57373; }
+  .drill-feedback { margin-top: 1.2rem; color: white; font-size: 0.95rem; min-height: 1.4rem; }
+
+  /* ── NUMBER LINE VISUAL (static, for examples) ── */
+  .number-line-visual {
+    position: relative;
+    height: 60px;
+    margin: 1.6rem 0.5rem 2.2rem;
+  }
+  .nl-track { position: absolute; top: 28px; left: 0; right: 0; height: 3px; background: var(--navy); }
+  .nl-tick { position: absolute; top: 21px; width: 2px; height: 17px; background: var(--navy); }
+  .nl-tick-label { position: absolute; top: 42px; transform: translateX(-50%); font-size: 0.8rem; color: var(--slate); }
+  .nl-point { position: absolute; top: 19px; width: 14px; height: 14px; border-radius: 50%; background: var(--red); transform: translateX(-50%); border: 2px solid white; box-shadow: 0 0 0 1.5px var(--red); }
+  .nl-point-label { position: absolute; top: -24px; transform: translateX(-50%); font-size: 0.85rem; font-weight: 700; color: var(--red); white-space: nowrap; }
+
+  /* ── NUMBER LINE JUMP VISUAL (static, for addition/subtraction examples) ── */
+  .nl-jump-visual { position: relative; height: 95px; margin: 2rem 0.5rem 2.4rem; }
+  .nl-jump-track { position: absolute; top: 55px; left: 0; right: 0; height: 3px; background: var(--navy); }
+  .nl-jump-tick { position: absolute; top: 48px; width: 2px; height: 17px; background: var(--navy); }
+  .nl-jump-tick-label { position: absolute; top: 76px; transform: translateX(-50%); font-size: 0.8rem; color: var(--slate); }
+  .nl-jump-arc { position: absolute; top: 30px; height: 3px; background: var(--red); border-radius: 2px; }
+  .nl-jump-arrowhead { position: absolute; top: 19px; font-size: 1.15rem; color: var(--red); font-weight: 700; transform: translateX(-50%); line-height: 1; }
+  .nl-jump-label { position: absolute; top: 0px; transform: translateX(-50%); font-size: 0.9rem; font-weight: 700; color: var(--red); white-space: nowrap; }
+  .nl-start-pt { position: absolute; top: 49px; width: 12px; height: 12px; border-radius: 50%; background: white; transform: translateX(-50%); border: 3px solid var(--navy); z-index: 2; }
+  .nl-end-pt { position: absolute; top: 48px; width: 14px; height: 14px; border-radius: 50%; background: var(--red); transform: translateX(-50%); border: 2px solid white; box-shadow: 0 0 0 1.5px var(--red); z-index: 3; }
+
+  /* ── NUMBER LINE DRILL: start-point reference marker ── */
+  .nl-drill-start-marker {
+    position: absolute; top: 27px; width: 14px; height: 14px;
+    border-radius: 50%; transform: translateX(-50%);
+    background: rgba(255,255,255,0.85); border: 3px solid var(--gold);
+    z-index: 1;
+  }
+
+  /* ── NUMBER LINE DRILL (interactive, click-to-place) ── */
+  .nl-drill-progress { color: var(--gold); text-align: center; font-size: 0.85rem; margin-bottom: 0.6rem; letter-spacing: 0.03em; }
+  .nl-drill-target { color: white; text-align: center; font-size: 1.25rem; font-weight: 700; margin-bottom: 1.8rem; }
+  .nl-drill-track {
+    position: relative;
+    height: 70px;
+    margin: 0 0.5rem 1.5rem;
+    cursor: crosshair;
+    touch-action: none;
+  }
+  .nl-drill-line { position: absolute; top: 34px; left: 0; right: 0; height: 3px; background: rgba(255,255,255,0.45); }
+  .nl-drill-tick { position: absolute; top: 27px; width: 2px; height: 17px; background: rgba(255,255,255,0.5); }
+  .nl-drill-tick-label { position: absolute; top: 46px; transform: translateX(-50%); font-size: 0.78rem; color: rgba(255,255,255,0.55); }
+  .nl-drill-marker {
+    position: absolute; top: 25px; width: 18px; height: 18px;
+    border-radius: 50%; transform: translateX(-50%);
+    border: 2px solid white;
+  }
+  .nl-drill-marker.user { background: var(--gold); }
+  .nl-drill-marker.correct-pos { background: #4CAF50; }
+  .nl-drill-marker.incorrect-pos { background: #E57373; }
+  .nl-drill-feedback-text { color: white; text-align: center; margin-top: 0.4rem; min-height: 1.4rem; font-size: 0.95rem; }
+  .nl-drill-actions { display: flex; justify-content: center; gap: 0.8rem; margin-top: 1rem; flex-wrap: wrap; }
+
+  /* ── PLACE VALUE: DIGIT DETECTIVE (reusable interactive) ── */
+  .pv-system-toggle { display: flex; gap: 0.6rem; justify-content: center; margin-bottom: 1.4rem; flex-wrap: wrap; }
+  .pv-toggle-btn {
+    background: #fff;
+    border: 1.5px solid var(--navy);
+    color: var(--navy);
+    padding: 0.5rem 1.1rem;
+    border-radius: 30px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .pv-toggle-btn.active { background: var(--navy); color: #fff; }
+  .pv-comma-display {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--red);
+    margin: 0.6rem 0 0.3rem;
+    font-family: 'EB Garamond', serif;
+    letter-spacing: 0.02em;
+  }
+  .pv-word-form { text-align: center; color: var(--slate); font-size: 0.92rem; margin-bottom: 1.3rem; font-style: italic; }
+  .pv-digit-row { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: center; margin: 1.2rem 0; }
+  .pv-digit-box {
+    width: 44px; height: 54px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; font-weight: 700;
+    font-family: 'Source Sans 3', sans-serif;
+    background: #fff; border: 2px solid var(--border);
+    border-radius: 8px; cursor: pointer; color: var(--navy);
+    transition: all 0.15s;
+  }
+  .pv-digit-box:hover { border-color: var(--gold); background: rgba(212,175,55,0.1); }
+  .pv-digit-box.active { background: var(--red); color: #fff; border-color: var(--red); transform: scale(1.08); }
+  .pv-info-panel {
+    background: var(--gold-lt);
+    border: 1px solid rgba(184,150,62,0.35);
+    border-left: 4px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.4rem;
+    margin-top: 1rem;
+    min-height: 34px;
+  }
+  .pv-info-placeholder { color: var(--slate); font-style: italic; margin: 0; }
+  .pv-info-result { margin: 0; font-size: 1rem; }
+  .pv-info-result strong { color: var(--red); }
+
+  /* ── PLACE VALUE: CLICK-CHOICE PRACTICE CARDS ── */
+  .pv-drill-question { color: white; font-size: 1.1rem; font-weight: 600; text-align: center; margin-bottom: 1.3rem; }
+  .pv-drill-choices { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; margin-bottom: 1rem; }
+  @media (max-width: 600px) { .pv-drill-choices { grid-template-columns: 1fr; } }
+  .pv-choice-btn {
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(255,255,255,0.25);
+    color: white;
+    padding: 0.8rem 1rem;
+    border-radius: var(--radius);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s;
+  }
+  .pv-choice-btn:hover { background: rgba(212,175,55,0.18); border-color: var(--gold); }
+  .pv-choice-btn.correct { background: rgba(76,175,80,0.35); border-color: #4CAF50; }
+  .pv-choice-btn.incorrect { background: rgba(229,115,115,0.35); border-color: #E57373; }
+  .pv-choice-btn:disabled { cursor: default; }
+
+  /* ── NUMBER SYSTEMS: NESTED DIAGRAM ── */
+  .ns-real-box { border: 3px solid var(--navy); border-radius: 12px; padding: 2rem 1.2rem 1.2rem; position: relative; margin: 2rem 0; }
+  .ns-real-label { position: absolute; top: -14px; left: 16px; background: #fff; padding: 0 8px; font-weight: 700; color: var(--navy); font-size: 0.92rem; }
+  .ns-real-children { display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-start; }
+  .ns-rational-box { flex: 2; min-width: 220px; border: 3px solid var(--red); border-radius: 10px; padding: 1.7rem 1rem 1rem; position: relative; }
+  .ns-rational-label { position: absolute; top: -13px; left: 14px; background: #fff; padding: 0 6px; font-weight: 700; color: var(--red); font-size: 0.82rem; }
+  .ns-irrational-box { flex: 1; min-width: 140px; border: 3px solid var(--gold); border-radius: 10px; padding: 1.5rem 1rem; text-align: center; position: relative; display: flex; align-items: center; justify-content: center; }
+  .ns-irrational-label { position: absolute; top: -13px; left: 14px; background: #fff; padding: 0 6px; font-weight: 700; color: var(--gold); font-size: 0.82rem; }
+  .ns-irrational-box .ns-examples { font-size: 0.85rem; color: var(--slate); }
+  .ns-integers-box { border: 2px solid var(--navy); border-radius: 8px; padding: 1.5rem 0.9rem 0.9rem; position: relative; margin-top: 0.3rem; }
+  .ns-integers-label { position: absolute; top: -12px; left: 12px; background: #fff; padding: 0 6px; font-weight: 700; color: var(--navy); font-size: 0.78rem; }
+  .ns-whole-box { border: 2px solid var(--slate); border-radius: 6px; padding: 1.3rem 0.8rem 0.8rem; position: relative; margin-top: 0.3rem; }
+  .ns-whole-label { position: absolute; top: -11px; left: 10px; background: #fff; padding: 0 6px; font-weight: 700; color: var(--slate); font-size: 0.75rem; }
+  .ns-natural-box { border: 2px dashed var(--slate); border-radius: 6px; padding: 0.9rem; text-align: center; font-size: 0.8rem; color: var(--slate); }
+
+  /* ── NUMBER SYSTEMS: NUMBER EXPLORER (reusable interactive) ── */
+  .ns-chip-row { display: flex; gap: 0.6rem; flex-wrap: wrap; justify-content: center; margin: 1.3rem 0; }
+  .ns-chip {
+    background: #fff; border: 2px solid var(--border); border-radius: 30px;
+    padding: 0.5rem 1.1rem; font-size: 1.05rem; font-weight: 700;
+    font-family: 'Source Sans 3', sans-serif; color: var(--navy);
+    cursor: pointer; transition: all 0.15s;
+  }
+  .ns-chip:hover { border-color: var(--gold); background: rgba(212,175,55,0.1); }
+  .ns-chip.active { background: var(--red); color: #fff; border-color: var(--red); }
+  .ns-category-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-top: 1rem; }
+  @media (max-width: 600px) { .ns-category-grid { grid-template-columns: repeat(2, 1fr); } }
+  .ns-category-item {
+    border-radius: var(--radius); padding: 0.6rem 0.7rem; font-size: 0.85rem; font-weight: 600;
+    text-align: center; border: 1.5px solid var(--border); color: var(--slate);
+    background: rgba(0,0,0,0.02);
+  }
+  .ns-category-item.yes { background: rgba(76,175,80,0.15); border-color: #4CAF50; color: #2e6b31; }
+  .ns-category-item.no { background: rgba(229,115,115,0.1); border-color: rgba(229,115,115,0.5); color: #a94442; opacity: 0.75; }
+  .ns-explorer-reason { text-align: center; color: var(--slate); font-size: 0.9rem; font-style: italic; margin-top: 0.9rem; min-height: 1.3rem; }
+
+  /* ── BASE SYSTEMS: CONVERSION GRID (reusable) ── */
+  .bs-base-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; margin-top: 1.2rem; }
+  @media (max-width: 680px) { .bs-base-grid { grid-template-columns: repeat(2, 1fr); } }
+  .bs-base-item {
+    border-radius: var(--radius); padding: 0.8rem 0.6rem; text-align: center;
+    border: 1.5px solid var(--gold); background: rgba(212,150,62,0.08);
+  }
+  .bs-base-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--slate); margin-bottom: 0.3rem; }
+  .bs-base-value { font-size: 1.25rem; font-weight: 700; color: var(--navy); font-family: 'Source Sans 3', sans-serif; word-break: break-all; }
+  .bs-breakdown { margin-top: 1rem; text-align: center; color: var(--slate); font-size: 0.9rem; font-style: italic; }
+
+  /* ── VINCULUM / BAR BRACKET (reusable) ── */
+  .vinculum { text-decoration: overline; text-decoration-thickness: 2px; padding-top: 2px; }
+
+  /* ── WORD PROBLEM CARD (reusable, hidden/reveal solution) ── */
+  .word-problem-card {
+    background: #fff; border: 1px solid var(--border);
+    border-left: 4px solid var(--navy); border-radius: var(--radius);
+    padding: 1.3rem 1.5rem; margin: 1.3rem 0;
+  }
+  .wp-label { font-weight: 700; color: var(--navy); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.6rem; }
+  .wp-statement { margin-bottom: 0.9rem; }
+  .wp-reveal-btn {
+    background: var(--navy); color: #fff; border: none;
+    font-family: 'Source Sans 3', sans-serif; font-size: 0.82rem; font-weight: 600;
+    padding: 0.55rem 1.1rem; border-radius: 30px; cursor: pointer;
+  }
+  .wp-reveal-btn:hover { background: var(--navy-mid); }
+  .wp-solution { display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed var(--border); }
+  .wp-solution.visible { display: block; }
+  .wp-solution p { margin: 0.4rem 0; }
+
   @media (max-width: 680px) {
     .top-bar { display: none; }
     nav {
@@ -433,115 +748,6 @@
     .footer-top { grid-template-columns: 1fr 1fr; }
     footer { padding: 2rem 1.25rem 0; }
   }
-
-  /* SCORED QUIZ (click-to-highlight + real scoring) */
-  .squiz-progress {
-    background: var(--cream);
-    border-radius: 30px;
-    height: 8px;
-    overflow: hidden;
-    margin-bottom: 0.4rem;
-  }
-  .squiz-progress-fill {
-    background: var(--gold);
-    height: 100%;
-    width: 0%;
-    transition: width 0.25s ease;
-  }
-  .squiz-progress-label {
-    font-size: 0.78rem;
-    color: var(--muted);
-    text-align: right;
-    margin-bottom: 1.3rem;
-  }
-  .squiz-item {
-    background: var(--white);
-    border: 1px solid var(--border-lt);
-    border-radius: var(--radius);
-    padding: 1.1rem 1.3rem;
-    margin-bottom: 1rem;
-  }
-  .squiz-q {
-    font-weight: 600;
-    color: var(--ink);
-    margin-bottom: 0.8rem;
-    font-size: 1rem;
-  }
-  .squiz-q .qnum { color: var(--red); margin-right: 0.4rem; }
-  .squiz-option {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
-    padding: 0.6rem 0.8rem;
-    border: 1px solid var(--border-lt);
-    border-radius: var(--radius);
-    margin-bottom: 0.5rem;
-    cursor: pointer;
-    transition: border-color 0.15s, background 0.15s;
-  }
-  .squiz-option:hover { border-color: var(--gold); }
-  .squiz-option input[type="radio"] { accent-color: var(--red); width: 16px; height: 16px; flex-shrink: 0; }
-  .squiz-option label { cursor: pointer; font-size: 0.94rem; color: var(--slate); flex: 1; }
-  .squiz-option.selected { border-color: var(--red); background: rgba(139,0,0,0.04); }
-  .squiz-option.correct-answer { border-color: #2e7d32; background: rgba(46,125,50,0.08); }
-  .squiz-option.wrong-answer { border-color: var(--red); background: rgba(139,0,0,0.08); }
-  .squiz-submit-btn {
-    display: block;
-    width: 100%;
-    background: var(--red);
-    color: white;
-    border: none;
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 0.98rem;
-    font-weight: 600;
-    padding: 0.9rem;
-    border-radius: var(--radius);
-    cursor: pointer;
-    margin-top: 0.6rem;
-    transition: background 0.2s;
-  }
-  .squiz-submit-btn:hover { background: var(--red-mid); }
-  .squiz-submit-btn:disabled { background: var(--border); cursor: not-allowed; }
-  .squiz-results {
-    display: none;
-    background: var(--navy);
-    border-radius: var(--radius);
-    padding: 2rem 1.6rem;
-    text-align: center;
-    margin-bottom: 1.8rem;
-  }
-  .squiz-results.visible { display: block; }
-  .squiz-results .squiz-score-big {
-    font-family: 'EB Garamond', serif;
-    font-size: 2.8rem;
-    font-weight: 600;
-    color: var(--gold);
-    line-height: 1;
-    margin-bottom: 0.3rem;
-  }
-  .squiz-results .squiz-score-label { color: rgba(255,255,255,0.7); font-size: 0.98rem; margin-bottom: 1rem; }
-  .squiz-results .squiz-score-tier {
-    display: inline-block;
-    font-size: 0.82rem;
-    font-weight: 600;
-    padding: 0.4rem 1rem;
-    border-radius: 30px;
-    background: rgba(184,150,62,0.15);
-    color: var(--gold);
-    margin-bottom: 1.2rem;
-  }
-  .squiz-retake-btn {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.3);
-    color: white;
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 0.88rem;
-    font-weight: 600;
-    padding: 0.65rem 1.4rem;
-    border-radius: 30px;
-    cursor: pointer;
-  }
-  .squiz-retake-btn:hover { background: rgba(255,255,255,0.1); }
 </style>
 </head>
 <body>
@@ -575,277 +781,457 @@
     <li><a href="index.html#resources">Resources</a></li>
   </ul>
 </nav>
-
-<!-- ARTICLE HERO -->
 <div class="article-hero">
-  <div class="breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; <a href="index.html">Health</a> &nbsp;/&nbsp; What is a Balanced Diet?</div>
-  <div class="article-hero-tag">Health · Nutrition</div>
-  <h1>What is a Balanced Diet and Why Does It Matter?</h1>
-  <p class="sub">The phrase "balanced diet" appears constantly in health advice, school lessons and food labels — yet it is rarely explained with real clarity. This guide sets out exactly what it means, and why it matters.</p>
+  <div class="breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; <a href="index.html">Mathematics</a> &nbsp;/&nbsp; Percentages</div>
+  <div class="article-hero-tag">Number Sense · Topic XXI</div>
+  <h1>Percentages: Averages, Profit &amp; Loss, Discounts &amp; Interest</h1>
+  <p class="sub">A percentage is just a ratio to 100 — but that single idea powers school grades, sale prices, bank interest, and business profit calculations everywhere.</p>
   <div class="article-hero-meta">
     <span>The Learners Ladder Editorial Team</span>
     <span>|</span>
-    <span>8 min read</span>
+    <span>24 min read</span>
     <span>|</span>
-    <span>Nutrition</span>
+    <span>Mathematics</span>
   </div>
 </div>
 
-<!-- ARTICLE BODY -->
 <div class="article-wrap">
 
-  <p class="lead">No single food, however nutritious, can supply everything the body needs. A balanced diet is not about any one meal or food group — it is about the overall pattern of eating across days and weeks, and it remains one of the most powerful things a person can do for their long-term health.</p>
+  <p class="lead">This is the final topic in our Number Sense strand — and arguably the most useful in daily life. Percentages tie directly back to <a href="ratio-and-proportion.html">Ratio &amp; Proportion</a>, then branch out into averages, profit and loss, discounts, and interest — the exact math behind shopping, banking, and business.</p>
 
-  <h2><span class="num">1.</span>What Does "Balanced" Actually Mean?</h2>
-  <p>A balanced diet is one that provides the body with all the nutrients it needs — in the right amounts — to function properly, maintain health, and support growth and repair. The word "balanced" does not mean eating equal amounts of everything; it means achieving the right <em>proportions</em> of different types of food and nutrients.</p>
-
-  <h2><span class="num">2.</span>The Three Macronutrients</h2>
-  <p>Macronutrients are the nutrients the body needs in large amounts. They supply the energy — measured in calories — that powers everything the body does.</p>
-  <div class="table-wrap">
-    <table class="pos-table">
-      <tr><th>Macronutrient</th><th>Main Role</th><th>Good Sources</th></tr>
-      <tr><td>Carbohydrates</td><td>The body's primary source of energy; broken down into glucose to fuel the brain and muscles</td><td>Bread, rice, pasta, potatoes, fruit, vegetables</td></tr>
-      <tr><td>Proteins</td><td>The building blocks of the body — used to build and repair cells, tissues, enzymes and hormones</td><td>Meat, fish, eggs, dairy, legumes, nuts</td></tr>
-      <tr><td>Fats</td><td>Essential for brain function, hormone production, and absorbing certain vitamins</td><td>Olive oil, avocados, nuts, oily fish</td></tr>
-    </table>
-  </div>
+  <h2><span class="num">1.</span>What Is a Percentage?</h2>
+  <p>A <strong>percentage</strong> is a ratio that always compares a part to a whole of exactly 100. The symbol % literally means "per hundred."</p>
   <div class="example-box">
     <div class="ex-label">Example</div>
-    <p>Complex carbohydrates — found in wholegrains and vegetables — release energy slowly and steadily. Simple sugars, by contrast, cause rapid spikes in blood glucose, which is why wholegrain bread is generally a better everyday choice than sugary cereal.</p>
+    <p>25% means 25 out of every 100 — the same amount as the fraction 25/100, or 1/4 in simplest form.</p>
   </div>
 
-  <h2><span class="num">3.</span>Vitamins and Minerals</h2>
-  <p>Micronutrients are needed in smaller amounts, but they are no less essential. A deficiency in any one of them can cause serious health problems, even when a person is consuming enough calories overall.</p>
-  <ul>
-    <li><strong>Vitamin C</strong> — found in citrus fruits, bell peppers and broccoli — supports immune function and wound healing</li>
-    <li><strong>Vitamin D</strong> — obtained from sunlight and found in oily fish and fortified foods — is essential for bone health</li>
-    <li><strong>Iron</strong> — found in red meat, lentils and spinach — is needed to produce haemoglobin, which carries oxygen in the blood</li>
-    <li><strong>Calcium</strong> — found in dairy products and leafy greens — builds and maintains strong bones and teeth</li>
-    <li><strong>Vitamin B12</strong> — found almost exclusively in animal products — is essential for nerve function and red blood cells</li>
-  </ul>
+  <h2><span class="num">2.</span>Converting Between Percentages, Fractions, and Decimals</h2>
+  <div class="table-wrap">
+    <table class="pos-table">
+      <tr><th>Percentage</th><th>Fraction</th><th>Decimal</th></tr>
+      <tr><td>25%</td><td>1/4</td><td>0.25</td></tr>
+      <tr><td>50%</td><td>1/2</td><td>0.5</td></tr>
+      <tr><td>60%</td><td>3/5</td><td>0.6</td></tr>
+      <tr><td>75%</td><td>3/4</td><td>0.75</td></tr>
+    </table>
+  </div>
+  <p>To convert a decimal to a percentage, multiply by 100. To convert a percentage to a decimal, divide by 100.</p>
 
-  <h2><span class="num">4.</span>Fibre and Water — Two Overlooked Essentials</h2>
-  <p><strong>Dietary fibre</strong> — found in wholegrains, fruit, vegetables, legumes and nuts — is not digested by the body, but plays a vital role in digestive health, regulating blood sugar, and lowering cholesterol. Most people eat far less fibre than is recommended.</p>
-  <p><strong>Water</strong> is not a nutrient in the conventional sense, but it is essential for survival. The body is approximately 60% water, and it is required for every chemical reaction, for regulating temperature, and for removing waste.</p>
+  <h2><span class="num">3.</span>Finding a Percentage of a Quantity</h2>
+  <div class="example-box">
+    <div class="ex-label">Example</div>
+    <p>Find 25% of 80. Convert to a decimal: 25% = 0.25. Multiply: 0.25 × 80 = <strong>20</strong>.</p>
+  </div>
 
-  <h2><span class="num">5.</span>What a Balanced Diet Looks Like in Practice</h2>
-  <p>Rather than counting calories or following rigid meal plans, a simple and practical approach is to think in terms of proportions on a plate, across the day and week:</p>
+  <h2><span class="num">4.</span>Finding What Percentage One Number Is of Another</h2>
+  <div class="example-box">
+    <div class="ex-label">Example</div>
+    <p>45 out of 180 — what percentage is that? (45÷180) × 100 = <strong>25%</strong>.</p>
+  </div>
 
-  <div style="margin: 1.5rem 0 1.75rem;">
-    <div style="display:flex; width:100%; height:2.75rem; border-radius:4px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,0.15);">
-      <div style="width:50%; background:var(--red); display:flex; align-items:center; justify-content:center; color:white; font-size:0.85rem; font-weight:600;">Vegetables &amp; Fruit — 50%</div>
-      <div style="width:25%; background:var(--gold); display:flex; align-items:center; justify-content:center; color:white; font-size:0.8rem; font-weight:600;">Wholegrains — 25%</div>
-      <div style="width:25%; background:var(--navy-mid); display:flex; align-items:center; justify-content:center; color:white; font-size:0.8rem; font-weight:600;">Protein — 25%</div>
+  <h2><span class="num">5.</span>Percentage Increase and Decrease</h2>
+  <div class="example-box">
+    <div class="ex-label">Example: Increase</div>
+    <p>A price rises from $80 to $100. Increase = 100−80=20. Percentage increase = (20÷80)×100 = <strong>25%</strong>.</p>
+  </div>
+  <div class="example-box">
+    <div class="ex-label">Example: Decrease</div>
+    <p>A price falls from $100 to $80. Decrease = 100−80=20. Percentage decrease = (20÷100)×100 = <strong>20%</strong>.</p>
+  </div>
+  <div class="fixit-challenge">
+    <div class="fixit-wrong">"A 20% increase followed by a 20% decrease brings you back to the original value"</div>
+    <p>This feels intuitive, but percentage changes are always calculated from a different base value each time.</p>
+    <button class="fixit-toggle-btn" onclick="toggleFix('fix1')">Show the Fix</button>
+    <div class="fixit-explain" id="fix1">
+      <p><strong>The fix:</strong> 100 increased by 20% becomes 120. But 120 decreased by 20% is 120 − 24 = <strong>96</strong>, not back to 100. The second percentage is calculated on the new, larger value, not the original — so equal opposite percentage changes never fully cancel out.</p>
     </div>
-    <p style="text-align:center; font-size:0.85rem; color:var(--muted); margin-top:0.5rem;">A simple visual guide to plate proportions at a typical meal</p>
   </div>
 
-  <ul>
-    <li>Fill roughly <strong>half your plate</strong> with vegetables and fruit at each meal</li>
-    <li>Fill roughly <strong>a quarter</strong> with wholegrains or starchy carbohydrates</li>
-    <li>Fill the remaining <strong>quarter</strong> with protein — from animal or plant sources</li>
-    <li>Include small amounts of healthy fats, and limit added sugar, salt and processed foods</li>
-    <li>Drink water as the primary beverage</li>
-  </ul>
+  <h2><span class="num">6.</span>Finding the Original Value (Reverse Percentage)</h2>
+  <div class="example-box">
+    <div class="ex-label">Example</div>
+    <p>After a 20% increase, a price is $120. What was the original price? $120 represents 120% of the original. Original = 120 ÷ 1.20 = <strong>$100</strong>.</p>
+  </div>
+
+  <h2><span class="num">7.</span>Averages (Mean)</h2>
+  <p>The <strong>average</strong> (or mean) of a set of numbers is their sum divided by how many numbers there are. It's closely tied to percentages, since both describe a single representative value standing in for a whole group.</p>
+  <div class="example-box">
+    <div class="ex-label">Example</div>
+    <p>Find the average of 12, 15, 18, 21, 24. Sum = 12+15+18+21+24 = 90. Count = 5. Average = 90÷5 = <strong>18</strong>.</p>
+  </div>
+
+  <!-- PERCENTAGE EXPLORER INTERACTIVE -->
+  <div class="drill-section">
+    <div class="section-eyebrow">Try It Yourself</div>
+    <h2>Percentage Explorer</h2>
+    <p class="drill-intro">Tap any problem below to see it solved step by step.</p>
+    <div class="ns-chip-row" id="pcChipRow"></div>
+    <div class="pv-info-panel">
+      <p class="pv-info-placeholder" id="pcInfoPlaceholder">Tap a problem above to see the full solution.</p>
+      <p class="pv-info-result" id="pcInfoResult" style="display:none;"></p>
+    </div>
+  </div>
+
+  <h2><span class="num">8.</span>Profit and Loss</h2>
+  <p>Every sale has a <strong>Cost Price</strong> (CP, what the seller paid) and a <strong>Selling Price</strong> (SP, what the buyer pays). If SP is higher, it's a profit; if lower, it's a loss — and both are always calculated as a percentage of the <em>Cost Price</em>, never the selling price.</p>
+  <div class="example-box">
+    <div class="ex-label">Example: Profit</div>
+    <p>CP=$200, SP=$250. Profit = 250−200=$50. Profit% = (50÷200)×100 = <strong>25%</strong>.</p>
+  </div>
+  <div class="example-box">
+    <div class="ex-label">Example: Loss</div>
+    <p>CP=$300, SP=$270. Loss = 300−270=$30. Loss% = (30÷300)×100 = <strong>10%</strong>.</p>
+  </div>
+  <div class="fixit-challenge">
+    <div class="fixit-wrong">Calculating profit% as (SP−CP)÷SP × 100</div>
+    <p>Dividing by the selling price instead of the cost price gives a smaller, incorrect percentage.</p>
+    <button class="fixit-toggle-btn" onclick="toggleFix('fix2')">Show the Fix</button>
+    <div class="fixit-explain" id="fix2">
+      <p><strong>The fix:</strong> profit and loss percentages are always calculated against the Cost Price, since that's the seller's original investment. For CP=$200, SP=$250: the correct profit% is 50÷200×100=25%, not 50÷250×100=20% (which incorrectly divides by SP).</p>
+    </div>
+  </div>
+
+  <h2><span class="num">9.</span>Discounts</h2>
+  <p>A <strong>discount</strong> is a percentage reduction off a <strong>Marked Price</strong> (MP) — the original listed price before any sale.</p>
+  <div class="example-box">
+    <div class="ex-label">Example</div>
+    <p>MP=$500, discount=15%. Discount amount = 0.15×500=$75. Selling price = 500−75=<strong>$425</strong>.</p>
+  </div>
+
+  <h2><span class="num">10.</span>Simple Interest</h2>
+  <p><strong>Simple interest</strong> is calculated only on the original amount borrowed or invested — the <strong>Principal</strong> (P) — using the formula SI = (P × R × T) ÷ 100, where R is the annual rate and T is time in years.</p>
+  <div class="example-box">
+    <div class="ex-label">Example</div>
+    <p>Principal=$1,000, Rate=5% per year, Time=3 years. SI = (1000×5×3)÷100 = <strong>$150</strong>. Total amount owed = 1000+150=<strong>$1,150</strong>.</p>
+  </div>
+
+  <h2><span class="num">11.</span>Compound Interest (A Quick Comparison)</h2>
+  <p>Unlike simple interest, <strong>compound interest</strong> is recalculated on the growing total each year — interest earns interest.</p>
+  <div class="example-box">
+    <div class="ex-label">Example</div>
+    <p>Principal=$1,000, Rate=5%, Time=2 years. Compound amount = 1000×(1.05)² = <strong>$1,102.50</strong>, giving compound interest of $102.50 — compared to just $100 in simple interest over the same 2 years. The extra $2.50 comes from year 2's interest being calculated on $1,050, not the original $1,000.</p>
+  </div>
 
   <div class="real-world-box">
     <div class="rw-label">Real-World Example</div>
-    <p>Consider two people eating the same 2,000 calories a day. One eats mostly white bread, crisps and soft drinks; the other eats vegetables, wholegrains, lean protein and fruit. Despite consuming the same number of calories, the second person is receiving far more vitamins, minerals and fibre — demonstrating that a balanced diet is about <strong>quality and proportion</strong>, not just quantity.</p>
+    <p>A store marks a jacket at $80, discounts it 25% for a sale ($60), then a shopper resells it at $75 — a profit of $15 on their $60 cost, or 25% profit. Meanwhile, $2,000 saved in a bank account at 4% simple interest for 3 years earns (2000×4×3)÷100=$240 in interest.</p>
   </div>
 
-  <h2>A Closing Thought</h2>
-  <p>A balanced diet does not require expensive foods, complicated recipes, or rigid restriction. It requires variety, moderation, and an awareness of what the body actually needs — judged across a week, not a single meal. Food is not the enemy of health; it is one of its greatest foundations.</p>
+  <div class="fun-fact-box">
+    <div class="fun-fact-label">Did You Know?</div>
+    <p>The percent symbol (%) evolved from the Italian "per cento" ("for a hundred"), gradually abbreviated over centuries from "P c°" into the two-circle-and-slash symbol used today.</p>
+  </div>
+
+  <!-- PRACTICE ARENA -->
+  <div class="drill-section">
+    <div class="section-eyebrow">Practice Arena</div>
+    <h2>Calculate It</h2>
+    <p class="drill-intro">Tap the correct answer for each question. Your score is tracked as you go, and your best score is saved on this device.</p>
+    <div class="nl-drill-progress" id="pcProgress">Question 1 of 8 &nbsp;&middot;&nbsp; Best score: <span id="pcBestScore">0</span> / 8</div>
+    <div class="pv-drill-question" id="pcDrillQuestion"></div>
+    <div class="pv-drill-choices" id="pcDrillChoices"></div>
+    <div class="drill-feedback" id="pcDrillFeedback"></div>
+    <div class="nl-drill-actions">
+      <button class="drill-btn" id="pcNextBtn" onclick="nextPcQuestion()" style="display:none;">Next Question</button>
+      <button class="drill-btn" id="pcNewSetBtn" onclick="newPcSet()" style="display:none;">Play Again</button>
+    </div>
+  </div>
+
+  <h2><span class="num">12.</span>Why This Topic Matters</h2>
+  <p>Percentages are the most consistently used piece of math in adult life — reading a sale discount, comparing loan interest rates, calculating a tip, understanding exam grades, or reading a company's profit margins. This topic — and the Number Sense strand it completes — hands you the tools to check every one of those numbers for yourself, rather than taking them on faith.</p>
 
   <!-- QUIZ SECTION -->
   <div class="quiz-section">
     <div class="section-eyebrow">Test Your Understanding</div>
-    <h2>Practice Quiz</h2>
-    <p class="quiz-intro">10 questions. Select an answer for each, then submit to see your score instantly.</p>
+    <h2>Practice Questions</h2>
+    <p class="quiz-intro">Fifteen multiple-choice questions covering percentages, averages, profit and loss, discounts, and interest. Tap "Show Answer" under any question to check it individually, or reveal the full answer key at the end.</p>
 
-    <div class="squiz-progress"><div class="squiz-progress-fill" id="squizProgressFill"></div></div>
-    <div class="squiz-progress-label" id="squizProgressLabel">0 of 10 answered</div>
-
-    <div class="squiz-results" id="squizResults">
-      <div class="squiz-score-big" id="squizScoreBig">0/10</div>
-      <div class="squiz-score-label" id="squizScoreLabel">You scored 0%</div>
-      <div class="squiz-score-tier" id="squizScoreTier">Keep practicing</div>
-      <div><button class="squiz-retake-btn" onclick="retakeQuiz()">Retake Quiz</button></div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">1.</span>What is 40% of 150?</div>
+      <ul class="quiz-options"><li>A. 40</li><li>B. 60</li><li>C. 75</li><li>D. 90</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a1')">Show Answer</button>
+      <div class="quiz-answer" id="a1"><strong>Answer: B — 60.</strong> 0.40 × 150 = 60.</div>
     </div>
 
-    <form id="squizForm">
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">2.</span>36 is what percentage of 90?</div>
+      <ul class="quiz-options"><li>A. 30%</li><li>B. 36%</li><li>C. 40%</li><li>D. 44%</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a2')">Show Answer</button>
+      <div class="quiz-answer" id="a2"><strong>Answer: C — 40%.</strong> (36÷90)×100=40%.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">1.</span>What does the word "balanced" mean in the context of diet?</div>
-        <div class="squiz-option"><input type="radio" name="sq1" id="sq1a" value="0"><label for="sq1a">A. Eating exactly equal amounts of every food</label></div>
-        <div class="squiz-option"><input type="radio" name="sq1" id="sq1b" value="1"><label for="sq1b">B. Eating the right proportions of different foods and nutrients</label></div>
-        <div class="squiz-option"><input type="radio" name="sq1" id="sq1c" value="2"><label for="sq1c">C. Eating the same meal every day</label></div>
-        <div class="squiz-option"><input type="radio" name="sq1" id="sq1d" value="3"><label for="sq1d">D. Avoiding all fats and sugars</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">3.</span>A price rises from $60 to $75. What is the percentage increase?</div>
+      <ul class="quiz-options"><li>A. 15%</li><li>B. 20%</li><li>C. 25%</li><li>D. 30%</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a3')">Show Answer</button>
+      <div class="quiz-answer" id="a3"><strong>Answer: C — 25%.</strong> Increase=15; (15÷60)×100=25%.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="2">
-        <div class="squiz-q"><span class="qnum">2.</span>Which macronutrient is the body's primary source of energy?</div>
-        <div class="squiz-option"><input type="radio" name="sq2" id="sq2a" value="0"><label for="sq2a">A. Protein</label></div>
-        <div class="squiz-option"><input type="radio" name="sq2" id="sq2b" value="1"><label for="sq2b">B. Water</label></div>
-        <div class="squiz-option"><input type="radio" name="sq2" id="sq2c" value="2"><label for="sq2c">C. Carbohydrates</label></div>
-        <div class="squiz-option"><input type="radio" name="sq2" id="sq2d" value="3"><label for="sq2d">D. Fibre</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">4.</span>After a 20% increase, a price is $96. What was the original price?</div>
+      <ul class="quiz-options"><li>A. $76</li><li>B. $80</li><li>C. $84</li><li>D. $116</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a4')">Show Answer</button>
+      <div class="quiz-answer" id="a4"><strong>Answer: B — $80.</strong> $96 is 120% of the original: 96÷1.20=80.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">3.</span>Which macronutrient acts as the main building block for cells, tissues and hormones?</div>
-        <div class="squiz-option"><input type="radio" name="sq3" id="sq3a" value="0"><label for="sq3a">A. Fat</label></div>
-        <div class="squiz-option"><input type="radio" name="sq3" id="sq3b" value="1"><label for="sq3b">B. Protein</label></div>
-        <div class="squiz-option"><input type="radio" name="sq3" id="sq3c" value="2"><label for="sq3c">C. Carbohydrates</label></div>
-        <div class="squiz-option"><input type="radio" name="sq3" id="sq3d" value="3"><label for="sq3d">D. Vitamin C</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">5.</span>Does a 20% increase followed by a 20% decrease return to the original value?</div>
+      <ul class="quiz-options"><li>A. Yes, always</li><li>B. No — the result is lower than the original</li><li>C. No — the result is higher than the original</li><li>D. Only for values above 100</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a5')">Show Answer</button>
+      <div class="quiz-answer" id="a5"><strong>Answer: B.</strong> 100→120→96 — the second percentage applies to the new, larger value, so it never fully cancels out.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="2">
-        <div class="squiz-q"><span class="qnum">4.</span>Which nutrient is essential for brain function, hormone production and absorbing certain vitamins?</div>
-        <div class="squiz-option"><input type="radio" name="sq4" id="sq4a" value="0"><label for="sq4a">A. Fibre</label></div>
-        <div class="squiz-option"><input type="radio" name="sq4" id="sq4b" value="1"><label for="sq4b">B. Iron</label></div>
-        <div class="squiz-option"><input type="radio" name="sq4" id="sq4c" value="2"><label for="sq4c">C. Fat</label></div>
-        <div class="squiz-option"><input type="radio" name="sq4" id="sq4d" value="3"><label for="sq4d">D. Water</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">6.</span>Find the average of 8, 12, 16, and 20.</div>
+      <ul class="quiz-options"><li>A. 12</li><li>B. 14</li><li>C. 16</li><li>D. 18</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a6')">Show Answer</button>
+      <div class="quiz-answer" id="a6"><strong>Answer: B — 14.</strong> Sum = 8+12+16+20 = 56. Average = 56÷4 = 14.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="3">
-        <div class="squiz-q"><span class="qnum">5.</span>Which vitamin, obtained mainly from sunlight, is essential for bone health?</div>
-        <div class="squiz-option"><input type="radio" name="sq5" id="sq5a" value="0"><label for="sq5a">A. Vitamin C</label></div>
-        <div class="squiz-option"><input type="radio" name="sq5" id="sq5b" value="1"><label for="sq5b">B. Vitamin B12</label></div>
-        <div class="squiz-option"><input type="radio" name="sq5" id="sq5c" value="2"><label for="sq5c">C. Calcium</label></div>
-        <div class="squiz-option"><input type="radio" name="sq5" id="sq5d" value="3"><label for="sq5d">D. Vitamin D</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">7.</span>A shopkeeper buys a chair for $80 (CP) and sells it for $100 (SP). What is the profit percentage?</div>
+      <ul class="quiz-options"><li>A. 20%</li><li>B. 25%</li><li>C. 15%</li><li>D. 80%</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a7')">Show Answer</button>
+      <div class="quiz-answer" id="a7"><strong>Answer: B — 25%.</strong> Profit=$20; profit%=(20÷80)×100=25% (always calculated on CP).</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">6.</span>Which mineral is needed to produce haemoglobin, which carries oxygen in the blood?</div>
-        <div class="squiz-option"><input type="radio" name="sq6" id="sq6a" value="0"><label for="sq6a">A. Calcium</label></div>
-        <div class="squiz-option"><input type="radio" name="sq6" id="sq6b" value="1"><label for="sq6b">B. Iron</label></div>
-        <div class="squiz-option"><input type="radio" name="sq6" id="sq6c" value="2"><label for="sq6c">C. Vitamin C</label></div>
-        <div class="squiz-option"><input type="radio" name="sq6" id="sq6d" value="3"><label for="sq6d">D. Vitamin B12</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">8.</span>A trader buys a fan for $150 and sells it for $120. What is the loss percentage?</div>
+      <ul class="quiz-options"><li>A. 15%</li><li>B. 20%</li><li>C. 25%</li><li>D. 30%</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a8')">Show Answer</button>
+      <div class="quiz-answer" id="a8"><strong>Answer: B — 20%.</strong> Loss=$30; loss%=(30÷150)×100=20%.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">7.</span>What is dietary fibre mainly responsible for?</div>
-        <div class="squiz-option"><input type="radio" name="sq7" id="sq7a" value="0"><label for="sq7a">A. Building muscle tissue</label></div>
-        <div class="squiz-option"><input type="radio" name="sq7" id="sq7b" value="1"><label for="sq7b">B. Digestive health and regulating blood sugar</label></div>
-        <div class="squiz-option"><input type="radio" name="sq7" id="sq7c" value="2"><label for="sq7c">C. Producing red blood cells</label></div>
-        <div class="squiz-option"><input type="radio" name="sq7" id="sq7d" value="3"><label for="sq7d">D. Absorbing vitamin D</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">9.</span>A jacket marked at $80 is discounted by 25%. What is the selling price?</div>
+      <ul class="quiz-options"><li>A. $55</li><li>B. $60</li><li>C. $65</li><li>D. $20</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a9')">Show Answer</button>
+      <div class="quiz-answer" id="a9"><strong>Answer: B — $60.</strong> Discount=0.25×80=$20; SP=80−20=$60.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="2">
-        <div class="squiz-q"><span class="qnum">8.</span>Roughly what percentage of the human body is water?</div>
-        <div class="squiz-option"><input type="radio" name="sq8" id="sq8a" value="0"><label for="sq8a">A. About 25%</label></div>
-        <div class="squiz-option"><input type="radio" name="sq8" id="sq8b" value="1"><label for="sq8b">B. About 40%</label></div>
-        <div class="squiz-option"><input type="radio" name="sq8" id="sq8c" value="2"><label for="sq8c">C. About 60%</label></div>
-        <div class="squiz-option"><input type="radio" name="sq8" id="sq8d" value="3"><label for="sq8d">D. About 90%</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">10.</span>What is the simple interest on $1,000 at 5% per year for 3 years?</div>
+      <ul class="quiz-options"><li>A. $50</li><li>B. $100</li><li>C. $150</li><li>D. $1,150</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a10')">Show Answer</button>
+      <div class="quiz-answer" id="a10"><strong>Answer: C — $150.</strong> SI = (1000×5×3)÷100 = $150.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">9.</span>In the practical "plate" method described in the article, what proportion should be vegetables and fruit?</div>
-        <div class="squiz-option"><input type="radio" name="sq9" id="sq9a" value="0"><label for="sq9a">A. A quarter</label></div>
-        <div class="squiz-option"><input type="radio" name="sq9" id="sq9b" value="1"><label for="sq9b">B. About half</label></div>
-        <div class="squiz-option"><input type="radio" name="sq9" id="sq9c" value="2"><label for="sq9c">C. All of it</label></div>
-        <div class="squiz-option"><input type="radio" name="sq9" id="sq9d" value="3"><label for="sq9d">D. A tenth</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">11.</span>What total amount is owed after the simple interest in the previous question?</div>
+      <ul class="quiz-options"><li>A. $1,050</li><li>B. $1,100</li><li>C. $1,150</li><li>D. $1,500</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a11')">Show Answer</button>
+      <div class="quiz-answer" id="a11"><strong>Answer: C — $1,150.</strong> Principal + interest = 1000+150 = 1,150.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="2">
-        <div class="squiz-q"><span class="qnum">10.</span>According to the article, over what timeframe should a balanced diet be judged?</div>
-        <div class="squiz-option"><input type="radio" name="sq10" id="sq10a" value="0"><label for="sq10a">A. A single meal</label></div>
-        <div class="squiz-option"><input type="radio" name="sq10" id="sq10b" value="1"><label for="sq10b">B. One day only</label></div>
-        <div class="squiz-option"><input type="radio" name="sq10" id="sq10c" value="2"><label for="sq10c">C. Across a week, not meal by meal</label></div>
-        <div class="squiz-option"><input type="radio" name="sq10" id="sq10d" value="3"><label for="sq10d">D. A full calendar year</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">12.</span>Why is compound interest on $1,000 at 5% for 2 years ($102.50) more than simple interest over the same period ($100)?</div>
+      <ul class="quiz-options"><li>A. It's a calculation error</li><li>B. Compound interest recalculates on the growing total each year</li><li>C. Compound interest uses a higher rate automatically</li><li>D. There's no real difference</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a12')">Show Answer</button>
+      <div class="quiz-answer" id="a12"><strong>Answer: B.</strong> The second year's interest is calculated on $1,050, not the original $1,000, adding an extra $2.50.</div>
+    </div>
 
-<button type="button" class="squiz-submit-btn" id="squizSubmitBtn" onclick="submitQuiz()" disabled>Answer all questions to submit</button>
-    </form>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">13.</span>Profit and loss percentages should always be calculated as a percentage of which value?</div>
+      <ul class="quiz-options"><li>A. Selling Price</li><li>B. Cost Price</li><li>C. Marked Price</li><li>D. Whichever is larger</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a13')">Show Answer</button>
+      <div class="quiz-answer" id="a13"><strong>Answer: B — Cost Price.</strong> Profit and loss percentages always use the original amount the seller paid.</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">14.</span>Convert 3/8 to a percentage.</div>
+      <ul class="quiz-options"><li>A. 30%</li><li>B. 32.5%</li><li>C. 37.5%</li><li>D. 38%</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a14')">Show Answer</button>
+      <div class="quiz-answer" id="a14"><strong>Answer: C — 37.5%.</strong> 3÷8=0.375, ×100=37.5%.</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">15.</span>A $2,000 deposit earns 4% simple interest per year for 3 years. How much interest is earned?</div>
+      <ul class="quiz-options"><li>A. $80</li><li>B. $160</li><li>C. $240</li><li>D. $2,240</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a15')">Show Answer</button>
+      <div class="quiz-answer" id="a15"><strong>Answer: C — $240.</strong> SI=(2000×4×3)÷100=$240.</div>
+    </div>
+
+    <button class="answer-key-toggle" id="keyToggleBtn" onclick="toggleAllAnswers()">Show Full Answer Key</button>
   </div>
 
   <div class="article-footer-nav">
-    <a href="index.html">← Back to Health</a>
-    <a href="index.html">More Health Topics →</a>
+    <a href="ratio-and-proportion.html">← Back to Ratio &amp; Proportion</a>
+    <a href="units-of-measurement.html">Next: Units of Measurement →</a>
   </div>
 
 </div>
-
 <script>
-  (function() {
-    const form = document.getElementById('squizForm');
-    const submitBtn = document.getElementById('squizSubmitBtn');
-    const progressFill = document.getElementById('squizProgressFill');
-    const progressLabel = document.getElementById('squizProgressLabel');
-    const totalQuestions = document.querySelectorAll('.squiz-item').length;
-
-    function countAnswered() {
-      let count = 0;
-      for (let i = 1; i <= totalQuestions; i++) {
-        if (form.querySelector(`input[name="sq${i}"]:checked`)) count++;
-      }
-      return count;
-    }
-
-    function updateProgress() {
-      const answered = countAnswered();
-      progressFill.style.width = (answered / totalQuestions * 100) + '%';
-      progressLabel.textContent = answered + ' of ' + totalQuestions + ' answered';
-      submitBtn.disabled = answered < totalQuestions;
-      submitBtn.textContent = answered < totalQuestions ? 'Answer all questions to submit' : 'Submit Quiz';
-      document.querySelectorAll('.squiz-option').forEach(opt => opt.classList.remove('selected'));
-      form.querySelectorAll('input[type="radio"]:checked').forEach(input => {
-        input.closest('.squiz-option').classList.add('selected');
-      });
-    }
-
-    form.addEventListener('change', updateProgress);
-
-    window.submitQuiz = function() {
-      let score = 0;
-      const questions = document.querySelectorAll('.squiz-item');
-      questions.forEach((q, idx) => {
-        const qnum = idx + 1;
-        const correctIdx = q.getAttribute('data-correct');
-        const selected = form.querySelector(`input[name="sq${qnum}"]:checked`);
-        const options = q.querySelectorAll('.squiz-option');
-        options.forEach((opt, optIdx) => {
-          opt.querySelector('input').disabled = true;
-          if (String(optIdx) === correctIdx) opt.classList.add('correct-answer');
+  function toggleAnswer(id) {
+    document.getElementById(id).classList.toggle('visible');
+  }
+  function toggleAllAnswers() {
+    var answers = document.querySelectorAll('.quiz-answer');
+    var btn = document.getElementById('keyToggleBtn');
+    var anyHidden = Array.prototype.some.call(answers, function(a){ return !a.classList.contains('visible'); });
+    answers.forEach(function(a) {
+      if (anyHidden) { a.classList.add('visible'); } else { a.classList.remove('visible'); }
+    });
+    btn.textContent = anyHidden ? 'Hide Full Answer Key' : 'Show Full Answer Key';
+  }
+  function toggleFix(id) {
+    document.getElementById(id).classList.toggle('visible');
+  }
+  function initQuizOptionSelection() {
+    document.querySelectorAll('.quiz-item').forEach(function(item) {
+      var options = item.querySelectorAll('.quiz-options li');
+      options.forEach(function(li) {
+        li.addEventListener('click', function() {
+          options.forEach(function(o) { o.classList.remove('selected'); });
+          li.classList.add('selected');
         });
-        if (selected && selected.value === correctIdx) {
-          score++;
-        } else if (selected) {
-          selected.closest('.squiz-option').classList.add('wrong-answer');
-        }
       });
+    });
+  }
+  initQuizOptionSelection();
 
-      const percent = Math.round((score / totalQuestions) * 100);
-      document.getElementById('squizScoreBig').textContent = score + '/' + totalQuestions;
-      document.getElementById('squizScoreLabel').textContent = 'You scored ' + percent + '%';
+  /* ── PERCENTAGE EXPLORER ── */
+  var PC_CHIPS = [
+    {label: "30% of 250", steps: ["Convert to decimal: 30% = 0.30", "Multiply: 0.30 \u00d7 250 = 75"]},
+    {label: "54 is what % of 216?", steps: ["Divide: 54 \u00f7 216 = 0.25", "Convert to percentage: 0.25 \u00d7 100 = 25%"]},
+    {label: "60 \u2192 90: % increase?", steps: ["Increase = 90 \u2212 60 = 30", "Percentage: (30 \u00f7 60) \u00d7 100 = 50%"]},
+    {label: "CP=$150, SP=$180: profit%?", steps: ["Profit = 180 \u2212 150 = $30", "Profit% = (30 \u00f7 150) \u00d7 100 = 20% (always on CP)"]},
+    {label: "MP=$1200, 20% discount: SP?", steps: ["Discount amount = 0.20 \u00d7 1200 = $240", "SP = 1200 \u2212 240 = $960"]},
+    {label: "SI: P=$800, R=6%, T=4yrs", steps: ["SI = (P \u00d7 R \u00d7 T) \u00f7 100", "SI = (800 \u00d7 6 \u00d7 4) \u00f7 100 = $192"]},
+    {label: "Average of 10,20,30,40,50", steps: ["Sum = 10+20+30+40+50 = 150", "Average = 150 \u00f7 5 = 30"]}
+  ];
+  var pcActiveChip = null;
 
-      let tier = 'Keep practicing';
-      if (percent === 100) tier = 'Perfect score!';
-      else if (percent >= 80) tier = 'Excellent work';
-      else if (percent >= 60) tier = 'Good effort';
-      else if (percent >= 40) tier = 'Getting there';
-      document.getElementById('squizScoreTier').textContent = tier;
+  function renderPcChips() {
+    var row = document.getElementById('pcChipRow');
+    row.innerHTML = '';
+    PC_CHIPS.forEach(function(chip, i) {
+      var el = document.createElement('div');
+      el.className = 'ns-chip';
+      el.textContent = chip.label;
+      if (i === pcActiveChip) el.classList.add('active');
+      el.onclick = (function(idx) { return function() { selectPcChip(idx); }; })(i);
+      row.appendChild(el);
+    });
+  }
 
-      document.getElementById('squizResults').classList.add('visible');
-      submitBtn.style.display = 'none';
-      document.getElementById('squizResults').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
+  function selectPcChip(idx) {
+    pcActiveChip = idx;
+    renderPcChips();
+    var chip = PC_CHIPS[idx];
+    document.getElementById('pcInfoPlaceholder').style.display = 'none';
+    var resultEl = document.getElementById('pcInfoResult');
+    resultEl.style.display = 'block';
+    var stepsHtml = chip.steps.map(function(s, i) { return (i+1) + '. ' + s; }).join('<br>');
+    resultEl.innerHTML = '<strong>' + chip.label + '</strong><br>' + stepsHtml;
+  }
 
-    window.retakeQuiz = function() {
-      form.reset();
-      document.querySelectorAll('.squiz-option').forEach(opt => {
-        opt.classList.remove('selected', 'correct-answer', 'wrong-answer');
-        opt.querySelector('input').disabled = false;
-      });
-      document.getElementById('squizResults').classList.remove('visible');
-      submitBtn.style.display = 'block';
-      updateProgress();
-      document.getElementById('squizForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
+  renderPcChips();
 
-    updateProgress();
-  })();
+  /* ── PRACTICE ARENA: Calculate It ── */
+  var PC_QUESTION_POOL = [
+    {q: "What is 15% of 200?", choices: ["20", "25", "30", "35"], correct: 2},
+    {q: "28 is what percentage of 70?", choices: ["35%", "40%", "45%", "50%"], correct: 1},
+    {q: "A price rises from $50 to $65. What is the % increase?", choices: ["15%", "20%", "25%", "30%"], correct: 3},
+    {q: "CP=$120, SP=$150. What is the profit percentage?", choices: ["20%", "25%", "30%", "15%"], correct: 1},
+    {q: "CP=$250, SP=$200. What is the loss percentage?", choices: ["15%", "20%", "25%", "50%"], correct: 1},
+    {q: "MP=$600, discount=10%. What is the selling price?", choices: ["$540", "$560", "$500", "$580"], correct: 0},
+    {q: "Find the simple interest: P=$500, R=8%, T=2 years", choices: ["$40", "$60", "$80", "$100"], correct: 2},
+    {q: "Find the average of 5, 10, 15, and 20", choices: ["10", "12.5", "15", "17.5"], correct: 1}
+  ];
+  var PC_TOTAL_QUESTIONS = 8;
+  var PC_STORAGE_KEY = 'pc_best_score';
+  var pcQuestions = [];
+  var pcIndex = 0;
+  var pcCorrectCount = 0;
+
+  function shufflePcArray(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
+  function newPcSet() {
+    pcQuestions = shufflePcArray(PC_QUESTION_POOL).slice(0, PC_TOTAL_QUESTIONS);
+    pcIndex = 0;
+    pcCorrectCount = 0;
+    document.getElementById('pcNewSetBtn').style.display = 'none';
+    renderPcQuestion();
+    updatePcBestScoreDisplay();
+  }
+
+  function renderPcQuestion() {
+    var q = pcQuestions[pcIndex];
+    document.getElementById('pcProgress').innerHTML = 'Question ' + (pcIndex + 1) + ' of ' + pcQuestions.length + ' &nbsp;\u00b7&nbsp; Best score: <span id="pcBestScore">' + getPcBestScore() + '</span> / ' + PC_TOTAL_QUESTIONS;
+    document.getElementById('pcDrillQuestion').textContent = q.q;
+    document.getElementById('pcDrillFeedback').textContent = '';
+    document.getElementById('pcNextBtn').style.display = 'none';
+
+    var choicesEl = document.getElementById('pcDrillChoices');
+    choicesEl.innerHTML = '';
+    q.choices.forEach(function(choice, i) {
+      var btn = document.createElement('button');
+      btn.className = 'pv-choice-btn';
+      btn.textContent = choice;
+      btn.onclick = function() { checkPcAnswer(i, btn); };
+      choicesEl.appendChild(btn);
+    });
+  }
+
+  function checkPcAnswer(selectedIdx, btnEl) {
+    var q = pcQuestions[pcIndex];
+    var allBtns = document.querySelectorAll('#pcDrillChoices .pv-choice-btn');
+    allBtns.forEach(function(b) { b.disabled = true; });
+
+    var isCorrect = selectedIdx === q.correct;
+    if (isCorrect) {
+      pcCorrectCount++;
+      btnEl.classList.add('correct');
+    } else {
+      btnEl.classList.add('incorrect');
+      allBtns[q.correct].classList.add('correct');
+    }
+
+    document.getElementById('pcDrillFeedback').textContent = isCorrect ? 'Correct!' : 'Not quite — the correct answer is highlighted.';
+
+    if (pcIndex < pcQuestions.length - 1) {
+      document.getElementById('pcNextBtn').style.display = 'inline-block';
+    } else {
+      finishPcSet();
+    }
+  }
+
+  function nextPcQuestion() {
+    pcIndex++;
+    renderPcQuestion();
+  }
+
+  function finishPcSet() {
+    document.getElementById('pcProgress').textContent = 'Finished! You got ' + pcCorrectCount + ' out of ' + pcQuestions.length + ' correct.';
+    document.getElementById('pcDrillQuestion').textContent = '';
+    document.getElementById('pcDrillChoices').innerHTML = '';
+    var best = getPcBestScore();
+    if (pcCorrectCount > best) {
+      localStorage.setItem(PC_STORAGE_KEY, pcCorrectCount);
+    }
+    document.getElementById('pcNewSetBtn').style.display = 'inline-block';
+    updatePcBestScoreDisplay();
+  }
+
+  function getPcBestScore() {
+    return parseInt(localStorage.getItem(PC_STORAGE_KEY) || '0', 10);
+  }
+
+  function updatePcBestScoreDisplay() {
+    var el = document.getElementById('pcBestScore');
+    if (el) el.textContent = getPcBestScore();
+  }
+
+  newPcSet();
 </script>
-
 <footer>
   <div class="footer-top">
     <div class="footer-brand">

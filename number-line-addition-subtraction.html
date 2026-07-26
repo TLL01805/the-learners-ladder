@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>What is a Balanced Diet and Why Does It Matter? — The Learners Ladder</title>
+<title>Addition & Subtraction on the Number Line — The Learners Ladder</title>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -279,11 +279,17 @@
   .quiz-q .qnum { color: var(--red); margin-right: 0.4rem; }
   .quiz-options { list-style: none; margin: 0 0 0.9rem; }
   .quiz-options li {
-    padding: 0.4rem 0;
+    padding: 0.4rem 0.6rem;
     color: var(--slate);
     font-size: 0.96rem;
     padding-left: 1.4rem;
     position: relative;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .quiz-options li:hover {
+    background: rgba(212,175,55,0.1);
   }
   .quiz-options li::before {
     content: "";
@@ -291,6 +297,15 @@
     width: 6px; height: 6px;
     background: var(--border);
     border-radius: 50%;
+    transition: background 0.15s;
+  }
+  .quiz-options li.selected {
+    background: rgba(212,175,55,0.22);
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .quiz-options li.selected::before {
+    background: var(--red);
   }
   .show-answer-btn {
     background: var(--navy);
@@ -359,6 +374,167 @@
     .article-hero h1 { font-size: 1.7rem; }
     .article-wrap { padding: 2rem 1.25rem 3rem; }
   }
+  /* ── FUN FACT BOX (reusable) ── */
+  .fun-fact-box {
+    background: linear-gradient(135deg, rgba(212,175,55,0.12), rgba(212,175,55,0.04));
+    border: 1.5px dashed var(--gold);
+    border-radius: var(--radius);
+    padding: 1.3rem 1.5rem;
+    margin: 1.8rem 0;
+    position: relative;
+  }
+  .fun-fact-label {
+    font-weight: 700;
+    color: var(--red);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .fun-fact-box p { margin: 0; }
+
+  /* ── FIX-IT CHALLENGE CARDS (reusable) ── */
+  .fixit-challenge {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-left: 5px solid var(--red);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.4rem;
+    margin: 1.2rem 0;
+  }
+  .fixit-wrong {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.15rem;
+    color: var(--red);
+    text-decoration: line-through;
+    margin-bottom: 0.4rem;
+  }
+  .fixit-toggle-btn {
+    background: none;
+    border: 1.5px solid var(--red);
+    color: var(--red);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.4rem 0.9rem;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 0.3rem;
+  }
+  .fixit-explain { display: none; margin-top: 0.7rem; padding-top: 0.7rem; border-top: 1px dashed rgba(0,0,0,0.15); }
+  .fixit-explain.visible { display: block; }
+
+  /* ── PRACTICE ARENA / DRILL (reusable) ── */
+  .drill-section {
+    background: var(--navy);
+    border-radius: var(--radius);
+    padding: 2rem 1.7rem;
+    margin-top: 3rem;
+  }
+  .drill-section .section-eyebrow { color: var(--gold); }
+  .drill-section h2 { border: none; margin: 0 0 0.4rem; padding: 0; color: white; }
+  .drill-intro { color: rgba(255,255,255,0.65); font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .drill-controls { display: flex; gap: 0.8rem; align-items: center; margin-bottom: 1.3rem; flex-wrap: wrap; }
+  .drill-btn {
+    background: var(--red);
+    color: white;
+    border: none;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 0.55rem 1.1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .drill-btn:hover { background: var(--red-mid); }
+  .drill-score { color: var(--gold); font-size: 0.88rem; font-weight: 600; }
+  .drill-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+  @media (max-width: 600px) { .drill-grid { grid-template-columns: 1fr; } }
+  .drill-item {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius);
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+  .drill-q { color: white; font-size: 1rem; font-weight: 500; }
+  .drill-fraction-inputs { display: flex; align-items: center; gap: 0.3rem; }
+  .drill-input {
+    width: 46px;
+    padding: 0.35rem 0.3rem;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.95);
+    font-size: 0.95rem;
+    text-align: center;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+  .drill-slash { color: white; font-size: 1.2rem; }
+  .drill-input.correct { outline: 3px solid #4CAF50; }
+  .drill-input.incorrect { outline: 3px solid #E57373; }
+  .drill-feedback { margin-top: 1.2rem; color: white; font-size: 0.95rem; min-height: 1.4rem; }
+
+  /* ── NUMBER LINE VISUAL (static, for examples) ── */
+  .number-line-visual {
+    position: relative;
+    height: 60px;
+    margin: 1.6rem 0.5rem 2.2rem;
+  }
+  .nl-track { position: absolute; top: 28px; left: 0; right: 0; height: 3px; background: var(--navy); }
+  .nl-tick { position: absolute; top: 21px; width: 2px; height: 17px; background: var(--navy); }
+  .nl-tick-label { position: absolute; top: 42px; transform: translateX(-50%); font-size: 0.8rem; color: var(--slate); }
+  .nl-point { position: absolute; top: 19px; width: 14px; height: 14px; border-radius: 50%; background: var(--red); transform: translateX(-50%); border: 2px solid white; box-shadow: 0 0 0 1.5px var(--red); }
+  .nl-point-label { position: absolute; top: -24px; transform: translateX(-50%); font-size: 0.85rem; font-weight: 700; color: var(--red); white-space: nowrap; }
+
+  /* ── NUMBER LINE JUMP VISUAL (static, for addition/subtraction examples) ── */
+  .nl-jump-visual { position: relative; height: 95px; margin: 2rem 0.5rem 2.4rem; }
+  .nl-jump-track { position: absolute; top: 55px; left: 0; right: 0; height: 3px; background: var(--navy); }
+  .nl-jump-tick { position: absolute; top: 48px; width: 2px; height: 17px; background: var(--navy); }
+  .nl-jump-tick-label { position: absolute; top: 76px; transform: translateX(-50%); font-size: 0.8rem; color: var(--slate); }
+  .nl-jump-arc { position: absolute; top: 30px; height: 3px; background: var(--red); border-radius: 2px; }
+  .nl-jump-arrowhead { position: absolute; top: 19px; font-size: 1.15rem; color: var(--red); font-weight: 700; transform: translateX(-50%); line-height: 1; }
+  .nl-jump-label { position: absolute; top: 0px; transform: translateX(-50%); font-size: 0.9rem; font-weight: 700; color: var(--red); white-space: nowrap; }
+  .nl-start-pt { position: absolute; top: 49px; width: 12px; height: 12px; border-radius: 50%; background: white; transform: translateX(-50%); border: 3px solid var(--navy); z-index: 2; }
+  .nl-end-pt { position: absolute; top: 48px; width: 14px; height: 14px; border-radius: 50%; background: var(--red); transform: translateX(-50%); border: 2px solid white; box-shadow: 0 0 0 1.5px var(--red); z-index: 3; }
+
+  /* ── NUMBER LINE DRILL: start-point reference marker ── */
+  .nl-drill-start-marker {
+    position: absolute; top: 27px; width: 14px; height: 14px;
+    border-radius: 50%; transform: translateX(-50%);
+    background: rgba(255,255,255,0.85); border: 3px solid var(--gold);
+    z-index: 1;
+  }
+
+  /* ── NUMBER LINE DRILL (interactive, click-to-place) ── */
+  .nl-drill-progress { color: var(--gold); text-align: center; font-size: 0.85rem; margin-bottom: 0.6rem; letter-spacing: 0.03em; }
+  .nl-drill-target { color: white; text-align: center; font-size: 1.25rem; font-weight: 700; margin-bottom: 1.8rem; }
+  .nl-drill-track {
+    position: relative;
+    height: 70px;
+    margin: 0 0.5rem 1.5rem;
+    cursor: crosshair;
+    touch-action: none;
+  }
+  .nl-drill-line { position: absolute; top: 34px; left: 0; right: 0; height: 3px; background: rgba(255,255,255,0.45); }
+  .nl-drill-tick { position: absolute; top: 27px; width: 2px; height: 17px; background: rgba(255,255,255,0.5); }
+  .nl-drill-tick-label { position: absolute; top: 46px; transform: translateX(-50%); font-size: 0.78rem; color: rgba(255,255,255,0.55); }
+  .nl-drill-marker {
+    position: absolute; top: 25px; width: 18px; height: 18px;
+    border-radius: 50%; transform: translateX(-50%);
+    border: 2px solid white;
+  }
+  .nl-drill-marker.user { background: var(--gold); }
+  .nl-drill-marker.correct-pos { background: #4CAF50; }
+  .nl-drill-marker.incorrect-pos { background: #E57373; }
+  .nl-drill-feedback-text { color: white; text-align: center; margin-top: 0.4rem; min-height: 1.4rem; font-size: 0.95rem; }
+  .nl-drill-actions { display: flex; justify-content: center; gap: 0.8rem; margin-top: 1rem; flex-wrap: wrap; }
+
   @media (max-width: 680px) {
     .top-bar { display: none; }
     nav {
@@ -433,115 +609,6 @@
     .footer-top { grid-template-columns: 1fr 1fr; }
     footer { padding: 2rem 1.25rem 0; }
   }
-
-  /* SCORED QUIZ (click-to-highlight + real scoring) */
-  .squiz-progress {
-    background: var(--cream);
-    border-radius: 30px;
-    height: 8px;
-    overflow: hidden;
-    margin-bottom: 0.4rem;
-  }
-  .squiz-progress-fill {
-    background: var(--gold);
-    height: 100%;
-    width: 0%;
-    transition: width 0.25s ease;
-  }
-  .squiz-progress-label {
-    font-size: 0.78rem;
-    color: var(--muted);
-    text-align: right;
-    margin-bottom: 1.3rem;
-  }
-  .squiz-item {
-    background: var(--white);
-    border: 1px solid var(--border-lt);
-    border-radius: var(--radius);
-    padding: 1.1rem 1.3rem;
-    margin-bottom: 1rem;
-  }
-  .squiz-q {
-    font-weight: 600;
-    color: var(--ink);
-    margin-bottom: 0.8rem;
-    font-size: 1rem;
-  }
-  .squiz-q .qnum { color: var(--red); margin-right: 0.4rem; }
-  .squiz-option {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
-    padding: 0.6rem 0.8rem;
-    border: 1px solid var(--border-lt);
-    border-radius: var(--radius);
-    margin-bottom: 0.5rem;
-    cursor: pointer;
-    transition: border-color 0.15s, background 0.15s;
-  }
-  .squiz-option:hover { border-color: var(--gold); }
-  .squiz-option input[type="radio"] { accent-color: var(--red); width: 16px; height: 16px; flex-shrink: 0; }
-  .squiz-option label { cursor: pointer; font-size: 0.94rem; color: var(--slate); flex: 1; }
-  .squiz-option.selected { border-color: var(--red); background: rgba(139,0,0,0.04); }
-  .squiz-option.correct-answer { border-color: #2e7d32; background: rgba(46,125,50,0.08); }
-  .squiz-option.wrong-answer { border-color: var(--red); background: rgba(139,0,0,0.08); }
-  .squiz-submit-btn {
-    display: block;
-    width: 100%;
-    background: var(--red);
-    color: white;
-    border: none;
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 0.98rem;
-    font-weight: 600;
-    padding: 0.9rem;
-    border-radius: var(--radius);
-    cursor: pointer;
-    margin-top: 0.6rem;
-    transition: background 0.2s;
-  }
-  .squiz-submit-btn:hover { background: var(--red-mid); }
-  .squiz-submit-btn:disabled { background: var(--border); cursor: not-allowed; }
-  .squiz-results {
-    display: none;
-    background: var(--navy);
-    border-radius: var(--radius);
-    padding: 2rem 1.6rem;
-    text-align: center;
-    margin-bottom: 1.8rem;
-  }
-  .squiz-results.visible { display: block; }
-  .squiz-results .squiz-score-big {
-    font-family: 'EB Garamond', serif;
-    font-size: 2.8rem;
-    font-weight: 600;
-    color: var(--gold);
-    line-height: 1;
-    margin-bottom: 0.3rem;
-  }
-  .squiz-results .squiz-score-label { color: rgba(255,255,255,0.7); font-size: 0.98rem; margin-bottom: 1rem; }
-  .squiz-results .squiz-score-tier {
-    display: inline-block;
-    font-size: 0.82rem;
-    font-weight: 600;
-    padding: 0.4rem 1rem;
-    border-radius: 30px;
-    background: rgba(184,150,62,0.15);
-    color: var(--gold);
-    margin-bottom: 1.2rem;
-  }
-  .squiz-retake-btn {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.3);
-    color: white;
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 0.88rem;
-    font-weight: 600;
-    padding: 0.65rem 1.4rem;
-    border-radius: 30px;
-    cursor: pointer;
-  }
-  .squiz-retake-btn:hover { background: rgba(255,255,255,0.1); }
 </style>
 </head>
 <body>
@@ -575,277 +642,550 @@
     <li><a href="index.html#resources">Resources</a></li>
   </ul>
 </nav>
-
-<!-- ARTICLE HERO -->
 <div class="article-hero">
-  <div class="breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; <a href="index.html">Health</a> &nbsp;/&nbsp; What is a Balanced Diet?</div>
-  <div class="article-hero-tag">Health · Nutrition</div>
-  <h1>What is a Balanced Diet and Why Does It Matter?</h1>
-  <p class="sub">The phrase "balanced diet" appears constantly in health advice, school lessons and food labels — yet it is rarely explained with real clarity. This guide sets out exactly what it means, and why it matters.</p>
+  <div class="breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; <a href="index.html">Mathematics</a> &nbsp;/&nbsp; Addition &amp; Subtraction on the Number Line</div>
+  <div class="article-hero-tag">Number Sense · Topic V</div>
+  <h1>Addition &amp; Subtraction on the Number Line</h1>
+  <p class="sub">The single idea that untangles almost every sign mistake: addition moves right, subtraction moves left — and subtracting a negative flips the direction twice.</p>
   <div class="article-hero-meta">
     <span>The Learners Ladder Editorial Team</span>
     <span>|</span>
-    <span>8 min read</span>
+    <span>16 min read</span>
     <span>|</span>
-    <span>Nutrition</span>
+    <span>Mathematics</span>
   </div>
 </div>
 
-<!-- ARTICLE BODY -->
 <div class="article-wrap">
 
-  <p class="lead">No single food, however nutritious, can supply everything the body needs. A balanced diet is not about any one meal or food group — it is about the overall pattern of eating across days and weeks, and it remains one of the most powerful things a person can do for their long-term health.</p>
+  <p class="lead">This is the topic where even confident students — and sometimes teachers — pause and double-check themselves. The good news: every addition and subtraction problem, no matter how tangled the signs look, comes down to one simple picture — start at a point, then move.</p>
 
-  <h2><span class="num">1.</span>What Does "Balanced" Actually Mean?</h2>
-  <p>A balanced diet is one that provides the body with all the nutrients it needs — in the right amounts — to function properly, maintain health, and support growth and repair. The word "balanced" does not mean eating equal amounts of everything; it means achieving the right <em>proportions</em> of different types of food and nutrients.</p>
+  <p>This guide goes slowly and explains <strong>why</strong> each rule is true, not just what the rule says. If a sign flip ever feels confusing again, come back to the number line — it never lies.</p>
 
-  <h2><span class="num">2.</span>The Three Macronutrients</h2>
-  <p>Macronutrients are the nutrients the body needs in large amounts. They supply the energy — measured in calories — that powers everything the body does.</p>
-  <div class="table-wrap">
-    <table class="pos-table">
-      <tr><th>Macronutrient</th><th>Main Role</th><th>Good Sources</th></tr>
-      <tr><td>Carbohydrates</td><td>The body's primary source of energy; broken down into glucose to fuel the brain and muscles</td><td>Bread, rice, pasta, potatoes, fruit, vegetables</td></tr>
-      <tr><td>Proteins</td><td>The building blocks of the body — used to build and repair cells, tissues, enzymes and hormones</td><td>Meat, fish, eggs, dairy, legumes, nuts</td></tr>
-      <tr><td>Fats</td><td>Essential for brain function, hormone production, and absorbing certain vitamins</td><td>Olive oil, avocados, nuts, oily fish</td></tr>
-    </table>
-  </div>
+  <h2><span class="num">1.</span>The Core Idea: Addition Moves Right</h2>
+  <p>Adding a positive number always means moving to the <strong>right</strong> on the number line. The number you start at is where you place your finger; the number you add is how many steps you take to the right.</p>
+  <div class="nl-jump-visual">
+  <div class="nl-jump-track"></div>
+  <div class="nl-jump-tick" style="left:0.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:0.00%;">-2</div>
+  <div class="nl-jump-tick" style="left:10.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:10.00%;">-1</div>
+  <div class="nl-jump-tick" style="left:20.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:20.00%;">0</div>
+  <div class="nl-jump-tick" style="left:30.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:30.00%;">1</div>
+  <div class="nl-jump-tick" style="left:40.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:40.00%;">2</div>
+  <div class="nl-jump-tick" style="left:50.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:50.00%;">3</div>
+  <div class="nl-jump-tick" style="left:60.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:60.00%;">4</div>
+  <div class="nl-jump-tick" style="left:70.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:70.00%;">5</div>
+  <div class="nl-jump-tick" style="left:80.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:80.00%;">6</div>
+  <div class="nl-jump-tick" style="left:90.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:90.00%;">7</div>
+  <div class="nl-jump-tick" style="left:100.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:100.00%;">8</div>
+  <div class="nl-jump-arc" style="left:40.00%; width:30.00%;"></div>
+  <div class="nl-jump-arrowhead" style="left:70.00%;">&#9654;</div>
+  <div class="nl-jump-label" style="left:55.00%;">+3</div>
+  <div class="nl-start-pt" style="left:40.00%;"></div>
+  <div class="nl-end-pt" style="left:70.00%;"></div>
+</div>
+  <p>2 + 3 means: start at 2, then take 3 steps to the right. You land on 5. Nothing more mysterious than that.</p>
+
+  <h2><span class="num">2.</span>The Core Idea: Subtraction Moves Left</h2>
+  <p>Subtracting a positive number always means moving to the <strong>left</strong>. Same idea, opposite direction.</p>
+  <div class="nl-jump-visual">
+  <div class="nl-jump-track"></div>
+  <div class="nl-jump-tick" style="left:0.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:0.00%;">-2</div>
+  <div class="nl-jump-tick" style="left:10.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:10.00%;">-1</div>
+  <div class="nl-jump-tick" style="left:20.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:20.00%;">0</div>
+  <div class="nl-jump-tick" style="left:30.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:30.00%;">1</div>
+  <div class="nl-jump-tick" style="left:40.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:40.00%;">2</div>
+  <div class="nl-jump-tick" style="left:50.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:50.00%;">3</div>
+  <div class="nl-jump-tick" style="left:60.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:60.00%;">4</div>
+  <div class="nl-jump-tick" style="left:70.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:70.00%;">5</div>
+  <div class="nl-jump-tick" style="left:80.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:80.00%;">6</div>
+  <div class="nl-jump-tick" style="left:90.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:90.00%;">7</div>
+  <div class="nl-jump-tick" style="left:100.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:100.00%;">8</div>
+  <div class="nl-jump-arc" style="left:40.00%; width:40.00%;"></div>
+  <div class="nl-jump-arrowhead" style="left:40.00%;">&#9664;</div>
+  <div class="nl-jump-label" style="left:60.00%;">-4</div>
+  <div class="nl-start-pt" style="left:80.00%;"></div>
+  <div class="nl-end-pt" style="left:40.00%;"></div>
+</div>
+  <p>6 − 4 means: start at 6, then take 4 steps to the left. You land on 2.</p>
+  <p>This is the part most students already know. The confusion almost always starts once negative numbers get involved — so the next sections slow down exactly there.</p>
+
+  <h2><span class="num">3.</span>Why Subtraction Is "Distance and Direction," Not Just "Take Away"</h2>
+  <p>Many students learn subtraction only as "taking away objects," which works fine for 6 − 4 but breaks down completely for something like 3 − 8. You cannot "take away" 8 apples from a group of 3. But you absolutely can move 8 steps to the left of 3 on a number line — landing on −5.</p>
   <div class="example-box">
     <div class="ex-label">Example</div>
-    <p>Complex carbohydrates — found in wholegrains and vegetables — release energy slowly and steadily. Simple sugars, by contrast, cause rapid spikes in blood glucose, which is why wholegrain bread is generally a better everyday choice than sugary cereal.</p>
+    <p>3 − 8: start at 3, move 8 steps left. Passing through 2, 1, 0, −1, −2, −3, −4, you land on −5. The "take away objects" model has no answer here — the number line always does.</p>
   </div>
 
-  <h2><span class="num">3.</span>Vitamins and Minerals</h2>
-  <p>Micronutrients are needed in smaller amounts, but they are no less essential. A deficiency in any one of them can cause serious health problems, even when a person is consuming enough calories overall.</p>
-  <ul>
-    <li><strong>Vitamin C</strong> — found in citrus fruits, bell peppers and broccoli — supports immune function and wound healing</li>
-    <li><strong>Vitamin D</strong> — obtained from sunlight and found in oily fish and fortified foods — is essential for bone health</li>
-    <li><strong>Iron</strong> — found in red meat, lentils and spinach — is needed to produce haemoglobin, which carries oxygen in the blood</li>
-    <li><strong>Calcium</strong> — found in dairy products and leafy greens — builds and maintains strong bones and teeth</li>
-    <li><strong>Vitamin B12</strong> — found almost exclusively in animal products — is essential for nerve function and red blood cells</li>
-  </ul>
-
-  <h2><span class="num">4.</span>Fibre and Water — Two Overlooked Essentials</h2>
-  <p><strong>Dietary fibre</strong> — found in wholegrains, fruit, vegetables, legumes and nuts — is not digested by the body, but plays a vital role in digestive health, regulating blood sugar, and lowering cholesterol. Most people eat far less fibre than is recommended.</p>
-  <p><strong>Water</strong> is not a nutrient in the conventional sense, but it is essential for survival. The body is approximately 60% water, and it is required for every chemical reaction, for regulating temperature, and for removing waste.</p>
-
-  <h2><span class="num">5.</span>What a Balanced Diet Looks Like in Practice</h2>
-  <p>Rather than counting calories or following rigid meal plans, a simple and practical approach is to think in terms of proportions on a plate, across the day and week:</p>
-
-  <div style="margin: 1.5rem 0 1.75rem;">
-    <div style="display:flex; width:100%; height:2.75rem; border-radius:4px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,0.15);">
-      <div style="width:50%; background:var(--red); display:flex; align-items:center; justify-content:center; color:white; font-size:0.85rem; font-weight:600;">Vegetables &amp; Fruit — 50%</div>
-      <div style="width:25%; background:var(--gold); display:flex; align-items:center; justify-content:center; color:white; font-size:0.8rem; font-weight:600;">Wholegrains — 25%</div>
-      <div style="width:25%; background:var(--navy-mid); display:flex; align-items:center; justify-content:center; color:white; font-size:0.8rem; font-weight:600;">Protein — 25%</div>
+  <div class="fixit-challenge">
+    <div class="fixit-wrong">"You can't subtract a bigger number from a smaller one"</div>
+    <p>This belief comes from the take-away model and stops working the moment negative numbers exist.</p>
+    <button class="fixit-toggle-btn" onclick="toggleFix('fix1')">Show the Fix</button>
+    <div class="fixit-explain" id="fix1">
+      <p><strong>The fix:</strong> you absolutely can — the answer is just negative. 3 − 8 = −5. On the number line, there's no wall at zero; the line keeps going left forever.</p>
     </div>
-    <p style="text-align:center; font-size:0.85rem; color:var(--muted); margin-top:0.5rem;">A simple visual guide to plate proportions at a typical meal</p>
   </div>
 
-  <ul>
-    <li>Fill roughly <strong>half your plate</strong> with vegetables and fruit at each meal</li>
-    <li>Fill roughly <strong>a quarter</strong> with wholegrains or starchy carbohydrates</li>
-    <li>Fill the remaining <strong>quarter</strong> with protein — from animal or plant sources</li>
-    <li>Include small amounts of healthy fats, and limit added sugar, salt and processed foods</li>
-    <li>Drink water as the primary beverage</li>
-  </ul>
+  <h2><span class="num">4.</span>Adding a Negative Number: Same as Subtracting</h2>
+  <p>Adding a negative number moves you left, exactly like subtracting does. This is because +(−3) and −3 mean the exact same thing — a step of size 3 taken in the negative direction.</p>
+  <div class="nl-jump-visual">
+  <div class="nl-jump-track"></div>
+  <div class="nl-jump-tick" style="left:0.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:0.00%;">-6</div>
+  <div class="nl-jump-tick" style="left:10.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:10.00%;">-5</div>
+  <div class="nl-jump-tick" style="left:20.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:20.00%;">-4</div>
+  <div class="nl-jump-tick" style="left:30.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:30.00%;">-3</div>
+  <div class="nl-jump-tick" style="left:40.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:40.00%;">-2</div>
+  <div class="nl-jump-tick" style="left:50.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:50.00%;">-1</div>
+  <div class="nl-jump-tick" style="left:60.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:60.00%;">0</div>
+  <div class="nl-jump-tick" style="left:70.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:70.00%;">1</div>
+  <div class="nl-jump-tick" style="left:80.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:80.00%;">2</div>
+  <div class="nl-jump-tick" style="left:90.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:90.00%;">3</div>
+  <div class="nl-jump-tick" style="left:100.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:100.00%;">4</div>
+  <div class="nl-jump-arc" style="left:20.00%; width:30.00%;"></div>
+  <div class="nl-jump-arrowhead" style="left:20.00%;">&#9664;</div>
+  <div class="nl-jump-label" style="left:35.00%;">-3</div>
+  <div class="nl-start-pt" style="left:50.00%;"></div>
+  <div class="nl-end-pt" style="left:20.00%;"></div>
+</div>
+  <p>−1 + (−3) means: start at −1, then move 3 steps further left (because the number being added is negative). You land on −4. In practice, "+ (−3)" behaves identically to "− 3."</p>
+  <div class="fixit-challenge">
+    <div class="fixit-wrong">"-1 + (-3) should move right because it's addition"</div>
+    <p>The word "addition" tricks people into assuming rightward movement no matter what.</p>
+    <button class="fixit-toggle-btn" onclick="toggleFix('fix2')">Show the Fix</button>
+    <div class="fixit-explain" id="fix2">
+      <p><strong>The fix:</strong> the direction depends on the <em>sign of the number being added</em>, not on the word "addition." Adding a negative number always moves left. Rewrite +(−3) as −3 if that helps it click.</p>
+    </div>
+  </div>
+
+  <h2><span class="num">5.</span>Subtracting a Negative Number: The Double Flip</h2>
+  <p>This is the single most common breaking point in the entire topic — so read this section twice if needed.</p>
+  <p>Subtraction normally means "move left." But when the number you're subtracting is itself negative, you get two direction-flips stacked on top of each other, and two flips cancel out — sending you <strong>right</strong> instead.</p>
+  <div class="nl-jump-visual">
+  <div class="nl-jump-track"></div>
+  <div class="nl-jump-tick" style="left:0.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:0.00%;">-2</div>
+  <div class="nl-jump-tick" style="left:10.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:10.00%;">-1</div>
+  <div class="nl-jump-tick" style="left:20.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:20.00%;">0</div>
+  <div class="nl-jump-tick" style="left:30.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:30.00%;">1</div>
+  <div class="nl-jump-tick" style="left:40.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:40.00%;">2</div>
+  <div class="nl-jump-tick" style="left:50.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:50.00%;">3</div>
+  <div class="nl-jump-tick" style="left:60.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:60.00%;">4</div>
+  <div class="nl-jump-tick" style="left:70.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:70.00%;">5</div>
+  <div class="nl-jump-tick" style="left:80.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:80.00%;">6</div>
+  <div class="nl-jump-tick" style="left:90.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:90.00%;">7</div>
+  <div class="nl-jump-tick" style="left:100.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:100.00%;">8</div>
+  <div class="nl-jump-arc" style="left:40.00%; width:40.00%;"></div>
+  <div class="nl-jump-arrowhead" style="left:80.00%;">&#9654;</div>
+  <div class="nl-jump-label" style="left:60.00%;">+4</div>
+  <div class="nl-start-pt" style="left:40.00%;"></div>
+  <div class="nl-end-pt" style="left:80.00%;"></div>
+</div>
+  <p>2 − (−4) means: start at 2. Subtraction says "move left," but the number being subtracted is negative, which flips that direction. Left, flipped, becomes right. You move 4 steps right and land on 6 — the same answer as 2 + 4.</p>
+  <div class="example-box">
+    <div class="ex-label">Why this makes sense (a real-world way to feel it)</div>
+    <p>Think of temperature. If it is 2°C and someone tells you "it's 4 degrees warmer than that," you'd expect 6°C. Saying "subtract negative 4 degrees" is the mathematical way of saying "remove 4 degrees of coldness" — which makes it warmer, not colder. Removing a negative always pushes you toward positive.</p>
+  </div>
+  <div class="fixit-challenge">
+    <div class="fixit-wrong">3 − (−4) = 3 − 4 = −1</div>
+    <p>This is the exact double-flip mistake: treating "subtract a negative" as if the two negative signs simply disappear into one, instead of cancelling each other into a positive.</p>
+    <button class="fixit-toggle-btn" onclick="toggleFix('fix3')">Show the Fix</button>
+    <div class="fixit-explain" id="fix3">
+      <p><strong>The fix:</strong> two negatives next to each other (subtracting a negative) always become a positive: 3 − (−4) = 3 + 4 = 7. A simple check: rewrite "− (−4)" as "+4" before doing anything else, every single time.</p>
+    </div>
+  </div>
+
+  <h2><span class="num">6.</span>Crossing Zero</h2>
+  <p>Nothing special actually happens at zero — it's just another point on the line — but it's worth practising because it's where sign-confusion is most likely to creep in.</p>
+  <div class="nl-jump-visual">
+  <div class="nl-jump-track"></div>
+  <div class="nl-jump-tick" style="left:0.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:0.00%;">-6</div>
+  <div class="nl-jump-tick" style="left:8.33%;"></div>
+  <div class="nl-jump-tick-label" style="left:8.33%;">-5</div>
+  <div class="nl-jump-tick" style="left:16.67%;"></div>
+  <div class="nl-jump-tick-label" style="left:16.67%;">-4</div>
+  <div class="nl-jump-tick" style="left:25.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:25.00%;">-3</div>
+  <div class="nl-jump-tick" style="left:33.33%;"></div>
+  <div class="nl-jump-tick-label" style="left:33.33%;">-2</div>
+  <div class="nl-jump-tick" style="left:41.67%;"></div>
+  <div class="nl-jump-tick-label" style="left:41.67%;">-1</div>
+  <div class="nl-jump-tick" style="left:50.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:50.00%;">0</div>
+  <div class="nl-jump-tick" style="left:58.33%;"></div>
+  <div class="nl-jump-tick-label" style="left:58.33%;">1</div>
+  <div class="nl-jump-tick" style="left:66.67%;"></div>
+  <div class="nl-jump-tick-label" style="left:66.67%;">2</div>
+  <div class="nl-jump-tick" style="left:75.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:75.00%;">3</div>
+  <div class="nl-jump-tick" style="left:83.33%;"></div>
+  <div class="nl-jump-tick-label" style="left:83.33%;">4</div>
+  <div class="nl-jump-tick" style="left:91.67%;"></div>
+  <div class="nl-jump-tick-label" style="left:91.67%;">5</div>
+  <div class="nl-jump-tick" style="left:100.00%;"></div>
+  <div class="nl-jump-tick-label" style="left:100.00%;">6</div>
+  <div class="nl-jump-arc" style="left:25.00%; width:41.67%;"></div>
+  <div class="nl-jump-arrowhead" style="left:66.67%;">&#9654;</div>
+  <div class="nl-jump-label" style="left:45.83%;">+5</div>
+  <div class="nl-start-pt" style="left:25.00%;"></div>
+  <div class="nl-end-pt" style="left:66.67%;"></div>
+</div>
+  <p>−3 + 5 means: start at −3, move 5 steps right. You pass through −2, −1, 0, 1, and land on 2. The line doesn't reset or change behaviour at zero; you simply keep counting through it.</p>
+
+  <h2><span class="num">7.</span>Choosing the Right Strategy</h2>
+  <div class="table-wrap">
+    <table class="pos-table">
+      <tr><th>Expression Pattern</th><th>Direction of Movement</th><th>Why</th></tr>
+      <tr><td>start + positive</td><td>Right</td><td>Standard addition</td></tr>
+      <tr><td>start − positive</td><td>Left</td><td>Standard subtraction</td></tr>
+      <tr><td>start + negative</td><td>Left</td><td>Adding a negative behaves like subtracting</td></tr>
+      <tr><td>start − negative</td><td>Right</td><td>Two flips (subtract, then negative) cancel out</td></tr>
+    </table>
+  </div>
+  <div class="fun-fact-box">
+    <div class="fun-fact-label">Quick Rule of Thumb</div>
+    <p>Count the total number of minus signs sitting next to each other right before the number. An even count (including zero) means move right for that step; an odd count means move left. "− (−4)" has two minus signs → move right. "− 4" has one → move left.</p>
+  </div>
 
   <div class="real-world-box">
     <div class="rw-label">Real-World Example</div>
-    <p>Consider two people eating the same 2,000 calories a day. One eats mostly white bread, crisps and soft drinks; the other eats vegetables, wholegrains, lean protein and fruit. Despite consuming the same number of calories, the second person is receiving far more vitamins, minerals and fibre — demonstrating that a balanced diet is about <strong>quality and proportion</strong>, not just quantity.</p>
+    <p>A submarine is at −40 metres (40 metres below sea level). It rises 25 metres: −40 + 25 = −15 metres, still below sea level but closer to the surface. Later, a diver's depth gauge reads −15 metres, and the surface team asks "what if we remove 15 metres of descent?" — that's −15 − (−15) = 0, meaning the diver is now exactly at sea level. Subtracting a negative depth brought them back up.</p>
   </div>
 
-  <h2>A Closing Thought</h2>
-  <p>A balanced diet does not require expensive foods, complicated recipes, or rigid restriction. It requires variety, moderation, and an awareness of what the body actually needs — judged across a week, not a single meal. Food is not the enemy of health; it is one of its greatest foundations.</p>
+  <div class="fun-fact-box">
+    <div class="fun-fact-label">Did You Know?</div>
+    <p>Negative numbers were controversial for centuries. Many European mathematicians into the 1700s dismissed them as "absurd" or "fictitious," even while merchants were already using them comfortably to track debts.</p>
+  </div>
+
+  <!-- PRACTICE ARENA -->
+  <div class="drill-section">
+    <div class="section-eyebrow">Practice Arena</div>
+    <h2>Start, Move, Land</h2>
+    <p class="drill-intro">A gold ring marks your starting point. Read the expression, work out which way to move and how far, then tap where you land. Your best score is saved on this device.</p>
+    <div class="nl-drill-progress" id="nlProgress">Question 1 of 8 &nbsp;·&nbsp; Best score: <span id="nlBestScore">0</span> / 8</div>
+    <div class="nl-drill-target" id="nlTarget"></div>
+    <div class="nl-drill-track" id="nlTrack"></div>
+    <div class="nl-drill-feedback-text" id="nlFeedback"></div>
+    <div class="nl-drill-actions">
+      <button class="drill-btn" id="nlCheckBtn" onclick="checkNumberLine()">Check</button>
+      <button class="drill-btn" id="nlNextBtn" onclick="nextNumberLine()" style="display:none;">Next Question</button>
+      <button class="drill-btn" id="nlNewSetBtn" onclick="newNumberLineSet()" style="display:none;">Play Again</button>
+    </div>
+  </div>
 
   <!-- QUIZ SECTION -->
   <div class="quiz-section">
     <div class="section-eyebrow">Test Your Understanding</div>
-    <h2>Practice Quiz</h2>
-    <p class="quiz-intro">10 questions. Select an answer for each, then submit to see your score instantly.</p>
+    <h2>Practice Questions</h2>
+    <p class="quiz-intro">Ten multiple-choice questions covering recall, application, and the sign-flip mistakes covered above. Tap "Show Answer" under any question to check it individually, or reveal the full answer key at the end.</p>
 
-    <div class="squiz-progress"><div class="squiz-progress-fill" id="squizProgressFill"></div></div>
-    <div class="squiz-progress-label" id="squizProgressLabel">0 of 10 answered</div>
-
-    <div class="squiz-results" id="squizResults">
-      <div class="squiz-score-big" id="squizScoreBig">0/10</div>
-      <div class="squiz-score-label" id="squizScoreLabel">You scored 0%</div>
-      <div class="squiz-score-tier" id="squizScoreTier">Keep practicing</div>
-      <div><button class="squiz-retake-btn" onclick="retakeQuiz()">Retake Quiz</button></div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">1.</span>On a number line, which direction does adding a positive number move you?</div>
+      <ul class="quiz-options"><li>A. Left</li><li>B. Right</li><li>C. It stays in place</li><li>D. It depends on the starting point</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a1')">Show Answer</button>
+      <div class="quiz-answer" id="a1"><strong>Answer: B.</strong> Adding a positive number always moves you to the right, regardless of the starting point.</div>
     </div>
 
-    <form id="squizForm">
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">2.</span>What is 3 − 8?</div>
+      <ul class="quiz-options"><li>A. Undefined</li><li>B. 5</li><li>C. −5</li><li>D. 11</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a2')">Show Answer</button>
+      <div class="quiz-answer" id="a2"><strong>Answer: C — −5.</strong> Start at 3 and move 8 steps left: you land on −5.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">1.</span>What does the word "balanced" mean in the context of diet?</div>
-        <div class="squiz-option"><input type="radio" name="sq1" id="sq1a" value="0"><label for="sq1a">A. Eating exactly equal amounts of every food</label></div>
-        <div class="squiz-option"><input type="radio" name="sq1" id="sq1b" value="1"><label for="sq1b">B. Eating the right proportions of different foods and nutrients</label></div>
-        <div class="squiz-option"><input type="radio" name="sq1" id="sq1c" value="2"><label for="sq1c">C. Eating the same meal every day</label></div>
-        <div class="squiz-option"><input type="radio" name="sq1" id="sq1d" value="3"><label for="sq1d">D. Avoiding all fats and sugars</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">3.</span>Which direction does −1 + (−3) move, and why?</div>
+      <ul class="quiz-options"><li>A. Right, because it's addition</li><li>B. Left, because adding a negative behaves like subtracting</li><li>C. Right, because two negatives cancel</li><li>D. It stays at −1</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a3')">Show Answer</button>
+      <div class="quiz-answer" id="a3"><strong>Answer: B.</strong> Adding a negative number moves left, just like subtracting that same positive amount would.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="2">
-        <div class="squiz-q"><span class="qnum">2.</span>Which macronutrient is the body's primary source of energy?</div>
-        <div class="squiz-option"><input type="radio" name="sq2" id="sq2a" value="0"><label for="sq2a">A. Protein</label></div>
-        <div class="squiz-option"><input type="radio" name="sq2" id="sq2b" value="1"><label for="sq2b">B. Water</label></div>
-        <div class="squiz-option"><input type="radio" name="sq2" id="sq2c" value="2"><label for="sq2c">C. Carbohydrates</label></div>
-        <div class="squiz-option"><input type="radio" name="sq2" id="sq2d" value="3"><label for="sq2d">D. Fibre</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">4.</span>What is 3 − (−4)?</div>
+      <ul class="quiz-options"><li>A. −1</li><li>B. −7</li><li>C. 7</li><li>D. 1</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a4')">Show Answer</button>
+      <div class="quiz-answer" id="a4"><strong>Answer: C — 7.</strong> Subtracting a negative flips direction twice, becoming addition: 3 − (−4) = 3 + 4 = 7.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">3.</span>Which macronutrient acts as the main building block for cells, tissues and hormones?</div>
-        <div class="squiz-option"><input type="radio" name="sq3" id="sq3a" value="0"><label for="sq3a">A. Fat</label></div>
-        <div class="squiz-option"><input type="radio" name="sq3" id="sq3b" value="1"><label for="sq3b">B. Protein</label></div>
-        <div class="squiz-option"><input type="radio" name="sq3" id="sq3c" value="2"><label for="sq3c">C. Carbohydrates</label></div>
-        <div class="squiz-option"><input type="radio" name="sq3" id="sq3d" value="3"><label for="sq3d">D. Vitamin C</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">5.</span>Why does subtracting a negative number move you to the right?</div>
+      <ul class="quiz-options"><li>A. It's an arbitrary rule with no reason</li><li>B. Subtraction flips direction once, and the negative number flips it again — two flips cancel out</li><li>C. Negative numbers always move right</li><li>D. Only positive numbers can be subtracted</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a5')">Show Answer</button>
+      <div class="quiz-answer" id="a5"><strong>Answer: B.</strong> Two direction-flips (one from subtraction, one from the negative sign) cancel out, resulting in rightward movement.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="2">
-        <div class="squiz-q"><span class="qnum">4.</span>Which nutrient is essential for brain function, hormone production and absorbing certain vitamins?</div>
-        <div class="squiz-option"><input type="radio" name="sq4" id="sq4a" value="0"><label for="sq4a">A. Fibre</label></div>
-        <div class="squiz-option"><input type="radio" name="sq4" id="sq4b" value="1"><label for="sq4b">B. Iron</label></div>
-        <div class="squiz-option"><input type="radio" name="sq4" id="sq4c" value="2"><label for="sq4c">C. Fat</label></div>
-        <div class="squiz-option"><input type="radio" name="sq4" id="sq4d" value="3"><label for="sq4d">D. Water</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">6.</span>Start at −6. What is −6 + 6?</div>
+      <ul class="quiz-options"><li>A. −12</li><li>B. 12</li><li>C. 0</li><li>D. −6</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a6')">Show Answer</button>
+      <div class="quiz-answer" id="a6"><strong>Answer: C — 0.</strong> Starting at −6 and moving 6 steps right lands exactly on 0.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="3">
-        <div class="squiz-q"><span class="qnum">5.</span>Which vitamin, obtained mainly from sunlight, is essential for bone health?</div>
-        <div class="squiz-option"><input type="radio" name="sq5" id="sq5a" value="0"><label for="sq5a">A. Vitamin C</label></div>
-        <div class="squiz-option"><input type="radio" name="sq5" id="sq5b" value="1"><label for="sq5b">B. Vitamin B12</label></div>
-        <div class="squiz-option"><input type="radio" name="sq5" id="sq5c" value="2"><label for="sq5c">C. Calcium</label></div>
-        <div class="squiz-option"><input type="radio" name="sq5" id="sq5d" value="3"><label for="sq5d">D. Vitamin D</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">7.</span>What is 5 − 8?</div>
+      <ul class="quiz-options"><li>A. This cannot be calculated</li><li>B. 3</li><li>C. −3</li><li>D. 13</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a7')">Show Answer</button>
+      <div class="quiz-answer" id="a7"><strong>Answer: C — −3.</strong> Start at 5, move 8 steps left, landing on −3. Subtracting a bigger number from a smaller one is always possible — the answer is simply negative.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">6.</span>Which mineral is needed to produce haemoglobin, which carries oxygen in the blood?</div>
-        <div class="squiz-option"><input type="radio" name="sq6" id="sq6a" value="0"><label for="sq6a">A. Calcium</label></div>
-        <div class="squiz-option"><input type="radio" name="sq6" id="sq6b" value="1"><label for="sq6b">B. Iron</label></div>
-        <div class="squiz-option"><input type="radio" name="sq6" id="sq6c" value="2"><label for="sq6c">C. Vitamin C</label></div>
-        <div class="squiz-option"><input type="radio" name="sq6" id="sq6d" value="3"><label for="sq6d">D. Vitamin B12</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">8.</span>Using the "count the minus signs" rule, which direction does −5 − (−2) move?</div>
+      <ul class="quiz-options"><li>A. Left, one minus sign total</li><li>B. Right, two minus signs in a row cancel</li><li>C. Left, two minus signs double the movement</li><li>D. It doesn't move</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a8')">Show Answer</button>
+      <div class="quiz-answer" id="a8"><strong>Answer: B.</strong> The two minus signs next to each other ("− (−2)") cancel to become addition, so you move right: −5 − (−2) = −5 + 2 = −3.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">7.</span>What is dietary fibre mainly responsible for?</div>
-        <div class="squiz-option"><input type="radio" name="sq7" id="sq7a" value="0"><label for="sq7a">A. Building muscle tissue</label></div>
-        <div class="squiz-option"><input type="radio" name="sq7" id="sq7b" value="1"><label for="sq7b">B. Digestive health and regulating blood sugar</label></div>
-        <div class="squiz-option"><input type="radio" name="sq7" id="sq7c" value="2"><label for="sq7c">C. Producing red blood cells</label></div>
-        <div class="squiz-option"><input type="radio" name="sq7" id="sq7d" value="3"><label for="sq7d">D. Absorbing vitamin D</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">9.</span>A submarine is at −40 metres and rises 25 metres. What is its new position?</div>
+      <ul class="quiz-options"><li>A. −65 metres</li><li>B. −15 metres</li><li>C. 15 metres</li><li>D. 65 metres</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a9')">Show Answer</button>
+      <div class="quiz-answer" id="a9"><strong>Answer: B — −15 metres.</strong> −40 + 25 = −15, still below sea level but 25 metres closer to the surface.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="2">
-        <div class="squiz-q"><span class="qnum">8.</span>Roughly what percentage of the human body is water?</div>
-        <div class="squiz-option"><input type="radio" name="sq8" id="sq8a" value="0"><label for="sq8a">A. About 25%</label></div>
-        <div class="squiz-option"><input type="radio" name="sq8" id="sq8b" value="1"><label for="sq8b">B. About 40%</label></div>
-        <div class="squiz-option"><input type="radio" name="sq8" id="sq8c" value="2"><label for="sq8c">C. About 60%</label></div>
-        <div class="squiz-option"><input type="radio" name="sq8" id="sq8d" value="3"><label for="sq8d">D. About 90%</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">10.</span>Why is "you can't subtract a bigger number from a smaller one" a mistaken belief?</div>
+      <ul class="quiz-options"><li>A. It's actually true and always applies</li><li>B. It only comes from thinking of subtraction as removing physical objects; negative answers are perfectly valid</li><li>C. It only applies to fractions</li><li>D. Calculators cannot compute such answers</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a10')">Show Answer</button>
+      <div class="quiz-answer" id="a10"><strong>Answer: B.</strong> The belief comes from the "take away objects" model of subtraction, which breaks down once negative answers are possible — and negative answers are completely valid.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">9.</span>In the practical "plate" method described in the article, what proportion should be vegetables and fruit?</div>
-        <div class="squiz-option"><input type="radio" name="sq9" id="sq9a" value="0"><label for="sq9a">A. A quarter</label></div>
-        <div class="squiz-option"><input type="radio" name="sq9" id="sq9b" value="1"><label for="sq9b">B. About half</label></div>
-        <div class="squiz-option"><input type="radio" name="sq9" id="sq9c" value="2"><label for="sq9c">C. All of it</label></div>
-        <div class="squiz-option"><input type="radio" name="sq9" id="sq9d" value="3"><label for="sq9d">D. A tenth</label></div>
-      </div>
-
-      <div class="squiz-item" data-correct="2">
-        <div class="squiz-q"><span class="qnum">10.</span>According to the article, over what timeframe should a balanced diet be judged?</div>
-        <div class="squiz-option"><input type="radio" name="sq10" id="sq10a" value="0"><label for="sq10a">A. A single meal</label></div>
-        <div class="squiz-option"><input type="radio" name="sq10" id="sq10b" value="1"><label for="sq10b">B. One day only</label></div>
-        <div class="squiz-option"><input type="radio" name="sq10" id="sq10c" value="2"><label for="sq10c">C. Across a week, not meal by meal</label></div>
-        <div class="squiz-option"><input type="radio" name="sq10" id="sq10d" value="3"><label for="sq10d">D. A full calendar year</label></div>
-      </div>
-
-<button type="button" class="squiz-submit-btn" id="squizSubmitBtn" onclick="submitQuiz()" disabled>Answer all questions to submit</button>
-    </form>
+    <button class="answer-key-toggle" id="keyToggleBtn" onclick="toggleAllAnswers()">Show Full Answer Key</button>
   </div>
 
   <div class="article-footer-nav">
-    <a href="index.html">← Back to Health</a>
-    <a href="index.html">More Health Topics →</a>
+    <a href="number-lines.html">← Back to Number Lines</a>
+    <a href="number-line-multiplication-division.html">Next: Multiplication &amp; Division on the Number Line →</a>
   </div>
 
 </div>
-
 <script>
-  (function() {
-    const form = document.getElementById('squizForm');
-    const submitBtn = document.getElementById('squizSubmitBtn');
-    const progressFill = document.getElementById('squizProgressFill');
-    const progressLabel = document.getElementById('squizProgressLabel');
-    const totalQuestions = document.querySelectorAll('.squiz-item').length;
-
-    function countAnswered() {
-      let count = 0;
-      for (let i = 1; i <= totalQuestions; i++) {
-        if (form.querySelector(`input[name="sq${i}"]:checked`)) count++;
-      }
-      return count;
-    }
-
-    function updateProgress() {
-      const answered = countAnswered();
-      progressFill.style.width = (answered / totalQuestions * 100) + '%';
-      progressLabel.textContent = answered + ' of ' + totalQuestions + ' answered';
-      submitBtn.disabled = answered < totalQuestions;
-      submitBtn.textContent = answered < totalQuestions ? 'Answer all questions to submit' : 'Submit Quiz';
-      document.querySelectorAll('.squiz-option').forEach(opt => opt.classList.remove('selected'));
-      form.querySelectorAll('input[type="radio"]:checked').forEach(input => {
-        input.closest('.squiz-option').classList.add('selected');
-      });
-    }
-
-    form.addEventListener('change', updateProgress);
-
-    window.submitQuiz = function() {
-      let score = 0;
-      const questions = document.querySelectorAll('.squiz-item');
-      questions.forEach((q, idx) => {
-        const qnum = idx + 1;
-        const correctIdx = q.getAttribute('data-correct');
-        const selected = form.querySelector(`input[name="sq${qnum}"]:checked`);
-        const options = q.querySelectorAll('.squiz-option');
-        options.forEach((opt, optIdx) => {
-          opt.querySelector('input').disabled = true;
-          if (String(optIdx) === correctIdx) opt.classList.add('correct-answer');
+  function toggleAnswer(id) {
+    document.getElementById(id).classList.toggle('visible');
+  }
+  function toggleAllAnswers() {
+    var answers = document.querySelectorAll('.quiz-answer');
+    var btn = document.getElementById('keyToggleBtn');
+    var anyHidden = Array.prototype.some.call(answers, function(a){ return !a.classList.contains('visible'); });
+    answers.forEach(function(a) {
+      if (anyHidden) { a.classList.add('visible'); } else { a.classList.remove('visible'); }
+    });
+    btn.textContent = anyHidden ? 'Hide Full Answer Key' : 'Show Full Answer Key';
+  }
+  function toggleFix(id) {
+    document.getElementById(id).classList.toggle('visible');
+  }
+  function initQuizOptionSelection() {
+    document.querySelectorAll('.quiz-item').forEach(function(item) {
+      var options = item.querySelectorAll('.quiz-options li');
+      options.forEach(function(li) {
+        li.addEventListener('click', function() {
+          options.forEach(function(o) { o.classList.remove('selected'); });
+          li.classList.add('selected');
         });
-        if (selected && selected.value === correctIdx) {
-          score++;
-        } else if (selected) {
-          selected.closest('.squiz-option').classList.add('wrong-answer');
-        }
       });
+    });
+  }
+  initQuizOptionSelection();
 
-      const percent = Math.round((score / totalQuestions) * 100);
-      document.getElementById('squizScoreBig').textContent = score + '/' + totalQuestions;
-      document.getElementById('squizScoreLabel').textContent = 'You scored ' + percent + '%';
+  /* ── NUMBER LINE DRILL: Start, Move, Land ── */
+  var NL_MIN = -10, NL_MAX = 10;
+  var NL_POOL = [
+    {start: 2,  delta: 3,  expr: "2 + 3"},
+    {start: -4, delta: 6,  expr: "-4 + 6"},
+    {start: 5,  delta: -8, expr: "5 \u2212 8"},
+    {start: -2, delta: -3, expr: "-2 \u2212 3"},
+    {start: 3,  delta: 4,  expr: "3 \u2212 (\u22124)"},
+    {start: -5, delta: 2,  expr: "-5 \u2212 (\u22122)"},
+    {start: -3, delta: -4, expr: "-3 + (\u22124)"},
+    {start: 6,  delta: -9, expr: "6 + (\u22129)"},
+    {start: -6, delta: 6,  expr: "-6 + 6"},
+    {start: 4,  delta: -10,expr: "4 \u2212 10"}
+  ];
+  var NL_TOLERANCE = 0.7;
+  var NL_TOTAL_QUESTIONS = 8;
+  var NL_STORAGE_KEY = 'nlas_best_score';
 
-      let tier = 'Keep practicing';
-      if (percent === 100) tier = 'Perfect score!';
-      else if (percent >= 80) tier = 'Excellent work';
-      else if (percent >= 60) tier = 'Good effort';
-      else if (percent >= 40) tier = 'Getting there';
-      document.getElementById('squizScoreTier').textContent = tier;
+  var nlQuestions = [];
+  var nlIndex = 0;
+  var nlCorrectCount = 0;
+  var nlUserValue = null;
+  var nlAnswered = false;
 
-      document.getElementById('squizResults').classList.add('visible');
-      submitBtn.style.display = 'none';
-      document.getElementById('squizResults').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
+  function shuffleArray(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
 
-    window.retakeQuiz = function() {
-      form.reset();
-      document.querySelectorAll('.squiz-option').forEach(opt => {
-        opt.classList.remove('selected', 'correct-answer', 'wrong-answer');
-        opt.querySelector('input').disabled = false;
-      });
-      document.getElementById('squizResults').classList.remove('visible');
-      submitBtn.style.display = 'block';
-      updateProgress();
-      document.getElementById('squizForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
+  function newNumberLineSet() {
+    nlQuestions = shuffleArray(NL_POOL).slice(0, NL_TOTAL_QUESTIONS);
+    nlIndex = 0;
+    nlCorrectCount = 0;
+    document.getElementById('nlNewSetBtn').style.display = 'none';
+    document.getElementById('nlCheckBtn').style.display = 'inline-block';
+    renderNumberLineQuestion();
+    updateNlBestScoreDisplay();
+  }
 
-    updateProgress();
-  })();
+  function renderNumberLineQuestion() {
+    nlUserValue = null;
+    nlAnswered = false;
+    var q = nlQuestions[nlIndex];
+    document.getElementById('nlProgress').innerHTML = 'Question ' + (nlIndex + 1) + ' of ' + nlQuestions.length + ' &nbsp;\u00b7&nbsp; Best score: <span id="nlBestScore">' + getNlBestScore() + '</span> / ' + NL_TOTAL_QUESTIONS;
+    document.getElementById('nlTarget').textContent = 'Start at ' + q.start + '. Where does ' + q.expr + ' land?';
+    document.getElementById('nlFeedback').textContent = '';
+    document.getElementById('nlCheckBtn').style.display = 'inline-block';
+    document.getElementById('nlNextBtn').style.display = 'none';
+    document.getElementById('nlNewSetBtn').style.display = 'none';
+
+    var track = document.getElementById('nlTrack');
+    track.innerHTML = '<div class="nl-drill-line"></div>';
+    for (var v = NL_MIN; v <= NL_MAX; v += 2) {
+      var pct = (v - NL_MIN) / (NL_MAX - NL_MIN) * 100;
+      var tick = document.createElement('div');
+      tick.className = 'nl-drill-tick';
+      tick.style.left = pct + '%';
+      track.appendChild(tick);
+      var label = document.createElement('div');
+      label.className = 'nl-drill-tick-label';
+      label.style.left = pct + '%';
+      label.textContent = v;
+      track.appendChild(label);
+    }
+    var startPct = (q.start - NL_MIN) / (NL_MAX - NL_MIN) * 100;
+    var startMarker = document.createElement('div');
+    startMarker.className = 'nl-drill-start-marker';
+    startMarker.style.left = startPct + '%';
+    track.appendChild(startMarker);
+
+    track.onclick = handleNlTrackClick;
+  }
+
+  function handleNlTrackClick(e) {
+    if (nlAnswered) return;
+    var track = document.getElementById('nlTrack');
+    var rect = track.getBoundingClientRect();
+    var clickX = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    var pct = Math.max(0, Math.min(1, clickX / rect.width));
+    nlUserValue = NL_MIN + pct * (NL_MAX - NL_MIN);
+
+    var existing = track.querySelector('.nl-drill-marker.user');
+    if (existing) existing.remove();
+    var marker = document.createElement('div');
+    marker.className = 'nl-drill-marker user';
+    marker.style.left = (pct * 100) + '%';
+    track.appendChild(marker);
+  }
+
+  function checkNumberLine() {
+    if (nlUserValue === null) {
+      document.getElementById('nlFeedback').textContent = 'Tap a spot on the line first.';
+      return;
+    }
+    nlAnswered = true;
+    var q = nlQuestions[nlIndex];
+    var target = q.start + q.delta;
+    var diff = Math.abs(nlUserValue - target);
+    var isCorrect = diff <= NL_TOLERANCE;
+    if (isCorrect) nlCorrectCount++;
+
+    var track = document.getElementById('nlTrack');
+    var userMarker = track.querySelector('.nl-drill-marker.user');
+    if (userMarker) userMarker.classList.add(isCorrect ? 'correct-pos' : 'incorrect-pos');
+
+    if (!isCorrect) {
+      var correctPct = (target - NL_MIN) / (NL_MAX - NL_MIN) * 100;
+      var correctMarker = document.createElement('div');
+      correctMarker.className = 'nl-drill-marker correct-pos';
+      correctMarker.style.left = correctPct + '%';
+      correctMarker.style.opacity = '0.85';
+      track.appendChild(correctMarker);
+    }
+
+    document.getElementById('nlFeedback').textContent = isCorrect
+      ? 'Correct! ' + q.expr + ' = ' + target + '.'
+      : 'Not quite — the green dot shows where ' + q.expr + ' (= ' + target + ') actually lands.';
+
+    document.getElementById('nlCheckBtn').style.display = 'none';
+    if (nlIndex < nlQuestions.length - 1) {
+      document.getElementById('nlNextBtn').style.display = 'inline-block';
+    } else {
+      finishNumberLineSet();
+    }
+  }
+
+  function nextNumberLine() {
+    nlIndex++;
+    renderNumberLineQuestion();
+  }
+
+  function finishNumberLineSet() {
+    document.getElementById('nlProgress').textContent = 'Finished! You got ' + nlCorrectCount + ' out of ' + nlQuestions.length + ' correct.';
+    document.getElementById('nlTarget').textContent = '';
+    var best = getNlBestScore();
+    if (nlCorrectCount > best) {
+      localStorage.setItem(NL_STORAGE_KEY, nlCorrectCount);
+    }
+    document.getElementById('nlNewSetBtn').style.display = 'inline-block';
+    updateNlBestScoreDisplay();
+  }
+
+  function getNlBestScore() {
+    return parseInt(localStorage.getItem(NL_STORAGE_KEY) || '0', 10);
+  }
+
+  function updateNlBestScoreDisplay() {
+    var el = document.getElementById('nlBestScore');
+    if (el) el.textContent = getNlBestScore();
+  }
+
+  newNumberLineSet();
 </script>
-
 <footer>
   <div class="footer-top">
     <div class="footer-brand">

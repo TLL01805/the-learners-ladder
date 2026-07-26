@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>What is a Balanced Diet and Why Does It Matter? — The Learners Ladder</title>
+<title>Brackets, Fractions & Decimals in BODMAS — The Learners Ladder</title>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -279,11 +279,17 @@
   .quiz-q .qnum { color: var(--red); margin-right: 0.4rem; }
   .quiz-options { list-style: none; margin: 0 0 0.9rem; }
   .quiz-options li {
-    padding: 0.4rem 0;
+    padding: 0.4rem 0.6rem;
     color: var(--slate);
     font-size: 0.96rem;
     padding-left: 1.4rem;
     position: relative;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .quiz-options li:hover {
+    background: rgba(212,175,55,0.1);
   }
   .quiz-options li::before {
     content: "";
@@ -291,6 +297,15 @@
     width: 6px; height: 6px;
     background: var(--border);
     border-radius: 50%;
+    transition: background 0.15s;
+  }
+  .quiz-options li.selected {
+    background: rgba(212,175,55,0.22);
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .quiz-options li.selected::before {
+    background: var(--red);
   }
   .show-answer-btn {
     background: var(--navy);
@@ -359,6 +374,288 @@
     .article-hero h1 { font-size: 1.7rem; }
     .article-wrap { padding: 2rem 1.25rem 3rem; }
   }
+  /* ── FUN FACT BOX (reusable) ── */
+  .fun-fact-box {
+    background: linear-gradient(135deg, rgba(212,175,55,0.12), rgba(212,175,55,0.04));
+    border: 1.5px dashed var(--gold);
+    border-radius: var(--radius);
+    padding: 1.3rem 1.5rem;
+    margin: 1.8rem 0;
+    position: relative;
+  }
+  .fun-fact-label {
+    font-weight: 700;
+    color: var(--red);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .fun-fact-box p { margin: 0; }
+
+  /* ── FIX-IT CHALLENGE CARDS (reusable) ── */
+  .fixit-challenge {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-left: 5px solid var(--red);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.4rem;
+    margin: 1.2rem 0;
+  }
+  .fixit-wrong {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.15rem;
+    color: var(--red);
+    text-decoration: line-through;
+    margin-bottom: 0.4rem;
+  }
+  .fixit-toggle-btn {
+    background: none;
+    border: 1.5px solid var(--red);
+    color: var(--red);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.4rem 0.9rem;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 0.3rem;
+  }
+  .fixit-explain { display: none; margin-top: 0.7rem; padding-top: 0.7rem; border-top: 1px dashed rgba(0,0,0,0.15); }
+  .fixit-explain.visible { display: block; }
+
+  /* ── PRACTICE ARENA / DRILL (reusable) ── */
+  .drill-section {
+    background: var(--navy);
+    border-radius: var(--radius);
+    padding: 2rem 1.7rem;
+    margin-top: 3rem;
+  }
+  .drill-section .section-eyebrow { color: var(--gold); }
+  .drill-section h2 { border: none; margin: 0 0 0.4rem; padding: 0; color: white; }
+  .drill-intro { color: rgba(255,255,255,0.65); font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .drill-controls { display: flex; gap: 0.8rem; align-items: center; margin-bottom: 1.3rem; flex-wrap: wrap; }
+  .drill-btn {
+    background: var(--red);
+    color: white;
+    border: none;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 0.55rem 1.1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .drill-btn:hover { background: var(--red-mid); }
+  .drill-score { color: var(--gold); font-size: 0.88rem; font-weight: 600; }
+  .drill-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+  @media (max-width: 600px) { .drill-grid { grid-template-columns: 1fr; } }
+  .drill-item {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius);
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+  .drill-q { color: white; font-size: 1rem; font-weight: 500; }
+  .drill-fraction-inputs { display: flex; align-items: center; gap: 0.3rem; }
+  .drill-input {
+    width: 46px;
+    padding: 0.35rem 0.3rem;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.95);
+    font-size: 0.95rem;
+    text-align: center;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+  .drill-slash { color: white; font-size: 1.2rem; }
+  .drill-input.correct { outline: 3px solid #4CAF50; }
+  .drill-input.incorrect { outline: 3px solid #E57373; }
+  .drill-feedback { margin-top: 1.2rem; color: white; font-size: 0.95rem; min-height: 1.4rem; }
+
+  /* ── NUMBER LINE VISUAL (static, for examples) ── */
+  .number-line-visual {
+    position: relative;
+    height: 60px;
+    margin: 1.6rem 0.5rem 2.2rem;
+  }
+  .nl-track { position: absolute; top: 28px; left: 0; right: 0; height: 3px; background: var(--navy); }
+  .nl-tick { position: absolute; top: 21px; width: 2px; height: 17px; background: var(--navy); }
+  .nl-tick-label { position: absolute; top: 42px; transform: translateX(-50%); font-size: 0.8rem; color: var(--slate); }
+  .nl-point { position: absolute; top: 19px; width: 14px; height: 14px; border-radius: 50%; background: var(--red); transform: translateX(-50%); border: 2px solid white; box-shadow: 0 0 0 1.5px var(--red); }
+  .nl-point-label { position: absolute; top: -24px; transform: translateX(-50%); font-size: 0.85rem; font-weight: 700; color: var(--red); white-space: nowrap; }
+
+  /* ── NUMBER LINE JUMP VISUAL (static, for addition/subtraction examples) ── */
+  .nl-jump-visual { position: relative; height: 95px; margin: 2rem 0.5rem 2.4rem; }
+  .nl-jump-track { position: absolute; top: 55px; left: 0; right: 0; height: 3px; background: var(--navy); }
+  .nl-jump-tick { position: absolute; top: 48px; width: 2px; height: 17px; background: var(--navy); }
+  .nl-jump-tick-label { position: absolute; top: 76px; transform: translateX(-50%); font-size: 0.8rem; color: var(--slate); }
+  .nl-jump-arc { position: absolute; top: 30px; height: 3px; background: var(--red); border-radius: 2px; }
+  .nl-jump-arrowhead { position: absolute; top: 19px; font-size: 1.15rem; color: var(--red); font-weight: 700; transform: translateX(-50%); line-height: 1; }
+  .nl-jump-label { position: absolute; top: 0px; transform: translateX(-50%); font-size: 0.9rem; font-weight: 700; color: var(--red); white-space: nowrap; }
+  .nl-start-pt { position: absolute; top: 49px; width: 12px; height: 12px; border-radius: 50%; background: white; transform: translateX(-50%); border: 3px solid var(--navy); z-index: 2; }
+  .nl-end-pt { position: absolute; top: 48px; width: 14px; height: 14px; border-radius: 50%; background: var(--red); transform: translateX(-50%); border: 2px solid white; box-shadow: 0 0 0 1.5px var(--red); z-index: 3; }
+
+  /* ── NUMBER LINE DRILL: start-point reference marker ── */
+  .nl-drill-start-marker {
+    position: absolute; top: 27px; width: 14px; height: 14px;
+    border-radius: 50%; transform: translateX(-50%);
+    background: rgba(255,255,255,0.85); border: 3px solid var(--gold);
+    z-index: 1;
+  }
+
+  /* ── NUMBER LINE DRILL (interactive, click-to-place) ── */
+  .nl-drill-progress { color: var(--gold); text-align: center; font-size: 0.85rem; margin-bottom: 0.6rem; letter-spacing: 0.03em; }
+  .nl-drill-target { color: white; text-align: center; font-size: 1.25rem; font-weight: 700; margin-bottom: 1.8rem; }
+  .nl-drill-track {
+    position: relative;
+    height: 70px;
+    margin: 0 0.5rem 1.5rem;
+    cursor: crosshair;
+    touch-action: none;
+  }
+  .nl-drill-line { position: absolute; top: 34px; left: 0; right: 0; height: 3px; background: rgba(255,255,255,0.45); }
+  .nl-drill-tick { position: absolute; top: 27px; width: 2px; height: 17px; background: rgba(255,255,255,0.5); }
+  .nl-drill-tick-label { position: absolute; top: 46px; transform: translateX(-50%); font-size: 0.78rem; color: rgba(255,255,255,0.55); }
+  .nl-drill-marker {
+    position: absolute; top: 25px; width: 18px; height: 18px;
+    border-radius: 50%; transform: translateX(-50%);
+    border: 2px solid white;
+  }
+  .nl-drill-marker.user { background: var(--gold); }
+  .nl-drill-marker.correct-pos { background: #4CAF50; }
+  .nl-drill-marker.incorrect-pos { background: #E57373; }
+  .nl-drill-feedback-text { color: white; text-align: center; margin-top: 0.4rem; min-height: 1.4rem; font-size: 0.95rem; }
+  .nl-drill-actions { display: flex; justify-content: center; gap: 0.8rem; margin-top: 1rem; flex-wrap: wrap; }
+
+  /* ── PLACE VALUE: DIGIT DETECTIVE (reusable interactive) ── */
+  .pv-system-toggle { display: flex; gap: 0.6rem; justify-content: center; margin-bottom: 1.4rem; flex-wrap: wrap; }
+  .pv-toggle-btn {
+    background: #fff;
+    border: 1.5px solid var(--navy);
+    color: var(--navy);
+    padding: 0.5rem 1.1rem;
+    border-radius: 30px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .pv-toggle-btn.active { background: var(--navy); color: #fff; }
+  .pv-comma-display {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--red);
+    margin: 0.6rem 0 0.3rem;
+    font-family: 'EB Garamond', serif;
+    letter-spacing: 0.02em;
+  }
+  .pv-word-form { text-align: center; color: var(--slate); font-size: 0.92rem; margin-bottom: 1.3rem; font-style: italic; }
+  .pv-digit-row { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: center; margin: 1.2rem 0; }
+  .pv-digit-box {
+    width: 44px; height: 54px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; font-weight: 700;
+    font-family: 'Source Sans 3', sans-serif;
+    background: #fff; border: 2px solid var(--border);
+    border-radius: 8px; cursor: pointer; color: var(--navy);
+    transition: all 0.15s;
+  }
+  .pv-digit-box:hover { border-color: var(--gold); background: rgba(212,175,55,0.1); }
+  .pv-digit-box.active { background: var(--red); color: #fff; border-color: var(--red); transform: scale(1.08); }
+  .pv-info-panel {
+    background: var(--gold-lt);
+    border: 1px solid rgba(184,150,62,0.35);
+    border-left: 4px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.4rem;
+    margin-top: 1rem;
+    min-height: 34px;
+  }
+  .pv-info-placeholder { color: var(--slate); font-style: italic; margin: 0; }
+  .pv-info-result { margin: 0; font-size: 1rem; }
+  .pv-info-result strong { color: var(--red); }
+
+  /* ── PLACE VALUE: CLICK-CHOICE PRACTICE CARDS ── */
+  .pv-drill-question { color: white; font-size: 1.1rem; font-weight: 600; text-align: center; margin-bottom: 1.3rem; }
+  .pv-drill-choices { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; margin-bottom: 1rem; }
+  @media (max-width: 600px) { .pv-drill-choices { grid-template-columns: 1fr; } }
+  .pv-choice-btn {
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(255,255,255,0.25);
+    color: white;
+    padding: 0.8rem 1rem;
+    border-radius: var(--radius);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s;
+  }
+  .pv-choice-btn:hover { background: rgba(212,175,55,0.18); border-color: var(--gold); }
+  .pv-choice-btn.correct { background: rgba(76,175,80,0.35); border-color: #4CAF50; }
+  .pv-choice-btn.incorrect { background: rgba(229,115,115,0.35); border-color: #E57373; }
+  .pv-choice-btn:disabled { cursor: default; }
+
+  /* ── NUMBER SYSTEMS: NESTED DIAGRAM ── */
+  .ns-real-box { border: 3px solid var(--navy); border-radius: 12px; padding: 2rem 1.2rem 1.2rem; position: relative; margin: 2rem 0; }
+  .ns-real-label { position: absolute; top: -14px; left: 16px; background: #fff; padding: 0 8px; font-weight: 700; color: var(--navy); font-size: 0.92rem; }
+  .ns-real-children { display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-start; }
+  .ns-rational-box { flex: 2; min-width: 220px; border: 3px solid var(--red); border-radius: 10px; padding: 1.7rem 1rem 1rem; position: relative; }
+  .ns-rational-label { position: absolute; top: -13px; left: 14px; background: #fff; padding: 0 6px; font-weight: 700; color: var(--red); font-size: 0.82rem; }
+  .ns-irrational-box { flex: 1; min-width: 140px; border: 3px solid var(--gold); border-radius: 10px; padding: 1.5rem 1rem; text-align: center; position: relative; display: flex; align-items: center; justify-content: center; }
+  .ns-irrational-label { position: absolute; top: -13px; left: 14px; background: #fff; padding: 0 6px; font-weight: 700; color: var(--gold); font-size: 0.82rem; }
+  .ns-irrational-box .ns-examples { font-size: 0.85rem; color: var(--slate); }
+  .ns-integers-box { border: 2px solid var(--navy); border-radius: 8px; padding: 1.5rem 0.9rem 0.9rem; position: relative; margin-top: 0.3rem; }
+  .ns-integers-label { position: absolute; top: -12px; left: 12px; background: #fff; padding: 0 6px; font-weight: 700; color: var(--navy); font-size: 0.78rem; }
+  .ns-whole-box { border: 2px solid var(--slate); border-radius: 6px; padding: 1.3rem 0.8rem 0.8rem; position: relative; margin-top: 0.3rem; }
+  .ns-whole-label { position: absolute; top: -11px; left: 10px; background: #fff; padding: 0 6px; font-weight: 700; color: var(--slate); font-size: 0.75rem; }
+  .ns-natural-box { border: 2px dashed var(--slate); border-radius: 6px; padding: 0.9rem; text-align: center; font-size: 0.8rem; color: var(--slate); }
+
+  /* ── NUMBER SYSTEMS: NUMBER EXPLORER (reusable interactive) ── */
+  .ns-chip-row { display: flex; gap: 0.6rem; flex-wrap: wrap; justify-content: center; margin: 1.3rem 0; }
+  .ns-chip {
+    background: #fff; border: 2px solid var(--border); border-radius: 30px;
+    padding: 0.5rem 1.1rem; font-size: 1.05rem; font-weight: 700;
+    font-family: 'Source Sans 3', sans-serif; color: var(--navy);
+    cursor: pointer; transition: all 0.15s;
+  }
+  .ns-chip:hover { border-color: var(--gold); background: rgba(212,175,55,0.1); }
+  .ns-chip.active { background: var(--red); color: #fff; border-color: var(--red); }
+  .ns-category-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-top: 1rem; }
+  @media (max-width: 600px) { .ns-category-grid { grid-template-columns: repeat(2, 1fr); } }
+  .ns-category-item {
+    border-radius: var(--radius); padding: 0.6rem 0.7rem; font-size: 0.85rem; font-weight: 600;
+    text-align: center; border: 1.5px solid var(--border); color: var(--slate);
+    background: rgba(0,0,0,0.02);
+  }
+  .ns-category-item.yes { background: rgba(76,175,80,0.15); border-color: #4CAF50; color: #2e6b31; }
+  .ns-category-item.no { background: rgba(229,115,115,0.1); border-color: rgba(229,115,115,0.5); color: #a94442; opacity: 0.75; }
+  .ns-explorer-reason { text-align: center; color: var(--slate); font-size: 0.9rem; font-style: italic; margin-top: 0.9rem; min-height: 1.3rem; }
+
+  /* ── BASE SYSTEMS: CONVERSION GRID (reusable) ── */
+  .bs-base-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; margin-top: 1.2rem; }
+  @media (max-width: 680px) { .bs-base-grid { grid-template-columns: repeat(2, 1fr); } }
+  .bs-base-item {
+    border-radius: var(--radius); padding: 0.8rem 0.6rem; text-align: center;
+    border: 1.5px solid var(--gold); background: rgba(212,150,62,0.08);
+  }
+  .bs-base-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--slate); margin-bottom: 0.3rem; }
+  .bs-base-value { font-size: 1.25rem; font-weight: 700; color: var(--navy); font-family: 'Source Sans 3', sans-serif; word-break: break-all; }
+  .bs-breakdown { margin-top: 1rem; text-align: center; color: var(--slate); font-size: 0.9rem; font-style: italic; }
+
+  /* ── VINCULUM / BAR BRACKET (reusable) ── */
+  .vinculum { text-decoration: overline; text-decoration-thickness: 2px; padding-top: 2px; }
+
   @media (max-width: 680px) {
     .top-bar { display: none; }
     nav {
@@ -433,115 +730,6 @@
     .footer-top { grid-template-columns: 1fr 1fr; }
     footer { padding: 2rem 1.25rem 0; }
   }
-
-  /* SCORED QUIZ (click-to-highlight + real scoring) */
-  .squiz-progress {
-    background: var(--cream);
-    border-radius: 30px;
-    height: 8px;
-    overflow: hidden;
-    margin-bottom: 0.4rem;
-  }
-  .squiz-progress-fill {
-    background: var(--gold);
-    height: 100%;
-    width: 0%;
-    transition: width 0.25s ease;
-  }
-  .squiz-progress-label {
-    font-size: 0.78rem;
-    color: var(--muted);
-    text-align: right;
-    margin-bottom: 1.3rem;
-  }
-  .squiz-item {
-    background: var(--white);
-    border: 1px solid var(--border-lt);
-    border-radius: var(--radius);
-    padding: 1.1rem 1.3rem;
-    margin-bottom: 1rem;
-  }
-  .squiz-q {
-    font-weight: 600;
-    color: var(--ink);
-    margin-bottom: 0.8rem;
-    font-size: 1rem;
-  }
-  .squiz-q .qnum { color: var(--red); margin-right: 0.4rem; }
-  .squiz-option {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
-    padding: 0.6rem 0.8rem;
-    border: 1px solid var(--border-lt);
-    border-radius: var(--radius);
-    margin-bottom: 0.5rem;
-    cursor: pointer;
-    transition: border-color 0.15s, background 0.15s;
-  }
-  .squiz-option:hover { border-color: var(--gold); }
-  .squiz-option input[type="radio"] { accent-color: var(--red); width: 16px; height: 16px; flex-shrink: 0; }
-  .squiz-option label { cursor: pointer; font-size: 0.94rem; color: var(--slate); flex: 1; }
-  .squiz-option.selected { border-color: var(--red); background: rgba(139,0,0,0.04); }
-  .squiz-option.correct-answer { border-color: #2e7d32; background: rgba(46,125,50,0.08); }
-  .squiz-option.wrong-answer { border-color: var(--red); background: rgba(139,0,0,0.08); }
-  .squiz-submit-btn {
-    display: block;
-    width: 100%;
-    background: var(--red);
-    color: white;
-    border: none;
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 0.98rem;
-    font-weight: 600;
-    padding: 0.9rem;
-    border-radius: var(--radius);
-    cursor: pointer;
-    margin-top: 0.6rem;
-    transition: background 0.2s;
-  }
-  .squiz-submit-btn:hover { background: var(--red-mid); }
-  .squiz-submit-btn:disabled { background: var(--border); cursor: not-allowed; }
-  .squiz-results {
-    display: none;
-    background: var(--navy);
-    border-radius: var(--radius);
-    padding: 2rem 1.6rem;
-    text-align: center;
-    margin-bottom: 1.8rem;
-  }
-  .squiz-results.visible { display: block; }
-  .squiz-results .squiz-score-big {
-    font-family: 'EB Garamond', serif;
-    font-size: 2.8rem;
-    font-weight: 600;
-    color: var(--gold);
-    line-height: 1;
-    margin-bottom: 0.3rem;
-  }
-  .squiz-results .squiz-score-label { color: rgba(255,255,255,0.7); font-size: 0.98rem; margin-bottom: 1rem; }
-  .squiz-results .squiz-score-tier {
-    display: inline-block;
-    font-size: 0.82rem;
-    font-weight: 600;
-    padding: 0.4rem 1rem;
-    border-radius: 30px;
-    background: rgba(184,150,62,0.15);
-    color: var(--gold);
-    margin-bottom: 1.2rem;
-  }
-  .squiz-retake-btn {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.3);
-    color: white;
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 0.88rem;
-    font-weight: 600;
-    padding: 0.65rem 1.4rem;
-    border-radius: 30px;
-    cursor: pointer;
-  }
-  .squiz-retake-btn:hover { background: rgba(255,255,255,0.1); }
 </style>
 </head>
 <body>
@@ -575,277 +763,456 @@
     <li><a href="index.html#resources">Resources</a></li>
   </ul>
 </nav>
-
-<!-- ARTICLE HERO -->
 <div class="article-hero">
-  <div class="breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; <a href="index.html">Health</a> &nbsp;/&nbsp; What is a Balanced Diet?</div>
-  <div class="article-hero-tag">Health · Nutrition</div>
-  <h1>What is a Balanced Diet and Why Does It Matter?</h1>
-  <p class="sub">The phrase "balanced diet" appears constantly in health advice, school lessons and food labels — yet it is rarely explained with real clarity. This guide sets out exactly what it means, and why it matters.</p>
+  <div class="breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; <a href="index.html">Mathematics</a> &nbsp;/&nbsp; Brackets, Fractions &amp; Decimals in BODMAS</div>
+  <div class="article-hero-tag">Number Sense · Topic XIII</div>
+  <h1>Brackets, Fractions &amp; Decimals in BODMAS</h1>
+  <p class="sub">BODMAS covers four kinds of brackets, not just one — and once fractions and decimals join an expression, a few extra habits become essential. This guide fills in both gaps.</p>
   <div class="article-hero-meta">
     <span>The Learners Ladder Editorial Team</span>
     <span>|</span>
-    <span>8 min read</span>
+    <span>17 min read</span>
     <span>|</span>
-    <span>Nutrition</span>
+    <span>Mathematics</span>
   </div>
 </div>
 
-<!-- ARTICLE BODY -->
 <div class="article-wrap">
 
-  <p class="lead">No single food, however nutritious, can supply everything the body needs. A balanced diet is not about any one meal or food group — it is about the overall pattern of eating across days and weeks, and it remains one of the most powerful things a person can do for their long-term health.</p>
+  <p class="lead">Our <a href="bodmas-dmas-rules.html">BODMAS &amp; DMAS Rules</a> article covered the core order of operations. This companion guide goes deeper into two things that article only touched lightly: the four different kinds of brackets and the order they're removed in, and how fractions and decimals behave once they're dropped into a BODMAS expression.</p>
 
-  <h2><span class="num">1.</span>What Does "Balanced" Actually Mean?</h2>
-  <p>A balanced diet is one that provides the body with all the nutrients it needs — in the right amounts — to function properly, maintain health, and support growth and repair. The word "balanced" does not mean eating equal amounts of everything; it means achieving the right <em>proportions</em> of different types of food and nutrients.</p>
+  <h2><span class="num">1.</span>Why Bracket Order Matters</h2>
+  <p>The "B" in BODMAS is often taught as if there's only one kind of bracket. In fact, there are four, and textbooks that use several types in the same expression expect them to be removed in a specific, agreed order — not just "whichever looks innermost."</p>
 
-  <h2><span class="num">2.</span>The Three Macronutrients</h2>
-  <p>Macronutrients are the nutrients the body needs in large amounts. They supply the energy — measured in calories — that powers everything the body does.</p>
+  <h2><span class="num">2.</span>The Four Types of Brackets</h2>
   <div class="table-wrap">
     <table class="pos-table">
-      <tr><th>Macronutrient</th><th>Main Role</th><th>Good Sources</th></tr>
-      <tr><td>Carbohydrates</td><td>The body's primary source of energy; broken down into glucose to fuel the brain and muscles</td><td>Bread, rice, pasta, potatoes, fruit, vegetables</td></tr>
-      <tr><td>Proteins</td><td>The building blocks of the body — used to build and repair cells, tissues, enzymes and hormones</td><td>Meat, fish, eggs, dairy, legumes, nuts</td></tr>
-      <tr><td>Fats</td><td>Essential for brain function, hormone production, and absorbing certain vitamins</td><td>Olive oil, avocados, nuts, oily fish</td></tr>
+      <tr><th>Bracket</th><th>Symbol</th><th>Also Called</th></tr>
+      <tr><td>Bar</td><td><span class="vinculum">4&nbsp;&minus;&nbsp;2</span></td><td>Vinculum, line bracket</td></tr>
+      <tr><td>Parentheses</td><td>( )</td><td>Round brackets, small brackets</td></tr>
+      <tr><td>Curly Brackets</td><td>{ }</td><td>Braces</td></tr>
+      <tr><td>Square Brackets</td><td>[ ]</td><td>Box brackets</td></tr>
     </table>
   </div>
+  <p>The <strong>bar (vinculum)</strong> is the oldest and least common today — a line drawn directly over the terms it groups, instead of symbols on either side. It still appears in specific places: grouping a numerator over a fraction line, or marking a repeating decimal.</p>
+
+  <h2><span class="num">3.</span>The Traditional Removal Order</h2>
+  <p>When an expression mixes several bracket types together, the standard convention removes them in this fixed order:</p>
+  <div class="table-wrap">
+    <table class="pos-table">
+      <tr><th>Order</th><th>Bracket</th></tr>
+      <tr><td>1st</td><td>Bar (vinculum)</td></tr>
+      <tr><td>2nd</td><td>Parentheses ( )</td></tr>
+      <tr><td>3rd</td><td>Curly brackets { }</td></tr>
+      <tr><td>4th</td><td>Square brackets [ ]</td></tr>
+    </table>
+  </div>
+  <p>In practice, this order usually lines up with "innermost first" anyway, since textbooks nest brackets in exactly this sequence — square brackets on the outside, then curly, then parentheses, then a bar innermost of all.</p>
+
+  <div class="example-box">
+    <div class="ex-label">Example: Bar First</div>
+    <p>8 + <span class="vinculum">4 &minus; 2</span>: the bar groups "4 − 2" as if it were in its own brackets. Resolve the bar first: 4 − 2 = 2. Then: 8 + 2 = <strong>10</strong>.</p>
+  </div>
+
+  <div class="example-box">
+    <div class="ex-label">Example: All Four Brackets Together</div>
+    <p>100 − [20 + {10 − (6 ÷ 2)}] ÷ 2<br>
+    Step 1 — parentheses (innermost): 6 ÷ 2 = 3<br>
+    Step 2 — curly brackets: 10 − 3 = 7<br>
+    Step 3 — square brackets: 20 + 7 = 27<br>
+    Step 4 — division: 27 ÷ 2 = 13.5<br>
+    Step 5 — subtraction: 100 − 13.5 = <strong>86.5</strong></p>
+  </div>
+
+  <div class="fixit-challenge">
+    <div class="fixit-wrong">Removing square brackets before curly brackets because "square comes first alphabetically"</div>
+    <p>The removal order has nothing to do with alphabetical order or which symbol looks more important — it follows the fixed bar → parentheses → curly → square sequence.</p>
+    <button class="fixit-toggle-btn" onclick="toggleFix('fix1')">Show the Fix</button>
+    <div class="fixit-explain" id="fix1">
+      <p><strong>The fix:</strong> always work from the innermost bracket type outward: bar first, then ( ), then { }, then [ ] last. Square brackets are almost always the outermost layer, resolved last.</p>
+    </div>
+  </div>
+
+  <h2><span class="num">4.</span>The Fraction Bar Is a Bracket Too</h2>
+  <p>A fraction's horizontal bar does more than separate numerator from denominator — it silently groups everything written above it and everything written below it, exactly like a bracket. Only terms actually written on the fraction bar are grouped; anything sitting outside the fraction stays separate.</p>
   <div class="example-box">
     <div class="ex-label">Example</div>
-    <p>Complex carbohydrates — found in wholegrains and vegetables — release energy slowly and steadily. Simple sugars, by contrast, cause rapid spikes in blood glucose, which is why wholegrain bread is generally a better everyday choice than sugary cereal.</p>
+    <p>(3+5) ÷ 4 = 8 ÷ 4 = <strong>2</strong> — both 3 and 5 sit "on the bar," so they're grouped together before dividing.<br>
+    Compare: 3 + 5÷4 = 3 + 1.25 = <strong>4.25</strong> — here, only the 5 is written over the fraction bar, so only 5÷4 is grouped; the 3 stays separate.</p>
   </div>
-
-  <h2><span class="num">3.</span>Vitamins and Minerals</h2>
-  <p>Micronutrients are needed in smaller amounts, but they are no less essential. A deficiency in any one of them can cause serious health problems, even when a person is consuming enough calories overall.</p>
-  <ul>
-    <li><strong>Vitamin C</strong> — found in citrus fruits, bell peppers and broccoli — supports immune function and wound healing</li>
-    <li><strong>Vitamin D</strong> — obtained from sunlight and found in oily fish and fortified foods — is essential for bone health</li>
-    <li><strong>Iron</strong> — found in red meat, lentils and spinach — is needed to produce haemoglobin, which carries oxygen in the blood</li>
-    <li><strong>Calcium</strong> — found in dairy products and leafy greens — builds and maintains strong bones and teeth</li>
-    <li><strong>Vitamin B12</strong> — found almost exclusively in animal products — is essential for nerve function and red blood cells</li>
-  </ul>
-
-  <h2><span class="num">4.</span>Fibre and Water — Two Overlooked Essentials</h2>
-  <p><strong>Dietary fibre</strong> — found in wholegrains, fruit, vegetables, legumes and nuts — is not digested by the body, but plays a vital role in digestive health, regulating blood sugar, and lowering cholesterol. Most people eat far less fibre than is recommended.</p>
-  <p><strong>Water</strong> is not a nutrient in the conventional sense, but it is essential for survival. The body is approximately 60% water, and it is required for every chemical reaction, for regulating temperature, and for removing waste.</p>
-
-  <h2><span class="num">5.</span>What a Balanced Diet Looks Like in Practice</h2>
-  <p>Rather than counting calories or following rigid meal plans, a simple and practical approach is to think in terms of proportions on a plate, across the day and week:</p>
-
-  <div style="margin: 1.5rem 0 1.75rem;">
-    <div style="display:flex; width:100%; height:2.75rem; border-radius:4px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,0.15);">
-      <div style="width:50%; background:var(--red); display:flex; align-items:center; justify-content:center; color:white; font-size:0.85rem; font-weight:600;">Vegetables &amp; Fruit — 50%</div>
-      <div style="width:25%; background:var(--gold); display:flex; align-items:center; justify-content:center; color:white; font-size:0.8rem; font-weight:600;">Wholegrains — 25%</div>
-      <div style="width:25%; background:var(--navy-mid); display:flex; align-items:center; justify-content:center; color:white; font-size:0.8rem; font-weight:600;">Protein — 25%</div>
+  <div class="fixit-challenge">
+    <div class="fixit-wrong">Treating "3 + 5/4" as if it means "(3+5)/4"</div>
+    <p>Without brackets, only the term actually written as part of the fraction gets grouped by the fraction bar.</p>
+    <button class="fixit-toggle-btn" onclick="toggleFix('fix2')">Show the Fix</button>
+    <div class="fixit-explain" id="fix2">
+      <p><strong>The fix:</strong> 3 + 5/4 means 3 + (5÷4) = 3 + 1.25 = 4.25. If both 3 and 5 were meant to be added before dividing by 4, the expression would need explicit brackets: (3+5)/4 = 2. Always check exactly what sits directly above and below the fraction bar.</p>
     </div>
-    <p style="text-align:center; font-size:0.85rem; color:var(--muted); margin-top:0.5rem;">A simple visual guide to plate proportions at a typical meal</p>
   </div>
 
-  <ul>
-    <li>Fill roughly <strong>half your plate</strong> with vegetables and fruit at each meal</li>
-    <li>Fill roughly <strong>a quarter</strong> with wholegrains or starchy carbohydrates</li>
-    <li>Fill the remaining <strong>quarter</strong> with protein — from animal or plant sources</li>
-    <li>Include small amounts of healthy fats, and limit added sugar, salt and processed foods</li>
-    <li>Drink water as the primary beverage</li>
-  </ul>
+  <h2><span class="num">5.</span>Fractions in BODMAS Expressions</h2>
+  <p>Once fractions appear inside a larger expression, BODMAS still applies exactly as before — brackets first, then multiplication/division, then addition/subtraction — just using fraction arithmetic at each step instead of whole numbers.</p>
+  <div class="example-box">
+    <div class="ex-label">Example A</div>
+    <p>(1/2 + 1/4) × 8<br>
+    Brackets first, common denominator: 1/2 + 1/4 = 2/4 + 1/4 = 3/4<br>
+    Then multiply: 3/4 × 8 = <strong>6</strong></p>
+  </div>
+  <div class="example-box">
+    <div class="ex-label">Example B</div>
+    <p>3/4 × (2/3 + 1/6)<br>
+    Brackets first: 2/3 + 1/6 = 4/6 + 1/6 = 5/6<br>
+    Then multiply: 3/4 × 5/6 = 15/24 = <strong>5/8</strong></p>
+  </div>
+  <div class="example-box">
+    <div class="ex-label">Example C</div>
+    <p>2/3 + 1/3 × 3/5<br>
+    Multiply first: 1/3 × 3/5 = 3/15 = 1/5<br>
+    Then add: 2/3 + 1/5 = 10/15 + 3/15 = <strong>13/15</strong></p>
+  </div>
+
+  <h2><span class="num">6.</span>Decimals in BODMAS Expressions</h2>
+  <p>Decimals follow BODMAS exactly the same way. The only extra care needed is keeping the decimal point aligned correctly through each multiplication, division, and addition step.</p>
+  <div class="example-box">
+    <div class="ex-label">Example A</div>
+    <p>2.5 + 3 × 0.4<br>
+    Multiply first: 3 × 0.4 = 1.2<br>
+    Then add: 2.5 + 1.2 = <strong>3.7</strong></p>
+  </div>
+  <div class="example-box">
+    <div class="ex-label">Example B</div>
+    <p>2.5 + 3 × 0.4 − (1.2 ÷ 0.6)<br>
+    Brackets first: 1.2 ÷ 0.6 = 2<br>
+    Multiply: 3 × 0.4 = 1.2<br>
+    Left to right: 2.5 + 1.2 = 3.7, then 3.7 − 2 = <strong>1.7</strong></p>
+  </div>
+  <div class="example-box">
+    <div class="ex-label">Example C</div>
+    <p>0.5 × (3.6 + 2.4) − 1.8<br>
+    Brackets first: 3.6 + 2.4 = 6.0<br>
+    Multiply: 0.5 × 6.0 = 3.0<br>
+    Subtract: 3.0 − 1.8 = <strong>1.2</strong></p>
+  </div>
+
+  <div class="fixit-challenge">
+    <div class="fixit-wrong">6.4 ÷ 0.8 + 1.5 × 2 solved as 6.4 ÷ (0.8+1.5) × 2</div>
+    <p>Grouping terms that aren't actually in brackets is one of the most common decimal-BODMAS mistakes.</p>
+    <button class="fixit-toggle-btn" onclick="toggleFix('fix3')">Show the Fix</button>
+    <div class="fixit-explain" id="fix3">
+      <p><strong>The fix:</strong> with no brackets present, division and multiplication are resolved left to right as separate steps: 6.4 ÷ 0.8 = 8, and 1.5 × 2 = 3. Then add: 8 + 3 = <strong>11</strong>. Never combine terms across an operation unless brackets say so.</p>
+    </div>
+  </div>
+
+  <!-- BRACKET & FRACTION SOLVER INTERACTIVE -->
+  <div class="drill-section">
+    <div class="section-eyebrow">Try It Yourself</div>
+    <h2>Bracket &amp; Fraction Solver</h2>
+    <p class="drill-intro">Tap any expression below to see it solved step by step, including fraction and decimal expressions.</p>
+    <div class="ns-chip-row" id="bfChipRow"></div>
+    <div class="pv-info-panel">
+      <p class="pv-info-placeholder" id="bfInfoPlaceholder">Tap an expression above to see the full step-by-step solution.</p>
+      <p class="pv-info-result" id="bfInfoResult" style="display:none;"></p>
+    </div>
+  </div>
 
   <div class="real-world-box">
     <div class="rw-label">Real-World Example</div>
-    <p>Consider two people eating the same 2,000 calories a day. One eats mostly white bread, crisps and soft drinks; the other eats vegetables, wholegrains, lean protein and fruit. Despite consuming the same number of calories, the second person is receiving far more vitamins, minerals and fibre — demonstrating that a balanced diet is about <strong>quality and proportion</strong>, not just quantity.</p>
+    <p>A recipe calls for (3/4 + 1/2) cups of flour per batch, tripled for a party: (3/4 + 1/2) × 3 = (5/4) × 3 = 15/4 = 3¾ cups. A shopping receipt calculating a discount uses decimals the same way: $45.00 − (0.20 × $45.00) = $45.00 − $9.00 = $36.00 — brackets, then multiplication, then subtraction, exactly as BODMAS requires.</p>
   </div>
 
-  <h2>A Closing Thought</h2>
-  <p>A balanced diet does not require expensive foods, complicated recipes, or rigid restriction. It requires variety, moderation, and an awareness of what the body actually needs — judged across a week, not a single meal. Food is not the enemy of health; it is one of its greatest foundations.</p>
+  <div class="fun-fact-box">
+    <div class="fun-fact-label">Did You Know?</div>
+    <p>The vinculum bar is also used to mark repeating decimals — a bar drawn over the repeating digits, like 0.<span class="vinculum">3</span> to mean 0.333... forever. It's the same grouping symbol, used for a completely different purpose.</p>
+  </div>
+
+  <!-- PRACTICE ARENA -->
+  <div class="drill-section">
+    <div class="section-eyebrow">Practice Arena</div>
+    <h2>Solve It</h2>
+    <p class="drill-intro">Tap the correct answer for each question. Your score is tracked as you go, and your best score is saved on this device.</p>
+    <div class="nl-drill-progress" id="bfProgress">Question 1 of 8 &nbsp;&middot;&nbsp; Best score: <span id="bfBestScore">0</span> / 8</div>
+    <div class="pv-drill-question" id="bfDrillQuestion"></div>
+    <div class="pv-drill-choices" id="bfDrillChoices"></div>
+    <div class="drill-feedback" id="bfDrillFeedback"></div>
+    <div class="nl-drill-actions">
+      <button class="drill-btn" id="bfNextBtn" onclick="nextBfQuestion()" style="display:none;">Next Question</button>
+      <button class="drill-btn" id="bfNewSetBtn" onclick="newBfSet()" style="display:none;">Play Again</button>
+    </div>
+  </div>
+
+  <h2><span class="num">7.</span>Why This Topic Matters</h2>
+  <p>Real formulas — in recipes, finance, engineering, and science — almost never stick to whole numbers or a single bracket type. Being fluent with mixed brackets, fractions, and decimals together is what turns BODMAS from a classroom rule into a genuinely usable, everyday skill.</p>
 
   <!-- QUIZ SECTION -->
   <div class="quiz-section">
     <div class="section-eyebrow">Test Your Understanding</div>
-    <h2>Practice Quiz</h2>
-    <p class="quiz-intro">10 questions. Select an answer for each, then submit to see your score instantly.</p>
+    <h2>Practice Questions</h2>
+    <p class="quiz-intro">Twelve multiple-choice questions covering bracket types, the fraction bar, and fraction/decimal BODMAS problems. Tap "Show Answer" under any question to check it individually, or reveal the full answer key at the end.</p>
 
-    <div class="squiz-progress"><div class="squiz-progress-fill" id="squizProgressFill"></div></div>
-    <div class="squiz-progress-label" id="squizProgressLabel">0 of 10 answered</div>
-
-    <div class="squiz-results" id="squizResults">
-      <div class="squiz-score-big" id="squizScoreBig">0/10</div>
-      <div class="squiz-score-label" id="squizScoreLabel">You scored 0%</div>
-      <div class="squiz-score-tier" id="squizScoreTier">Keep practicing</div>
-      <div><button class="squiz-retake-btn" onclick="retakeQuiz()">Retake Quiz</button></div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">1.</span>Which bracket is traditionally removed first when several types appear together?</div>
+      <ul class="quiz-options"><li>A. Square brackets [ ]</li><li>B. Curly brackets { }</li><li>C. Bar (vinculum)</li><li>D. Parentheses ( )</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a1')">Show Answer</button>
+      <div class="quiz-answer" id="a1"><strong>Answer: C — Bar.</strong> The order is bar, then parentheses, then curly, then square.</div>
     </div>
 
-    <form id="squizForm">
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">2.</span>Which bracket is typically removed last?</div>
+      <ul class="quiz-options"><li>A. Bar (vinculum)</li><li>B. Parentheses ( )</li><li>C. Curly brackets { }</li><li>D. Square brackets [ ]</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a2')">Show Answer</button>
+      <div class="quiz-answer" id="a2"><strong>Answer: D — Square brackets.</strong> They're almost always the outermost layer.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">1.</span>What does the word "balanced" mean in the context of diet?</div>
-        <div class="squiz-option"><input type="radio" name="sq1" id="sq1a" value="0"><label for="sq1a">A. Eating exactly equal amounts of every food</label></div>
-        <div class="squiz-option"><input type="radio" name="sq1" id="sq1b" value="1"><label for="sq1b">B. Eating the right proportions of different foods and nutrients</label></div>
-        <div class="squiz-option"><input type="radio" name="sq1" id="sq1c" value="2"><label for="sq1c">C. Eating the same meal every day</label></div>
-        <div class="squiz-option"><input type="radio" name="sq1" id="sq1d" value="3"><label for="sq1d">D. Avoiding all fats and sugars</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">3.</span>What is 100 − [20 + {10 − (6 ÷ 2)}] ÷ 2?</div>
+      <ul class="quiz-options"><li>A. 86.5</li><li>B. 63.5</li><li>C. 27</li><li>D. 13.5</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a3')">Show Answer</button>
+      <div class="quiz-answer" id="a3"><strong>Answer: A — 86.5.</strong> Working from the innermost bracket outward: 6÷2=3, 10−3=7, 20+7=27, 27÷2=13.5, 100−13.5=86.5.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="2">
-        <div class="squiz-q"><span class="qnum">2.</span>Which macronutrient is the body's primary source of energy?</div>
-        <div class="squiz-option"><input type="radio" name="sq2" id="sq2a" value="0"><label for="sq2a">A. Protein</label></div>
-        <div class="squiz-option"><input type="radio" name="sq2" id="sq2b" value="1"><label for="sq2b">B. Water</label></div>
-        <div class="squiz-option"><input type="radio" name="sq2" id="sq2c" value="2"><label for="sq2c">C. Carbohydrates</label></div>
-        <div class="squiz-option"><input type="radio" name="sq2" id="sq2d" value="3"><label for="sq2d">D. Fibre</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">4.</span>What is (3+5) ÷ 4?</div>
+      <ul class="quiz-options"><li>A. 4.25</li><li>B. 2</li><li>C. 8</li><li>D. 1.25</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a4')">Show Answer</button>
+      <div class="quiz-answer" id="a4"><strong>Answer: B — 2.</strong> Brackets group 3+5=8 first, then 8÷4=2.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">3.</span>Which macronutrient acts as the main building block for cells, tissues and hormones?</div>
-        <div class="squiz-option"><input type="radio" name="sq3" id="sq3a" value="0"><label for="sq3a">A. Fat</label></div>
-        <div class="squiz-option"><input type="radio" name="sq3" id="sq3b" value="1"><label for="sq3b">B. Protein</label></div>
-        <div class="squiz-option"><input type="radio" name="sq3" id="sq3c" value="2"><label for="sq3c">C. Carbohydrates</label></div>
-        <div class="squiz-option"><input type="radio" name="sq3" id="sq3d" value="3"><label for="sq3d">D. Vitamin C</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">5.</span>What is 3 + 5/4?</div>
+      <ul class="quiz-options"><li>A. 2</li><li>B. 4.25</li><li>C. 8</li><li>D. 1</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a5')">Show Answer</button>
+      <div class="quiz-answer" id="a5"><strong>Answer: B — 4.25.</strong> Only the 5 sits on the fraction bar: 5÷4=1.25, then 3+1.25=4.25.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="2">
-        <div class="squiz-q"><span class="qnum">4.</span>Which nutrient is essential for brain function, hormone production and absorbing certain vitamins?</div>
-        <div class="squiz-option"><input type="radio" name="sq4" id="sq4a" value="0"><label for="sq4a">A. Fibre</label></div>
-        <div class="squiz-option"><input type="radio" name="sq4" id="sq4b" value="1"><label for="sq4b">B. Iron</label></div>
-        <div class="squiz-option"><input type="radio" name="sq4" id="sq4c" value="2"><label for="sq4c">C. Fat</label></div>
-        <div class="squiz-option"><input type="radio" name="sq4" id="sq4d" value="3"><label for="sq4d">D. Water</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">6.</span>What is (1/2 + 1/4) × 8?</div>
+      <ul class="quiz-options"><li>A. 4</li><li>B. 5</li><li>C. 6</li><li>D. 8</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a6')">Show Answer</button>
+      <div class="quiz-answer" id="a6"><strong>Answer: C — 6.</strong> Brackets first: 1/2+1/4=3/4. Then 3/4×8=6.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="3">
-        <div class="squiz-q"><span class="qnum">5.</span>Which vitamin, obtained mainly from sunlight, is essential for bone health?</div>
-        <div class="squiz-option"><input type="radio" name="sq5" id="sq5a" value="0"><label for="sq5a">A. Vitamin C</label></div>
-        <div class="squiz-option"><input type="radio" name="sq5" id="sq5b" value="1"><label for="sq5b">B. Vitamin B12</label></div>
-        <div class="squiz-option"><input type="radio" name="sq5" id="sq5c" value="2"><label for="sq5c">C. Calcium</label></div>
-        <div class="squiz-option"><input type="radio" name="sq5" id="sq5d" value="3"><label for="sq5d">D. Vitamin D</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">7.</span>What is 2/3 + 1/3 × 3/5?</div>
+      <ul class="quiz-options"><li>A. 3/5</li><li>B. 13/15</li><li>C. 1</li><li>D. 1/5</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a7')">Show Answer</button>
+      <div class="quiz-answer" id="a7"><strong>Answer: B — 13/15.</strong> Multiply first: 1/3×3/5=1/5. Then add: 2/3+1/5=10/15+3/15=13/15.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">6.</span>Which mineral is needed to produce haemoglobin, which carries oxygen in the blood?</div>
-        <div class="squiz-option"><input type="radio" name="sq6" id="sq6a" value="0"><label for="sq6a">A. Calcium</label></div>
-        <div class="squiz-option"><input type="radio" name="sq6" id="sq6b" value="1"><label for="sq6b">B. Iron</label></div>
-        <div class="squiz-option"><input type="radio" name="sq6" id="sq6c" value="2"><label for="sq6c">C. Vitamin C</label></div>
-        <div class="squiz-option"><input type="radio" name="sq6" id="sq6d" value="3"><label for="sq6d">D. Vitamin B12</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">8.</span>What is 2.5 + 3 × 0.4?</div>
+      <ul class="quiz-options"><li>A. 2.2</li><li>B. 11.6</li><li>C. 3.7</li><li>D. 1.9</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a8')">Show Answer</button>
+      <div class="quiz-answer" id="a8"><strong>Answer: C — 3.7.</strong> Multiply first: 3×0.4=1.2. Then add: 2.5+1.2=3.7.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">7.</span>What is dietary fibre mainly responsible for?</div>
-        <div class="squiz-option"><input type="radio" name="sq7" id="sq7a" value="0"><label for="sq7a">A. Building muscle tissue</label></div>
-        <div class="squiz-option"><input type="radio" name="sq7" id="sq7b" value="1"><label for="sq7b">B. Digestive health and regulating blood sugar</label></div>
-        <div class="squiz-option"><input type="radio" name="sq7" id="sq7c" value="2"><label for="sq7c">C. Producing red blood cells</label></div>
-        <div class="squiz-option"><input type="radio" name="sq7" id="sq7d" value="3"><label for="sq7d">D. Absorbing vitamin D</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">9.</span>What is 6.4 ÷ 0.8 + 1.5 × 2?</div>
+      <ul class="quiz-options"><li>A. 2.06</li><li>B. 11</li><li>C. 5.9</li><li>D. 8.9</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a9')">Show Answer</button>
+      <div class="quiz-answer" id="a9"><strong>Answer: B — 11.</strong> Division and multiplication first (separately): 6.4÷0.8=8, 1.5×2=3. Then add: 8+3=11.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="2">
-        <div class="squiz-q"><span class="qnum">8.</span>Roughly what percentage of the human body is water?</div>
-        <div class="squiz-option"><input type="radio" name="sq8" id="sq8a" value="0"><label for="sq8a">A. About 25%</label></div>
-        <div class="squiz-option"><input type="radio" name="sq8" id="sq8b" value="1"><label for="sq8b">B. About 40%</label></div>
-        <div class="squiz-option"><input type="radio" name="sq8" id="sq8c" value="2"><label for="sq8c">C. About 60%</label></div>
-        <div class="squiz-option"><input type="radio" name="sq8" id="sq8d" value="3"><label for="sq8d">D. About 90%</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">10.</span>What is 0.5 × (3.6 + 2.4) − 1.8?</div>
+      <ul class="quiz-options"><li>A. 1.2</li><li>B. 3.0</li><li>C. 4.8</li><li>D. 0.9</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a10')">Show Answer</button>
+      <div class="quiz-answer" id="a10"><strong>Answer: A — 1.2.</strong> Brackets first: 3.6+2.4=6.0. Then 0.5×6.0=3.0. Then 3.0−1.8=1.2.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="1">
-        <div class="squiz-q"><span class="qnum">9.</span>In the practical "plate" method described in the article, what proportion should be vegetables and fruit?</div>
-        <div class="squiz-option"><input type="radio" name="sq9" id="sq9a" value="0"><label for="sq9a">A. A quarter</label></div>
-        <div class="squiz-option"><input type="radio" name="sq9" id="sq9b" value="1"><label for="sq9b">B. About half</label></div>
-        <div class="squiz-option"><input type="radio" name="sq9" id="sq9c" value="2"><label for="sq9c">C. All of it</label></div>
-        <div class="squiz-option"><input type="radio" name="sq9" id="sq9d" value="3"><label for="sq9d">D. A tenth</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">11.</span>What does a fraction bar do to the numbers written directly above and below it?</div>
+      <ul class="quiz-options"><li>A. Nothing special</li><li>B. Groups them, exactly like a bracket</li><li>C. Makes them automatically negative</li><li>D. Rounds them to whole numbers</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a11')">Show Answer</button>
+      <div class="quiz-answer" id="a11"><strong>Answer: B.</strong> Everything written directly on a fraction bar is grouped together, just like it would be inside brackets.</div>
+    </div>
 
-      <div class="squiz-item" data-correct="2">
-        <div class="squiz-q"><span class="qnum">10.</span>According to the article, over what timeframe should a balanced diet be judged?</div>
-        <div class="squiz-option"><input type="radio" name="sq10" id="sq10a" value="0"><label for="sq10a">A. A single meal</label></div>
-        <div class="squiz-option"><input type="radio" name="sq10" id="sq10b" value="1"><label for="sq10b">B. One day only</label></div>
-        <div class="squiz-option"><input type="radio" name="sq10" id="sq10c" value="2"><label for="sq10c">C. Across a week, not meal by meal</label></div>
-        <div class="squiz-option"><input type="radio" name="sq10" id="sq10d" value="3"><label for="sq10d">D. A full calendar year</label></div>
-      </div>
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">12.</span>What is 3/4 × (2/3 + 1/6)?</div>
+      <ul class="quiz-options"><li>A. 5/8</li><li>B. 5/6</li><li>C. 3/4</li><li>D. 1/2</li></ul>
+      <button class="show-answer-btn" onclick="toggleAnswer('a12')">Show Answer</button>
+      <div class="quiz-answer" id="a12"><strong>Answer: A — 5/8.</strong> Brackets first: 2/3+1/6=5/6. Then 3/4×5/6=15/24=5/8.</div>
+    </div>
 
-<button type="button" class="squiz-submit-btn" id="squizSubmitBtn" onclick="submitQuiz()" disabled>Answer all questions to submit</button>
-    </form>
+    <button class="answer-key-toggle" id="keyToggleBtn" onclick="toggleAllAnswers()">Show Full Answer Key</button>
   </div>
 
   <div class="article-footer-nav">
-    <a href="index.html">← Back to Health</a>
-    <a href="index.html">More Health Topics →</a>
+    <a href="bodmas-dmas-rules.html">← Back to BODMAS &amp; DMAS Rules</a>
+    <a href="divisibility-rules.html">Next: Divisibility Rules →</a>
   </div>
 
 </div>
-
 <script>
-  (function() {
-    const form = document.getElementById('squizForm');
-    const submitBtn = document.getElementById('squizSubmitBtn');
-    const progressFill = document.getElementById('squizProgressFill');
-    const progressLabel = document.getElementById('squizProgressLabel');
-    const totalQuestions = document.querySelectorAll('.squiz-item').length;
-
-    function countAnswered() {
-      let count = 0;
-      for (let i = 1; i <= totalQuestions; i++) {
-        if (form.querySelector(`input[name="sq${i}"]:checked`)) count++;
-      }
-      return count;
-    }
-
-    function updateProgress() {
-      const answered = countAnswered();
-      progressFill.style.width = (answered / totalQuestions * 100) + '%';
-      progressLabel.textContent = answered + ' of ' + totalQuestions + ' answered';
-      submitBtn.disabled = answered < totalQuestions;
-      submitBtn.textContent = answered < totalQuestions ? 'Answer all questions to submit' : 'Submit Quiz';
-      document.querySelectorAll('.squiz-option').forEach(opt => opt.classList.remove('selected'));
-      form.querySelectorAll('input[type="radio"]:checked').forEach(input => {
-        input.closest('.squiz-option').classList.add('selected');
-      });
-    }
-
-    form.addEventListener('change', updateProgress);
-
-    window.submitQuiz = function() {
-      let score = 0;
-      const questions = document.querySelectorAll('.squiz-item');
-      questions.forEach((q, idx) => {
-        const qnum = idx + 1;
-        const correctIdx = q.getAttribute('data-correct');
-        const selected = form.querySelector(`input[name="sq${qnum}"]:checked`);
-        const options = q.querySelectorAll('.squiz-option');
-        options.forEach((opt, optIdx) => {
-          opt.querySelector('input').disabled = true;
-          if (String(optIdx) === correctIdx) opt.classList.add('correct-answer');
+  function toggleAnswer(id) {
+    document.getElementById(id).classList.toggle('visible');
+  }
+  function toggleAllAnswers() {
+    var answers = document.querySelectorAll('.quiz-answer');
+    var btn = document.getElementById('keyToggleBtn');
+    var anyHidden = Array.prototype.some.call(answers, function(a){ return !a.classList.contains('visible'); });
+    answers.forEach(function(a) {
+      if (anyHidden) { a.classList.add('visible'); } else { a.classList.remove('visible'); }
+    });
+    btn.textContent = anyHidden ? 'Hide Full Answer Key' : 'Show Full Answer Key';
+  }
+  function toggleFix(id) {
+    document.getElementById(id).classList.toggle('visible');
+  }
+  function initQuizOptionSelection() {
+    document.querySelectorAll('.quiz-item').forEach(function(item) {
+      var options = item.querySelectorAll('.quiz-options li');
+      options.forEach(function(li) {
+        li.addEventListener('click', function() {
+          options.forEach(function(o) { o.classList.remove('selected'); });
+          li.classList.add('selected');
         });
-        if (selected && selected.value === correctIdx) {
-          score++;
-        } else if (selected) {
-          selected.closest('.squiz-option').classList.add('wrong-answer');
-        }
       });
+    });
+  }
+  initQuizOptionSelection();
 
-      const percent = Math.round((score / totalQuestions) * 100);
-      document.getElementById('squizScoreBig').textContent = score + '/' + totalQuestions;
-      document.getElementById('squizScoreLabel').textContent = 'You scored ' + percent + '%';
+  /* ── BRACKET & FRACTION SOLVER ── */
+  var BF_CHIPS = [
+    {label: "8 + (4\u22122) [bar]", result: "10", steps: ["The bar groups 4\u22122 first: 4\u22122 = 2", "Then add: 8 + 2 = 10"]},
+    {label: "(3+5) \u00f7 4", result: "2", steps: ["Brackets first: 3+5 = 8", "Then divide: 8 \u00f7 4 = 2"]},
+    {label: "3 + 5/4", result: "4.25", steps: ["Only the 5 sits on the fraction bar: 5 \u00f7 4 = 1.25", "Then add: 3 + 1.25 = 4.25"]},
+    {label: "(1/2 + 1/4) \u00d7 8", result: "6", steps: ["Brackets first, common denominator: 1/2 + 1/4 = 3/4", "Then multiply: 3/4 \u00d7 8 = 6"]},
+    {label: "100 \u2212 [20+{10\u2212(6\u00f72)}]\u00f72", result: "86.5", steps: ["Parentheses (innermost): 6 \u00f7 2 = 3", "Curly brackets: 10 \u2212 3 = 7", "Square brackets: 20 + 7 = 27", "Divide: 27 \u00f7 2 = 13.5", "Subtract: 100 \u2212 13.5 = 86.5"]},
+    {label: "2.5 + 3\u00d70.4 \u2212 (1.2\u00f70.6)", result: "1.7", steps: ["Brackets first: 1.2 \u00f7 0.6 = 2", "Multiply: 3 \u00d7 0.4 = 1.2", "Left to right: 2.5 + 1.2 = 3.7, then 3.7 \u2212 2 = 1.7"]},
+    {label: "0.5 \u00d7 (3.6+2.4) \u2212 1.8", result: "1.2", steps: ["Brackets first: 3.6 + 2.4 = 6.0", "Multiply: 0.5 \u00d7 6.0 = 3.0", "Subtract: 3.0 \u2212 1.8 = 1.2"]},
+    {label: "6.4 \u00f7 0.8 + 1.5 \u00d7 2", result: "11", steps: ["Division and multiplication (separately): 6.4 \u00f7 0.8 = 8, and 1.5 \u00d7 2 = 3", "Add: 8 + 3 = 11"]}
+  ];
+  var bfActiveChip = null;
 
-      let tier = 'Keep practicing';
-      if (percent === 100) tier = 'Perfect score!';
-      else if (percent >= 80) tier = 'Excellent work';
-      else if (percent >= 60) tier = 'Good effort';
-      else if (percent >= 40) tier = 'Getting there';
-      document.getElementById('squizScoreTier').textContent = tier;
+  function renderBfChips() {
+    var row = document.getElementById('bfChipRow');
+    row.innerHTML = '';
+    BF_CHIPS.forEach(function(chip, i) {
+      var el = document.createElement('div');
+      el.className = 'ns-chip';
+      el.textContent = chip.label;
+      if (i === bfActiveChip) el.classList.add('active');
+      el.onclick = (function(idx) { return function() { selectBfChip(idx); }; })(i);
+      row.appendChild(el);
+    });
+  }
 
-      document.getElementById('squizResults').classList.add('visible');
-      submitBtn.style.display = 'none';
-      document.getElementById('squizResults').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
+  function selectBfChip(idx) {
+    bfActiveChip = idx;
+    renderBfChips();
+    var chip = BF_CHIPS[idx];
+    document.getElementById('bfInfoPlaceholder').style.display = 'none';
+    var resultEl = document.getElementById('bfInfoResult');
+    resultEl.style.display = 'block';
+    var stepsHtml = chip.steps.map(function(s, i) { return (i+1) + '. ' + s; }).join('<br>');
+    resultEl.innerHTML = '<strong>' + chip.label + ' = ' + chip.result + '</strong><br>' + stepsHtml;
+  }
 
-    window.retakeQuiz = function() {
-      form.reset();
-      document.querySelectorAll('.squiz-option').forEach(opt => {
-        opt.classList.remove('selected', 'correct-answer', 'wrong-answer');
-        opt.querySelector('input').disabled = false;
-      });
-      document.getElementById('squizResults').classList.remove('visible');
-      submitBtn.style.display = 'block';
-      updateProgress();
-      document.getElementById('squizForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
+  renderBfChips();
 
-    updateProgress();
-  })();
+  /* ── PRACTICE ARENA: Solve It ── */
+  var BF_QUESTION_POOL = [
+    {q: "What is (6+2) \u00f7 4?", choices: ["2", "8", "0.5", "4"], correct: 0},
+    {q: "What is 6 + 2/4?", choices: ["2", "6.5", "8", "4"], correct: 1},
+    {q: "What is (1/4 + 1/4) \u00d7 6?", choices: ["1.5", "3", "6", "12"], correct: 1},
+    {q: "What is 1.5 + 2 \u00d7 0.5?", choices: ["1.75", "2.5", "3.5", "1.5"], correct: 1},
+    {q: "What is (2.4 + 1.6) \u00f7 2?", choices: ["2", "4", "0.5", "8"], correct: 0},
+    {q: "What is 3/5 + 1/5 \u00d7 2?", choices: ["4/5", "1", "1/5", "8/5"], correct: 1},
+    {q: "What is 9.6 \u00f7 1.2 \u2212 2 \u00d7 1.5?", choices: ["5", "8", "2", "11"], correct: 0},
+    {q: "What is [5 + {3 \u00d7 (2+1)}] \u2212 4?", choices: ["10", "14", "6", "18"], correct: 0}
+  ];
+  var BF_TOTAL_QUESTIONS = 8;
+  var BF_STORAGE_KEY = 'bf_best_score';
+  var bfQuestions = [];
+  var bfIndex = 0;
+  var bfCorrectCount = 0;
+
+  function shuffleBfArray(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
+  function newBfSet() {
+    bfQuestions = shuffleBfArray(BF_QUESTION_POOL).slice(0, BF_TOTAL_QUESTIONS);
+    bfIndex = 0;
+    bfCorrectCount = 0;
+    document.getElementById('bfNewSetBtn').style.display = 'none';
+    renderBfQuestion();
+    updateBfBestScoreDisplay();
+  }
+
+  function renderBfQuestion() {
+    var q = bfQuestions[bfIndex];
+    document.getElementById('bfProgress').innerHTML = 'Question ' + (bfIndex + 1) + ' of ' + bfQuestions.length + ' &nbsp;\u00b7&nbsp; Best score: <span id="bfBestScore">' + getBfBestScore() + '</span> / ' + BF_TOTAL_QUESTIONS;
+    document.getElementById('bfDrillQuestion').textContent = q.q;
+    document.getElementById('bfDrillFeedback').textContent = '';
+    document.getElementById('bfNextBtn').style.display = 'none';
+
+    var choicesEl = document.getElementById('bfDrillChoices');
+    choicesEl.innerHTML = '';
+    q.choices.forEach(function(choice, i) {
+      var btn = document.createElement('button');
+      btn.className = 'pv-choice-btn';
+      btn.textContent = choice;
+      btn.onclick = function() { checkBfAnswer(i, btn); };
+      choicesEl.appendChild(btn);
+    });
+  }
+
+  function checkBfAnswer(selectedIdx, btnEl) {
+    var q = bfQuestions[bfIndex];
+    var allBtns = document.querySelectorAll('#bfDrillChoices .pv-choice-btn');
+    allBtns.forEach(function(b) { b.disabled = true; });
+
+    var isCorrect = selectedIdx === q.correct;
+    if (isCorrect) {
+      bfCorrectCount++;
+      btnEl.classList.add('correct');
+    } else {
+      btnEl.classList.add('incorrect');
+      allBtns[q.correct].classList.add('correct');
+    }
+
+    document.getElementById('bfDrillFeedback').textContent = isCorrect ? 'Correct!' : 'Not quite — the correct answer is highlighted.';
+
+    if (bfIndex < bfQuestions.length - 1) {
+      document.getElementById('bfNextBtn').style.display = 'inline-block';
+    } else {
+      finishBfSet();
+    }
+  }
+
+  function nextBfQuestion() {
+    bfIndex++;
+    renderBfQuestion();
+  }
+
+  function finishBfSet() {
+    document.getElementById('bfProgress').textContent = 'Finished! You got ' + bfCorrectCount + ' out of ' + bfQuestions.length + ' correct.';
+    document.getElementById('bfDrillQuestion').textContent = '';
+    document.getElementById('bfDrillChoices').innerHTML = '';
+    var best = getBfBestScore();
+    if (bfCorrectCount > best) {
+      localStorage.setItem(BF_STORAGE_KEY, bfCorrectCount);
+    }
+    document.getElementById('bfNewSetBtn').style.display = 'inline-block';
+    updateBfBestScoreDisplay();
+  }
+
+  function getBfBestScore() {
+    return parseInt(localStorage.getItem(BF_STORAGE_KEY) || '0', 10);
+  }
+
+  function updateBfBestScoreDisplay() {
+    var el = document.getElementById('bfBestScore');
+    if (el) el.textContent = getBfBestScore();
+  }
+
+  newBfSet();
 </script>
-
 <footer>
   <div class="footer-top">
     <div class="footer-brand">
