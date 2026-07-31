@@ -1174,29 +1174,38 @@
   // Reliable navigation for every link that should CLOSE the menu and jump
   // to a section — i.e. every subitem link, "View All" link, and flat
   // top-level link (Health, Activities, Self Assessment, Resources).
-  // Deliberately scoped to exclude the category head links (English
-  // Language, Mathematics, Science, General Knowledge, Computer & AI),
-  // since those only toggle their submenu open/closed via toggleSubmenu()
-  // above and must never trigger this close-and-scroll behaviour.
+  // Deliberately excludes the category head links (English Language,
+  // Mathematics, Science, General Knowledge, Computer & AI), since those
+  // only toggle their submenu open/closed via toggleSubmenu() above and
+  // must never trigger this close-and-scroll behaviour.
   // This replaces depending on the browser's native hash-jump, which was
   // racing against the panel's slide-away CSS transition on mobile and
   // silently failing (menu closes, nothing opens).
-  document.querySelectorAll(
-    '.mobile-menu-subitems a[href^="#"], .mobile-menu-section > a[href^="#"]'
-  ).forEach(function (link) {
-    link.addEventListener('click', function (e) {
-      var hash = this.getAttribute('href');
-      var target = document.querySelector(hash);
-      e.preventDefault();
-      closeMobileMenu();
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        if (history.pushState) {
-          try { history.pushState(null, '', hash); } catch (err) { /* ignore on restricted origins */ }
-        }
-      }
-    }, false);
-  });
+  //
+  // Uses a SINGLE delegated listener on the menu container itself rather
+  // than one listener per link. This is deliberate: attaching listeners
+  // to each link individually only works if every link already exists in
+  // the DOM at the moment this script runs. A delegated listener on the
+  // container catches clicks on any current or future subitem link
+  // regardless of timing, and there is no separate "close on click"
+  // handler anywhere else in this file for it to conflict or race with.
+  document.getElementById('mobileMenu').addEventListener('click', function (e) {
+    var link = e.target.closest('a[href^="#"]');
+    if (!link) return;
+    if (link.closest('.mobile-menu-section-head')) return; // category head — handled by toggleSubmenu only
+    var hash = link.getAttribute('href');
+    var target = document.querySelector(hash);
+    e.preventDefault();
+    closeMobileMenu();
+    if (target) {
+      // Wait for the tray's own closing transition to finish before
+      // scrolling — attempting to scroll while it's still animating away
+      // silently fails on some mobile browsers.
+      setTimeout(function () {
+        target.scrollIntoView({ behavior: 'auto', block: 'start' });
+      }, 350);
+    }
+  }, false);
 </script>
 
 <!-- HERO -->
