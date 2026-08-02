@@ -279,6 +279,118 @@
     }
     .nav-cta:hover { background: var(--red-mid); }
 
+    /* ── SEARCH ── */
+    .nav-search-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      color: rgba(255,255,255,0.8);
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: color 0.2s;
+    }
+    .nav-search-btn:hover { color: white; }
+    .search-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(13,27,42,0.92);
+      z-index: 600;
+      display: none;
+      flex-direction: column;
+      padding: 6vh 1.5rem 2rem;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .search-overlay.is-open { display: flex; }
+    .search-overlay-inner {
+      max-width: 640px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .search-overlay-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .search-input-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 0.7rem 1rem;
+    }
+    .search-input-wrap svg { color: rgba(255,255,255,0.5); flex-shrink: 0; }
+    #searchInput {
+      flex: 1;
+      background: none;
+      border: none;
+      outline: none;
+      color: white;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 1rem;
+    }
+    #searchInput::placeholder { color: rgba(255,255,255,0.4); }
+    .search-close {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.8rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0.3rem 0.5rem;
+      flex-shrink: 0;
+    }
+    .search-hint {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 1rem;
+      letter-spacing: 0.02em;
+    }
+    .search-results {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .search-result {
+      display: block;
+      text-decoration: none;
+      padding: 0.9rem 1rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .search-result:hover, .search-result:active {
+      background: rgba(255,255,255,0.09);
+      border-color: var(--gold);
+    }
+    .search-result-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+    .search-result-title {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.05rem;
+      color: white;
+      line-height: 1.4;
+    }
+    .search-empty {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.9rem;
+      padding: 1rem 0.2rem;
+    }
+    body.search-locked { overflow: hidden; }
+
     /* ── HERO ── */
     .hero {
       background: var(--navy);
@@ -337,6 +449,27 @@
       font-weight: 300;
       line-height: 1.8;
     }
+    .hero-tagline {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .hero-process {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 2.25rem;
+    }
+    .hero-process span.step { color: var(--gold); }
+    .hero-process span.arrow { color: rgba(255,255,255,0.3); font-weight: 400; }
     .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
     .btn-primary {
       background: var(--red);
@@ -981,7 +1114,8 @@
         white-space: nowrap;
         flex-shrink: 0;
       }
-      .hero { padding: 2.5rem 1.25rem; }
+      .hero { padding: 1.5rem 1.25rem 2.25rem; }
+      .hero-eyebrow { margin-bottom: 1rem; }
       .hero h1 { font-size: 1.75rem; line-height: 1.2; }
       .hero-desc { font-size: 0.9rem; margin-bottom: 1.75rem; }
       .btn-primary, .btn-outline { padding: 0.65rem 1.25rem; font-size: 0.8rem; }
@@ -1008,7 +1142,8 @@
   <p>Established 2026 &nbsp;·&nbsp; Free Educational Resources for All</p>
   <ul class="top-bar-links">
     <li><a href="mailto:hello.thelearnersladder@gmail.com">Contact</a></li>
-    <li><a href="#mission">About</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="mailto:hello.thelearnersladder@gmail.com?subject=Site%20Feedback">Feedback</a></li>
     <li><a href="mailto:hello.thelearnersladder@gmail.com?subject=Article%20Submission">Write for Us</a></li>
   </ul>
 </div>
@@ -1027,15 +1162,33 @@
     <li><a href="#activities">Activities</a></li>
     <li><a href="#mathematics">Mathematics</a></li>
     <li><a href="#science">Science</a></li>
-    <li><a href="#health">Health</a></li>
+    <li><a href="#health">Health &amp; Nutrition</a></li>
     <li><a href="#general-knowledge">General Knowledge</a></li>
     <li><a href="#computer-ai">Computer &amp; AI</a></li>
     <li><a href="#resources">Resources</a></li>
   </ul>
+  <button class="nav-search-btn" onclick="openSearch()" aria-label="Search articles">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+  </button>
   <button class="nav-hamburger" id="navHamburger" onclick="toggleMobileMenu()" aria-label="Open menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-overlay-inner">
+    <div class="search-overlay-header">
+      <div class="search-input-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="searchInput" placeholder="Search articles, topics, subjects…" autocomplete="off" oninput="runSearch()"/>
+      </div>
+      <button class="search-close" onclick="closeSearch()" aria-label="Close search">&times;</button>
+    </div>
+    <div class="search-hint" id="searchHint">Type at least 2 characters — searches across all 126 articles.</div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+</div>
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
@@ -1105,13 +1258,13 @@
 
   <div class="mobile-menu-section">
     <div class="mobile-menu-section-head">
-      <a href="#health" onclick="event.preventDefault(); toggleSubmenu(this);">Health <span style="font-size:0.72rem; font-weight:400; color:rgba(255,255,255,0.4); font-family:'Source Sans 3', sans-serif;">(In Progress)</span></a>
-      <button class="mobile-menu-arrow-btn" onclick="toggleSubmenu(this)" aria-expanded="false" aria-label="Toggle Health categories">
+      <a href="#health" onclick="event.preventDefault(); toggleSubmenu(this);">Health &amp; Nutrition</a>
+      <button class="mobile-menu-arrow-btn" onclick="toggleSubmenu(this)" aria-expanded="false" aria-label="Toggle Health &amp; Nutrition categories">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
       </button>
     </div>
     <div class="mobile-menu-subitems">
-      <a href="#health" style="font-weight:600; color:var(--gold);">View All Health →</a>
+      <a href="#health" style="font-weight:600; color:var(--gold);">View All Health &amp; Nutrition →</a>
       <a href="#health-foundational-concepts">Foundational Concepts</a>
       <a href="#health-nutrition">Nutrition</a>
       <a href="#health-body-fitness">Body &amp; Fitness</a>
@@ -1141,15 +1294,17 @@
 
   <div class="mobile-menu-section">
     <div class="mobile-menu-section-head">
-      <a href="#computer-ai" onclick="event.preventDefault(); toggleSubmenu(this);">Computer &amp; AI <span style="font-size:0.72rem; font-weight:400; color:rgba(255,255,255,0.4); font-family:'Source Sans 3', sans-serif;">(In Progress)</span></a>
+      <a href="#computer-ai" onclick="event.preventDefault(); toggleSubmenu(this);">Computer &amp; AI</a>
       <button class="mobile-menu-arrow-btn" onclick="toggleSubmenu(this)" aria-expanded="false" aria-label="Toggle Computer &amp; AI categories">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
       </button>
     </div>
     <div class="mobile-menu-subitems">
       <a href="#computer-ai" style="font-weight:600; color:var(--gold);">View All Computer &amp; AI →</a>
-      <a href="#computer-ai-fundamentals">Computing Fundamentals</a>
-      <a href="#computer-ai-artificial-intelligence">Artificial Intelligence &amp; Machine Learning</a>
+      <a href="#computer-ai-core-computing">Core Computing</a>
+      <a href="#computer-ai-internet-safety">Internet &amp; Digital Safety</a>
+      <a href="#computer-ai-foundations">AI Foundations</a>
+      <a href="#computer-ai-practice">AI in Practice</a>
     </div>
   </div>
 
@@ -1163,6 +1318,18 @@
 
   <div class="mobile-menu-section">
     <a href="#resources">Resources <span style="font-size:0.72rem; font-weight:400; color:rgba(255,255,255,0.4); font-family:'Source Sans 3', sans-serif;">(In Progress)</span></a>
+  </div>
+
+  <div class="mobile-menu-section">
+    <a href="#about">About</a>
+  </div>
+
+  <div class="mobile-menu-section">
+    <a href="#mission">Our Mission</a>
+  </div>
+
+  <div class="mobile-menu-section">
+    <a href="#team">The Team</a>
   </div>
 </div>
 
@@ -1220,6 +1387,50 @@
       }, 350);
     }
   }, false);
+
+  /* ── SEARCH ── */
+  var SEARCH_INDEX = [{"h":"parts-of-speech.html","t":"Parts of Speech: The Building Blocks of English","c":"Grammar Basics"},{"h":"sentence-structure.html","t":"Sentence Structure: From Basic to Advanced","c":"Grammar Basics"},{"h":"punctuation-rules.html","t":"Punctuation Rules: The Complete Guide","c":"Grammar Basics"},{"h":"tenses-verb-forms.html","t":"Tenses & Verb Forms: The Complete Guide","c":"Grammar Basics"},{"h":"common-errors.html","t":"Common Errors in English: A Complete Guide","c":"Grammar Basics"},{"h":"prefixes-suffixes-root-words.html","t":"Prefixes, Suffixes & Root Words: The Complete Guide","c":"Vocabulary Building"},{"h":"synonyms-antonyms.html","t":"Synonyms & Antonyms: The Complete Guide","c":"Vocabulary Building"},{"h":"idioms-phrases.html","t":"Idioms & Phrases: The Complete Guide","c":"Vocabulary Building"},{"h":"formal-informal-english.html","t":"Formal vs. Informal English: The Complete Guide","c":"Vocabulary Building"},{"h":"main-idea-supporting-details.html","t":"Main Idea & Supporting Details: The Complete Guide","c":"Reading Comprehension"},{"h":"making-inferences.html","t":"Making Inferences & Drawing Conclusions","c":"Reading Comprehension"},{"h":"context-clues.html","t":"Context Clues: The Complete Guide","c":"Reading Comprehension"},{"h":"text-structure-organization.html","t":"Text Structure & Organization","c":"Reading Comprehension"},{"h":"authors-purpose-tone-pov.html","t":"Author's Purpose, Tone & Point of View","c":"Reading Comprehension"},{"h":"prose.html","t":"Prose: The Complete Guide","c":"Literary Forms"},{"h":"poetry.html","t":"Poetry: The Complete Guide","c":"Literary Forms"},{"h":"how-to-write-a-perfect-paragraph.html","t":"How to Write a Perfect Paragraph","c":"Creative Writing"},{"h":"story-structure.html","t":"Story Structure: Beginning, Middle and End","c":"Creative Writing"},{"h":"character-development.html","t":"Character Development: Writing People Readers Care About","c":"Creative Writing"},{"h":"show-dont-tell.html","t":"Show, Don't Tell: The Principle of Vivid Writing","c":"Creative Writing"},{"h":"dialogue-and-voice.html","t":"Dialogue & Voice: Writing Conversation That Sounds Real","c":"Creative Writing"},{"h":"self-editing-process.html","t":"Editing Your Own Work: A Step-by-Step Process","c":"Creative Writing"},{"h":"essay-structure.html","t":"Essay Structure & the Five-Paragraph Essay","c":"Academic & Essay Writing"},{"h":"thesis-statements.html","t":"Thesis Statements: The Complete Guide","c":"Academic & Essay Writing"},{"h":"types-of-essays.html","t":"Types of Essays: The Complete Guide","c":"Academic & Essay Writing"},{"h":"evidence-citations-plagiarism.html","t":"Evidence, Citations & Avoiding Plagiarism","c":"Academic & Essay Writing"},{"h":"transitions-cohesion.html","t":"Transitions & Cohesion","c":"Academic & Essay Writing"},{"h":"spoken-english-pronunciation.html","t":"Spoken English & Pronunciation","c":"Spoken English & Pronunciation"},{"h":"fluency-building-techniques.html","t":"Fluency Building Techniques","c":"Spoken English & Pronunciation"},{"h":"word-and-sentence-stress.html","t":"Word & Sentence Stress Patterns","c":"Spoken English & Pronunciation"},{"h":"intonation-in-conversation.html","t":"Intonation in Conversation","c":"Spoken English & Pronunciation"},{"h":"common-pronunciation-mistakes.html","t":"Common Pronunciation Mistakes","c":"Spoken English & Pronunciation"},{"h":"formal-letter-writing.html","t":"Formal Letter Writing","c":"Letter & Email Writing"},{"h":"informal-letter-writing.html","t":"Informal Letter Writing","c":"Letter & Email Writing"},{"h":"job-applications-cover-letters.html","t":"Job Applications & Cover Letters","c":"Letter & Email Writing"},{"h":"professional-email-etiquette.html","t":"Professional Email Etiquette","c":"Letter & Email Writing"},{"h":"complaint-request-letters.html","t":"Complaint & Request Letters","c":"Letter & Email Writing"},{"h":"vocabulary-flashcards.html","t":"Vocabulary Flashcards","c":"Interactive Practice"},{"h":"sentence-scramble.html","t":"Sentence Scramble","c":"Interactive Practice"},{"h":"grammar-fix-it.html","t":"Grammar Fix-It","c":"Interactive Practice"},{"h":"idiom-matcher.html","t":"Idiom Matcher","c":"Interactive Practice"},{"h":"punctuation-practice.html","t":"Punctuation Practice","c":"Interactive Practice"},{"h":"practice-test-parts-of-speech.html","t":"Practice Test: Parts of Speech","c":"Grammar Basics · Auto-Graded"},{"h":"practice-test-sentence-structure.html","t":"Practice Test: Sentence Structure","c":"Grammar Basics · Auto-Graded"},{"h":"why-do-we-need-mathematics.html","t":"Why Do We Need Mathematics in Daily Life?","c":"Mathematics"},{"h":"what-is-science-scientific-method.html","t":"What is Science? The Scientific Method","c":"Science · Foundational Concepts"},{"h":"observation-vs-inference.html","t":"Observation vs Inference: Reading Data Like a Scientist","c":"Science · Foundational Concepts"},{"h":"science-vs-pseudoscience.html","t":"Science vs Pseudoscience: How to Tell the Difference","c":"Science · Foundational Concepts"},{"h":"lab-safety-scientific-equipment.html","t":"Lab Safety & Scientific Equipment","c":"Science · Foundational Concepts"},{"h":"scientific-measurement-si-units.html","t":"Scientific Measurement & SI Units","c":"Science · Foundational Concepts"},{"h":"basic-data-statistics.html","t":"Basic Data & Statistics: Mean, Median, and Mode","c":"Science · Foundational Concepts"},{"h":"models-and-simulations.html","t":"Models & Simulations in Science","c":"Science · Foundational Concepts"},{"h":"scientific-revolution.html","t":"The Scientific Revolution: How Modern Science Began","c":"Science · Foundational Concepts"},{"h":"scientific-notation.html","t":"Scientific Notation: Writing Very Large and Very Small Numbers","c":"Science · Foundational Concepts"},{"h":"designing-a-fair-experiment.html","t":"Designing a Fair Experiment: Variables, Repeat Trials & Reliability","c":"Science · Foundational Concepts"},{"h":"what-is-biology.html","t":"What is Biology?","c":"Science · Biology"},{"h":"cells-the-building-blocks-of-life.html","t":"Cells: The Building Blocks of Life","c":"Science · Biology"},{"h":"what-is-the-human-cell.html","t":"What is the Human Cell? A Simple Guide","c":"Science · Biology"},{"h":"what-is-health.html","t":"What is Health? Physical, Mental & Social Wellbeing","c":"Health · Foundational Concepts"},{"h":"what-is-a-balanced-diet.html","t":"What is a Balanced Diet and Why Does It Matter?","c":"Health · Nutrition"},{"h":"food-groups-healthy-eating.html","t":"Food Groups and Healthy Eating Habits","c":"Health · Nutrition"},{"h":"importance-of-sleep-and-rest.html","t":"The Importance of Sleep and Rest","c":"Health · Sleep"},{"h":"physical-fitness-exercise-basics.html","t":"Physical Fitness and Exercise Basics","c":"Health · Fitness"},{"h":"understanding-mental-health-emotions.html","t":"Understanding Mental Health and Emotions","c":"Health · Mental Wellbeing"},{"h":"personal-hygiene-disease-prevention.html","t":"Personal Hygiene and Disease Prevention","c":"Health · Hygiene"},{"h":"human-immune-system.html","t":"The Human Body's Immune System","c":"Health · Body Systems"},{"h":"vaccines-and-immunization.html","t":"Understanding Vaccines and Immunization","c":"Health · Immunization"},{"h":"first-aid-basic-safety.html","t":"First Aid and Basic Safety","c":"Health · Safety"},{"h":"effects-of-substance-abuse.html","t":"Effects of Substance Abuse: Smoking, Alcohol & Vaping","c":"Health · Substance Awareness"},{"h":"how-computers-work.html","t":"How Computers Work: Hardware, Software and Binary Code","c":"Computer & AI · Core Computing"},{"h":"what-is-coding.html","t":"What Is Coding? Programming Languages Explained, From Basics to Advanced","c":"Computer & AI · Core Computing"},{"h":"what-is-an-algorithm.html","t":"What Is an Algorithm? Thinking Like a Computer","c":"Computer & AI · Core Computing"},{"h":"operating-systems.html","t":"Operating Systems: The Software Behind Every Device","c":"Computer & AI · Core Computing"},{"h":"history-of-computing.html","t":"The History of Computing: Babbage to Smartphones","c":"Computer & AI · Core Computing"},{"h":"what-is-the-internet.html","t":"What Is the Internet, Really? Servers, Packets and How Data Travels","c":"Computer & AI · Internet & Digital Safety"},{"h":"search-engines-browsers.html","t":"Search Engines & Web Browsers: How the Internet Finds Things","c":"Computer & AI · Internet & Digital Safety"},{"h":"cloud-computing.html","t":"Cloud Computing: What \"The Cloud\" Actually Is","c":"Computer & AI · Internet & Digital Safety"},{"h":"cybersecurity-basics.html","t":"Cybersecurity Basics: Threats, Defences and Good Digital Habits","c":"Computer & AI · Internet & Digital Safety"},{"h":"digital-footprint-privacy.html","t":"Digital Footprint & Online Privacy: What Gets Tracked, and Why It Matters","c":"Computer & AI · Internet & Digital Safety"},{"h":"what-is-artificial-intelligence.html","t":"What is Artificial Intelligence and How Does It Work?","c":"Computer & AI · AI Foundations"},{"h":"machine-learning-explained.html","t":"Machine Learning Explained: How Computers Learn From Data","c":"Computer & AI · AI Foundations"},{"h":"what-is-an-llm.html","t":"What Is a Large Language Model? How Chatbots Actually Work","c":"Computer & AI · AI Foundations"},{"h":"ai-ethics.html","t":"AI Ethics: Bias, Privacy and Misinformation Explained","c":"Computer & AI · AI Foundations"},{"h":"generative-ai.html","t":"Generative AI: Images, Text and Where the Line Is","c":"Computer & AI · AI Foundations"},{"h":"prompt-engineering.html","t":"Prompt Engineering: Getting Better Results From AI Tools","c":"Computer & AI · AI in Practice"},{"h":"ai-agents.html","t":"AI Agents: When AI Takes Action, Not Just Talks","c":"Computer & AI · AI in Practice"},{"h":"natural-language-processing.html","t":"Natural Language Processing: How Computers Understand Text","c":"Computer & AI · AI in Practice"},{"h":"computer-vision.html","t":"Computer Vision: How Machines Learn to See","c":"Computer & AI · AI in Practice"},{"h":"recommendation-systems.html","t":"Recommendation Systems: How Netflix and Spotify \"Know\" What You Like","c":"Computer & AI · AI in Practice"},{"h":"what-is-language.html","t":"What is Language?","c":"English · Foundational Concepts"},{"h":"language-and-its-need.html","t":"Language and Its Need","c":"English"},{"h":"english-international-language.html","t":"English as an International Language","c":"English"},{"h":"importance-of-english.html","t":"The Importance of the English Language","c":"English"},{"h":"place-value-face-value.html","t":"Place Value & Face Value: International, Indian & Pakistani Systems","c":"Mathematics"},{"h":"number-systems.html","t":"Number Systems: Natural, Whole, Integer, Rational & Real Numbers","c":"Mathematics"},{"h":"roman-numerals.html","t":"Roman Numerals: Reading and Writing an Ancient Number System","c":"Mathematics"},{"h":"number-base-systems.html","t":"Number Base Systems: Binary, Base 5, Base 7, Octal & Decimal","c":"Mathematics"},{"h":"number-lines.html","t":"Number Lines: Placing Whole Numbers, Fractions, and Decimals","c":"Mathematics"},{"h":"number-line-addition-subtraction.html","t":"Addition & Subtraction on the Number Line","c":"Mathematics"},{"h":"number-line-multiplication-division.html","t":"Multiplication & Division on the Number Line","c":"Mathematics"},{"h":"operations-of-integers.html","t":"Operations of Integers: Addition, Subtraction, Multiplication & Division","c":"Mathematics"},{"h":"bodmas-dmas-rules.html","t":"BODMAS & DMAS Rules: The Correct Order of Operations","c":"Mathematics"},{"h":"brackets-fractions-decimals-bodmas.html","t":"Brackets, Fractions & Decimals in BODMAS","c":"Mathematics"},{"h":"divisibility-rules.html","t":"Divisibility Rules: Quick Tests for 2 Through 12","c":"Mathematics"},{"h":"factors-and-multiples.html","t":"Factors & Multiples: Prime, Composite, and Common","c":"Mathematics"},{"h":"hcf-and-lcm.html","t":"HCF & LCM: Highest Common Factor & Lowest Common Multiple","c":"Mathematics"},{"h":"hcf-lcm-word-problems.html","t":"HCF & LCM Word Problems: Real-Life Applications","c":"Mathematics"},{"h":"fraction-fix-it.html","t":"Fraction Fix-It: Strategies for Confident Fraction Sense","c":"Mathematics"},{"h":"fraction-multiply-divide.html","t":"Multiply & Divide Fractions: Cross, Flip, and Fly","c":"Mathematics"},{"h":"squares-cubes-roots.html","t":"Squares, Square Roots, Cubes & Cube Roots","c":"Mathematics"},{"h":"exponents-and-powers.html","t":"Exponents & Powers: The Laws of Indices","c":"Mathematics"},{"h":"ratio-and-proportion.html","t":"Ratio & Proportion: Complete Guide with All Question Types","c":"Mathematics"},{"h":"percentages.html","t":"Percentages: Averages, Profit & Loss, Discounts & Interest","c":"Mathematics"},{"h":"times-tables-trainer.html","t":"Times Tables Trainer: Strategies for Fast, Confident Multiplication","c":"Mathematics"},{"h":"units-of-measurement.html","t":"Units of Measurement: Length, Mass, Capacity, Time & Area","c":"Mathematics"},{"h":"seven-wonders-of-the-world.html","t":"The Seven Wonders of the Modern World","c":"General Knowledge"},{"h":"famous-world-landmarks-wonders.html","t":"Famous World Landmarks & Wonders","c":"General Knowledge"},{"h":"continents-and-oceans.html","t":"Continents & Oceans: The Basic Map of the World","c":"General Knowledge"},{"h":"countries-and-capitals.html","t":"Countries & Capitals: Major Nations Around the World","c":"General Knowledge"},{"h":"flags-of-the-world.html","t":"Flags of the World: Reading the Symbols","c":"General Knowledge"},{"h":"pakistan-national-symbols.html","t":"Pakistan: National Symbols, Founders & Key Facts","c":"General Knowledge"},{"h":"india-national-symbols.html","t":"India: National Symbols, Founders & Key Facts","c":"General Knowledge"},{"h":"great-inventions-and-inventors.html","t":"Great Inventions & Inventors","c":"General Knowledge"},{"h":"sports-of-the-world.html","t":"Sports of the World: Rules, Terms & Records","c":"General Knowledge"},{"h":"famous-personalities.html","t":"Famous Personalities: Leaders, Scientists & Nobel Laureates","c":"General Knowledge"},{"h":"animals-and-ecosystems.html","t":"Animals & Ecosystems: Wildlife GK","c":"General Knowledge"}];
+  function openSearch() {
+    document.getElementById('searchOverlay').classList.add('is-open');
+    document.body.classList.add('search-locked');
+    setTimeout(function () { document.getElementById('searchInput').focus(); }, 50);
+  }
+  function closeSearch() {
+    document.getElementById('searchOverlay').classList.remove('is-open');
+    document.body.classList.remove('search-locked');
+    document.getElementById('searchInput').value = '';
+    document.getElementById('searchResults').innerHTML = '';
+    document.getElementById('searchHint').style.display = 'block';
+  }
+  function runSearch() {
+    var q = document.getElementById('searchInput').value.trim().toLowerCase();
+    var resultsEl = document.getElementById('searchResults');
+    var hintEl = document.getElementById('searchHint');
+    if (q.length < 2) {
+      resultsEl.innerHTML = '';
+      hintEl.style.display = 'block';
+      return;
+    }
+    hintEl.style.display = 'none';
+    var matches = SEARCH_INDEX.filter(function (item) {
+      return item.t.toLowerCase().indexOf(q) !== -1 || item.c.toLowerCase().indexOf(q) !== -1;
+    }).slice(0, 30);
+    if (matches.length === 0) {
+      resultsEl.innerHTML = '<div class="search-empty">No articles found for "' + q.replace(/</g,'&lt;') + '". Try a different word or subject.</div>';
+      return;
+    }
+    resultsEl.innerHTML = matches.map(function (item) {
+      return '<a class="search-result" href="' + item.h + '">' +
+        (item.c ? '<div class="search-result-tag">' + item.c + '</div>' : '') +
+        '<div class="search-result-title">' + item.t + '</div></a>';
+    }).join('');
+  }
+  document.getElementById('searchOverlay').addEventListener('click', function (e) {
+    if (e.target.id === 'searchOverlay') closeSearch();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeSearch();
+  });
 </script>
 
 <!-- HERO -->
@@ -1228,15 +1439,24 @@
     <div class="hero-eyebrow">Trusted Educational Resource</div>
     <h1>Where knowledge becomes <em>understanding</em></h1>
     <p class="hero-desc">Scholarly articles, practical guides, and trusted resources across science, English language, history, and more — crafted for curious minds of all ages.</p>
+    <p class="hero-tagline">For self-paced learners.</p>
+    <div class="hero-process">
+      <span class="step">Visit TLL</span><span class="arrow">→</span>
+      <span class="step">Read Articles</span><span class="arrow">→</span>
+      <span class="step">Comprehend</span><span class="arrow">→</span>
+      <span class="step">Practice</span><span class="arrow">→</span>
+      <span class="step">Perform</span>
+    </div>
     <div class="hero-actions">
-      <a class="btn-primary" href="index.html#english">Explore Articles</a>
+      <a class="btn-primary" href="index.html#subjects">Explore the Site</a>
+      <a class="btn-outline" href="index.html#about">How It Works</a>
     </div>
   </div>
   <div class="hero-stats">
     <div class="hero-stats-title">At a Glance</div>
     <div class="hero-stat">
       <span class="hero-stat-label">Articles published</span>
-      <span class="hero-stat-val">78+</span>
+      <span class="hero-stat-val">120+</span>
     </div>
     <div class="hero-stat">
       <span class="hero-stat-label">Subject areas</span>
@@ -1244,11 +1464,15 @@
     </div>
     <div class="hero-stat">
       <span class="hero-stat-label">Practice quizzes</span>
-      <span class="hero-stat-val">80+</span>
+      <span class="hero-stat-val">120+</span>
     </div>
     <div class="hero-stat">
       <span class="hero-stat-label">Quiz questions</span>
-      <span class="hero-stat-val">700+</span>
+      <span class="hero-stat-val">1,200+</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-label">Interactive activities</span>
+      <span class="hero-stat-val">5</span>
     </div>
     <div class="hero-stat">
       <span class="hero-stat-label">Access cost</span>
@@ -1258,7 +1482,7 @@
 </section>
 
 <!-- SUBJECTS -->
-<div class="section">
+<div class="section" id="subjects">
   <div class="section-header">
     <div class="section-eyebrow">Subjects</div>
     <h2>Browse by Subject Area</h2>
@@ -1282,7 +1506,7 @@
     </a>
     <a href="what-is-a-balanced-diet.html" style="display:block; width:50%; padding:1.2rem 1rem; text-decoration:none; color:#1A1A1A; border-bottom:1px solid #D8D0C8; box-sizing:border-box;">
       <span style="font-size:1.4rem; display:block; margin-bottom:0.5rem;">🏥</span>
-      <div style="font-family:'EB Garamond',serif; font-size:0.95rem; font-weight:600; color:#0D1B2A; margin-bottom:0.2rem;">Health</div>
+      <div style="font-family:'EB Garamond',serif; font-size:0.95rem; font-weight:600; color:#0D1B2A; margin-bottom:0.2rem;">Health &amp; Nutrition</div>
       <div style="font-size:0.72rem; color:#767676;">Nutrition · Wellbeing · Human Body</div>
     </a>
     <a href="famous-world-landmarks-wonders.html" style="display:block; width:50%; padding:1.2rem 1rem; text-decoration:none; color:#1A1A1A; border-right:1px solid #D8D0C8; box-sizing:border-box;">
@@ -1808,7 +2032,7 @@
 </section>
 
 <!-- PRACTICE TESTS -->
-<section class="english-section" id="practice-tests" style="background: var(--navy-mid, #1C3151);">
+<section class="english-section" id="practice-tests">
   <div class="english-inner">
     <div class="section-header">
       <div class="section-eyebrow">Auto-Graded</div>
@@ -2097,7 +2321,7 @@
 
 
 <!-- SCIENCE SECTION -->
-<section class="english-section" id="science" style="background: var(--navy-mid, #1C3151);">
+<section class="english-section" id="science">
   <div class="english-inner">
     <div class="section-header">
       <div class="section-eyebrow">Science</div>
@@ -2208,8 +2432,28 @@
       </div>
     </div>
 
-    <div class="subject-group-header" id="science-biology"><span class="subject-group-title">Biology</span><span class="subject-group-count">1 article</span></div>
-    <div class="english-articles" style="grid-template-columns: 1fr; max-width: 560px;">
+    <div class="subject-group-header" id="science-biology"><span class="subject-group-title">Biology</span><span class="subject-group-count">3 articles</span></div>
+    <div class="english-articles">
+      <div class="english-article" onclick="location.href='what-is-biology.html'" style="cursor:pointer;">
+        <div class="article-tag" style="color:var(--gold);">Science · Biology</div>
+        <div class="article-title">What is Biology?</div>
+        <div class="article-excerpt">From the tiniest bacteria to the largest whales, biology is the science that tries to answer one huge question: what does it mean to be alive?</div>
+        <div class="article-meta">
+          <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+          <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+          <span>11 min read</span>
+        </div>
+      </div>
+      <div class="english-article" onclick="location.href='cells-the-building-blocks-of-life.html'" style="cursor:pointer;">
+        <div class="article-tag" style="color:var(--gold);">Science · Biology</div>
+        <div class="article-title">Cells: The Building Blocks of Life</div>
+        <div class="article-excerpt">Every living thing, from a single bacterium to the largest blue whale, is built from the same basic unit — the cell.</div>
+        <div class="article-meta">
+          <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+          <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+          <span>12 min read</span>
+        </div>
+      </div>
       <div class="english-article" onclick="location.href='what-is-the-human-cell.html'" style="cursor:pointer;">
         <div class="article-tag" style="color:var(--gold);">Science · Biology</div>
         <div class="article-title">What is the Human Cell? A Simple Guide</div>
@@ -2236,8 +2480,8 @@
 <section class="english-section" id="health">
   <div class="english-inner">
     <div class="section-header">
-      <div class="section-eyebrow">Health</div>
-      <h2>Explore Health <span class="resource-badge badge-progress" style="margin-left:0.6rem; vertical-align:middle;">In Progress</span></h2>
+      <div class="section-eyebrow">Health &amp; Nutrition</div>
+      <h2>Explore Health &amp; Nutrition</h2>
       <p>Nutrition, wellbeing, and the human body — practical knowledge for everyday life.</p>
     </div>
     <div class="subject-group-header" id="health-foundational-concepts"><span class="subject-group-title">Foundational Concepts</span><span class="subject-group-count">1 article</span></div>
@@ -2377,7 +2621,7 @@
 </section>
 
 <!-- GENERAL KNOWLEDGE SECTION -->
-<section class="english-section" id="general-knowledge" style="background: var(--navy-mid, #1C3151);">
+<section class="english-section" id="general-knowledge">
   <div class="english-inner">
     <div class="section-header">
       <div class="section-eyebrow">General Knowledge</div>
@@ -2516,13 +2760,13 @@
   <div class="english-inner">
     <div class="section-header">
       <div class="section-eyebrow">Computer &amp; AI</div>
-      <h2>Explore Computer &amp; AI <span class="resource-badge badge-progress" style="margin-left:0.6rem; vertical-align:middle;">In Progress</span></h2>
+      <h2>Explore Computer &amp; AI</h2>
       <p>Technology, artificial intelligence, and the digital skills that matter now.</p>
     </div>
-    <div class="subject-group-header" id="computer-ai-fundamentals"><span class="subject-group-title">Computing Fundamentals</span><span class="subject-group-count">10 articles</span></div>
+        <div class="subject-group-header" id="computer-ai-core-computing"><span class="subject-group-title">Core Computing</span><span class="subject-group-count">5 articles</span></div>
     <div class="english-articles">
       <div class="english-article" onclick="location.href='how-computers-work.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI</div>
+        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI · Core Computing</div>
         <div class="article-title">How Computers Work: Hardware, Software and Binary Code</div>
         <div class="article-excerpt">Every device you touch runs on the same handful of ideas — binary code, the CPU, memory, and the internet — explained from first principles.</div>
         <div class="article-meta">
@@ -2531,18 +2775,8 @@
           <span>11 min read</span>
         </div>
       </div>
-      <div class="english-article" onclick="location.href='what-is-the-internet.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI</div>
-        <div class="article-title">What Is the Internet, Really? Servers, Packets and How Data Travels</div>
-        <div class="article-excerpt">Billions of devices exchange data every second without a single wire connecting them all directly. Here's the actual machinery behind that everyday miracle.</div>
-        <div class="article-meta">
-          <span class="article-meta-author">The Learners Ladder Editorial Team</span>
-          <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
-          <span>10 min read</span>
-        </div>
-      </div>
       <div class="english-article" onclick="location.href='what-is-coding.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI</div>
+        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI · Core Computing</div>
         <div class="article-title">What Is Coding? Programming Languages Explained, From Basics to Advanced</div>
         <div class="article-excerpt">From your first line of code to real concepts developers use daily — variables, loops, functions, data structures, algorithms, OOP and version control, with working examples.</div>
         <div class="article-meta">
@@ -2552,7 +2786,7 @@
         </div>
       </div>
       <div class="english-article" onclick="location.href='what-is-an-algorithm.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI</div>
+        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI · Core Computing</div>
         <div class="article-title">What Is an Algorithm? Thinking Like a Computer</div>
         <div class="article-excerpt">Flowcharts, pseudocode, search and sort algorithms, and recursion — the planning skill behind every program, with working code examples.</div>
         <div class="article-meta">
@@ -2562,7 +2796,7 @@
         </div>
       </div>
       <div class="english-article" onclick="location.href='operating-systems.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI</div>
+        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI · Core Computing</div>
         <div class="article-title">Operating Systems: The Software Behind Every Device</div>
         <div class="article-excerpt">Every tap, click, and app launch passes through one piece of software before anything happens — the operating system. Here's what it actually does, and why Windows, macOS, Android, and iOS all do the same basic job in different ways.</div>
         <div class="article-meta">
@@ -2571,48 +2805,8 @@
           <span>11 min read</span>
         </div>
       </div>
-      <div class="english-article" onclick="location.href='search-engines-browsers.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI</div>
-        <div class="article-title">Search Engines &amp; Web Browsers: How the Internet Finds Things</div>
-        <div class="article-excerpt">Billions of pages exist online, yet a search engine finds the right one in a fraction of a second. Here's the difference between a browser and a search engine, and how ranking actually decides what shows up first.</div>
-        <div class="article-meta">
-          <span class="article-meta-author">The Learners Ladder Editorial Team</span>
-          <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
-          <span>10 min read</span>
-        </div>
-      </div>
-      <div class="english-article" onclick="location.href='cloud-computing.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI</div>
-        <div class="article-title">Cloud Computing: What "The Cloud" Actually Is</div>
-        <div class="article-excerpt">There is no actual cloud. Every photo, email, and streamed show "in the cloud" is sitting on a real, physical computer somewhere — just one that belongs to someone else. Here's what that setup actually involves.</div>
-        <div class="article-meta">
-          <span class="article-meta-author">The Learners Ladder Editorial Team</span>
-          <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
-          <span>10 min read</span>
-        </div>
-      </div>
-      <div class="english-article" onclick="location.href='cybersecurity-basics.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI</div>
-        <div class="article-title">Cybersecurity Basics: Threats, Defences and Good Digital Habits</div>
-        <div class="article-excerpt">Every device connected to the internet is a target. Here's how the most common attacks actually work, the defences that stop them, and the everyday habits that matter more than any single piece of software.</div>
-        <div class="article-meta">
-          <span class="article-meta-author">The Learners Ladder Editorial Team</span>
-          <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
-          <span>13 min read</span>
-        </div>
-      </div>
-      <div class="english-article" onclick="location.href='digital-footprint-privacy.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI</div>
-        <div class="article-title">Digital Footprint &amp; Online Privacy: What Gets Tracked, and Why It Matters</div>
-        <div class="article-excerpt">Every search, click, and app used leaves a trace somewhere. Most of it is invisible day to day — here's what's actually being collected, who has access to it, and what genuinely helps protect it.</div>
-        <div class="article-meta">
-          <span class="article-meta-author">The Learners Ladder Editorial Team</span>
-          <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
-          <span>10 min read</span>
-        </div>
-      </div>
       <div class="english-article" onclick="location.href='history-of-computing.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI</div>
+        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI · Core Computing</div>
         <div class="article-title">The History of Computing: Babbage to Smartphones</div>
         <div class="article-excerpt">The smartphone in a pocket today has more processing power than the room-sized machines that once calculated missile trajectories. Here's how computing got from mechanical gears to a device that fits in one hand, in a series of turning points rather than one single invention.</div>
         <div class="article-meta">
@@ -2623,10 +2817,64 @@
       </div>
     </div>
 
-    <div class="subject-group-header" id="computer-ai-artificial-intelligence"><span class="subject-group-title">Artificial Intelligence &amp; Machine Learning</span><span class="subject-group-count">10 articles</span></div>
+    <div class="subject-group-header" id="computer-ai-internet-safety"><span class="subject-group-title">Internet &amp; Digital Safety</span><span class="subject-group-count">5 articles</span></div>
+    <div class="english-articles">
+      <div class="english-article" onclick="location.href='what-is-the-internet.html'" style="cursor:pointer;">
+        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI · Internet &amp; Digital Safety</div>
+        <div class="article-title">What Is the Internet, Really? Servers, Packets and How Data Travels</div>
+        <div class="article-excerpt">Billions of devices exchange data every second without a single wire connecting them all directly. Here's the actual machinery behind that everyday miracle.</div>
+        <div class="article-meta">
+          <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+          <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+          <span>10 min read</span>
+        </div>
+      </div>
+      <div class="english-article" onclick="location.href='search-engines-browsers.html'" style="cursor:pointer;">
+        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI · Internet &amp; Digital Safety</div>
+        <div class="article-title">Search Engines &amp; Web Browsers: How the Internet Finds Things</div>
+        <div class="article-excerpt">Billions of pages exist online, yet a search engine finds the right one in a fraction of a second. Here's the difference between a browser and a search engine, and how ranking actually decides what shows up first.</div>
+        <div class="article-meta">
+          <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+          <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+          <span>10 min read</span>
+        </div>
+      </div>
+      <div class="english-article" onclick="location.href='cloud-computing.html'" style="cursor:pointer;">
+        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI · Internet &amp; Digital Safety</div>
+        <div class="article-title">Cloud Computing: What "The Cloud" Actually Is</div>
+        <div class="article-excerpt">There is no actual cloud. Every photo, email, and streamed show "in the cloud" is sitting on a real, physical computer somewhere — just one that belongs to someone else. Here's what that setup actually involves.</div>
+        <div class="article-meta">
+          <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+          <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+          <span>10 min read</span>
+        </div>
+      </div>
+      <div class="english-article" onclick="location.href='cybersecurity-basics.html'" style="cursor:pointer;">
+        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI · Internet &amp; Digital Safety</div>
+        <div class="article-title">Cybersecurity Basics: Threats, Defences and Good Digital Habits</div>
+        <div class="article-excerpt">Every device connected to the internet is a target. Here's how the most common attacks actually work, the defences that stop them, and the everyday habits that matter more than any single piece of software.</div>
+        <div class="article-meta">
+          <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+          <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+          <span>13 min read</span>
+        </div>
+      </div>
+      <div class="english-article" onclick="location.href='digital-footprint-privacy.html'" style="cursor:pointer;">
+        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI · Internet &amp; Digital Safety</div>
+        <div class="article-title">Digital Footprint &amp; Online Privacy: What Gets Tracked, and Why It Matters</div>
+        <div class="article-excerpt">Every search, click, and app used leaves a trace somewhere. Most of it is invisible day to day — here's what's actually being collected, who has access to it, and what genuinely helps protect it.</div>
+        <div class="article-meta">
+          <span class="article-meta-author">The Learners Ladder Editorial Team</span>
+          <span class="article-meta-sep" style="color:rgba(255,255,255,0.1);">|</span>
+          <span>10 min read</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="subject-group-header" id="computer-ai-foundations"><span class="subject-group-title">AI Foundations</span><span class="subject-group-count">5 articles</span></div>
     <div class="english-articles">
       <div class="english-article" onclick="location.href='what-is-artificial-intelligence.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI</div>
+        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI · AI Foundations</div>
         <div class="article-title">What is Artificial Intelligence and How Does It Work?</div>
         <div class="article-excerpt">A clear, jargon-free guide to AI — what it is, how machine learning works, and what questions it raises for the world.</div>
         <div class="article-meta">
@@ -2636,7 +2884,7 @@
         </div>
       </div>
       <div class="english-article" onclick="location.href='machine-learning-explained.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI</div>
+        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI · AI Foundations</div>
         <div class="article-title">Machine Learning Explained: How Computers Learn From Data</div>
         <div class="article-excerpt">Traditional software is told what to do; machine learning software is shown examples and works out the rules itself — with a worked training example and neural network diagram.</div>
         <div class="article-meta">
@@ -2646,7 +2894,7 @@
         </div>
       </div>
       <div class="english-article" onclick="location.href='what-is-an-llm.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI</div>
+        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI · AI Foundations</div>
         <div class="article-title">What Is a Large Language Model? How Chatbots Actually Work</div>
         <div class="article-excerpt">A chatbot predicts its next word, one token at a time, based on patterns learned from huge amounts of text. Tokens, attention, training stages and honest limitations, explained clearly.</div>
         <div class="article-meta">
@@ -2656,7 +2904,7 @@
         </div>
       </div>
       <div class="english-article" onclick="location.href='ai-ethics.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI</div>
+        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI · AI Foundations</div>
         <div class="article-title">AI Ethics: Bias, Privacy and Misinformation Explained</div>
         <div class="article-excerpt">AI systems now help decide loans, job screening and what news you see. A clear look at bias, privacy, deepfakes, who's responsible, and how to engage with AI responsibly.</div>
         <div class="article-meta">
@@ -2666,7 +2914,7 @@
         </div>
       </div>
       <div class="english-article" onclick="location.href='generative-ai.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI</div>
+        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI · AI Foundations</div>
         <div class="article-title">Generative AI: Images, Text and Where the Line Is</div>
         <div class="article-excerpt">How diffusion models and GANs turn noise into images, how the same prediction idea extends to audio, video and code, and the genuine debates around originality and copyright.</div>
         <div class="article-meta">
@@ -2675,8 +2923,12 @@
           <span>12 min read</span>
         </div>
       </div>
+    </div>
+
+    <div class="subject-group-header" id="computer-ai-practice"><span class="subject-group-title">AI in Practice</span><span class="subject-group-count">5 articles</span></div>
+    <div class="english-articles">
       <div class="english-article" onclick="location.href='prompt-engineering.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI</div>
+        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI · AI in Practice</div>
         <div class="article-title">Prompt Engineering: Getting Better Results From AI Tools</div>
         <div class="article-excerpt">The same chatbot can give a vague, generic answer or a genuinely useful one — and the difference usually isn't the model, it's the prompt. Here's how to write instructions AI tools can actually work with, and why they respond the way they do.</div>
         <div class="article-meta">
@@ -2686,7 +2938,7 @@
         </div>
       </div>
       <div class="english-article" onclick="location.href='ai-agents.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI</div>
+        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI · AI in Practice</div>
         <div class="article-title">AI Agents: When AI Takes Action, Not Just Talks</div>
         <div class="article-excerpt">A chatbot answers a question and stops. An AI agent can search the web, run code, check the result, and try again — all on its own. Here's how that loop actually works, and where human oversight still matters.</div>
         <div class="article-meta">
@@ -2696,7 +2948,7 @@
         </div>
       </div>
       <div class="english-article" onclick="location.href='natural-language-processing.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI</div>
+        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI · AI in Practice</div>
         <div class="article-title">Natural Language Processing: How Computers Understand Text</div>
         <div class="article-excerpt">Autocorrect, spam filters, and translation apps all rely on the same foundation as large language models — just applied to smaller, more specific problems. Here's how a computer turns human language into something it can actually work with.</div>
         <div class="article-meta">
@@ -2706,7 +2958,7 @@
         </div>
       </div>
       <div class="english-article" onclick="location.href='computer-vision.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI</div>
+        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI · AI in Practice</div>
         <div class="article-title">Computer Vision: How Machines Learn to See</div>
         <div class="article-excerpt">A photo is just a grid of numbers to a computer — no edges, no objects, no meaning. Here's how machine learning turns that grid of numbers into "that's a cat," and where the approach still gets fooled.</div>
         <div class="article-meta">
@@ -2716,7 +2968,7 @@
         </div>
       </div>
       <div class="english-article" onclick="location.href='recommendation-systems.html'" style="cursor:pointer;">
-        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI</div>
+        <div class="article-tag" style="color:var(--gold);">Computer &amp; AI · AI in Practice</div>
         <div class="article-title">Recommendation Systems: How Netflix and Spotify "Know" What You Like</div>
         <div class="article-excerpt">It can feel like these apps are reading minds. They aren't — they're running a machine learning model on patterns in behaviour, at a scale no individual person could track by hand.</div>
         <div class="article-meta">
@@ -2760,21 +3012,59 @@
   </div>
 </div>
 
+<!-- ABOUT -->
+<section class="english-section" id="about">
+  <div class="english-inner" style="max-width: 720px;">
+    <div class="section-header" style="text-align: center;">
+      <div class="section-eyebrow" style="justify-content: center; display: flex; align-items: center; gap: 0.6rem;">About</div>
+      <h2 style="text-align: center;">What The Learners&apos; Ladder Is</h2>
+    </div>
+    <p style="color: rgba(255,255,255,0.65); font-size: 1.05rem; line-height: 1.8; text-align: justify;">
+      The Learners' Ladder is a free educational resource, built for anyone curious enough to want to understand something properly. A student brushing up before an exam, a parent helping with homework, a teacher looking for a clear explanation to share, someone preparing for an entrance test or scholarship, or a job seeker sharpening the basics — this is built for self-paced learning, at your own speed, on your own time. Every article is written from first principles, with real examples and worked explanations, not just summaries to skim.
+    </p>
+    <p style="color: rgba(255,255,255,0.65); font-size: 1.05rem; line-height: 1.8; margin-top: 1.2rem; text-align: justify;">
+      Beyond the articles, there are interactive activities to make learning hands-on rather than passive, and subject matter tests for anyone who wants to check where they genuinely stand. Each topic also ends with a scored quiz — click-to-answer questions, instant feedback, and a clear sense of what's actually understood versus what still needs another look. No ads, no paywalls, no accounts required to read or practise.
+    </p>
+    <p style="color: rgba(255,255,255,0.65); font-size: 1.05rem; line-height: 1.8; margin-top: 1.2rem; text-align: justify;">
+      The site is intentionally anonymous. There's no author bio or personal brand here — just content, built and checked carefully, one article at a time, for anyone who wants to learn something properly rather than skim it once and forget it.
+    </p>
+  </div>
+</section>
+
 <!-- OUR MISSION -->
 <section class="english-section" id="mission">
-  <div class="english-inner" style="max-width: 720px; text-align: center;">
+  <div class="english-inner" style="max-width: 720px;">
     <div class="section-header" style="text-align: center;">
       <div class="section-eyebrow" style="justify-content: center; display: flex; align-items: center; gap: 0.6rem;">Our Mission</div>
-      <h2>Why The Learners&apos; Ladder Exists</h2>
+      <h2 style="text-align: center;">Why The Learners&apos; Ladder Exists</h2>
     </div>
-    <p style="color: rgba(255,255,255,0.65); font-size: 1.05rem; line-height: 1.8;">
+    <p style="color: rgba(255,255,255,0.65); font-size: 1.05rem; line-height: 1.8; text-align: justify;">
       The Learners' Ladder began as a simple idea: that clear, thorough, genuinely well-written educational content shouldn't be locked behind a paywall or buried in ads. Every article here is built the same way — from first principles, with real examples, and a practice quiz to check real understanding, not just page views.
     </p>
-    <p style="color: rgba(255,255,255,0.65); font-size: 1.05rem; line-height: 1.8; margin-top: 1.2rem;">
+    <p style="color: rgba(255,255,255,0.65); font-size: 1.05rem; line-height: 1.8; margin-top: 1.2rem; text-align: justify;">
       Our goal doesn't stop at articles. We're working toward becoming a genuine online testing and assessment platform — where learners can take structured quizzes, track their own progress over time, and see exactly where they stand, not just read and move on.
     </p>
-    <p style="color: rgba(255,255,255,0.65); font-size: 1.05rem; line-height: 1.8; margin-top: 1.2rem;">
+    <p style="color: rgba(255,255,255,0.65); font-size: 1.05rem; line-height: 1.8; margin-top: 1.2rem; text-align: justify;">
       We're still growing — one subject, one topic, one article at a time — built by people who believe that learning to climb, one rung at a time, is worth doing properly.
+    </p>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="english-section" id="team">
+  <div class="english-inner" style="max-width: 720px;">
+    <div class="section-header" style="text-align: center;">
+      <div class="section-eyebrow" style="justify-content: center; display: flex; align-items: center; gap: 0.6rem;">The Team</div>
+      <h2 style="text-align: center;">How This Is Built</h2>
+    </div>
+    <p style="color: var(--gold); font-family: 'EB Garamond', serif; font-size: 1.25rem; font-style: italic; margin-bottom: 1.5rem; text-align: center;">
+      Human vision, executed by AI collaboration.
+    </p>
+    <p style="color: rgba(255,255,255,0.65); font-size: 1.05rem; line-height: 1.8; text-align: justify;">
+      In keeping with this site staying intentionally anonymous, we don't publish individual names or bios here. What we will say is how the work actually gets done: every article starts with a human decision — what to cover, how to explain it, and what a Pakistani or Indian student, teacher, or parent genuinely needs from it. From there, AI collaboration helps draft, structure, and verify the content, with every fact, formula, and worked example checked before publishing.
+    </p>
+    <p style="color: rgba(255,255,255,0.65); font-size: 1.05rem; line-height: 1.8; margin-top: 1.2rem; text-align: justify;">
+      Nothing goes live unreviewed. It's a small, deliberate process — vision from a person, execution supported by AI — built to stay honest about how the site is made.
     </p>
   </div>
 </section>
@@ -2795,7 +3085,7 @@
         <li><a href="#english">English Language</a></li>
         <li><a href="#mathematics">Mathematics</a></li>
         <li><a href="#science">Science</a></li>
-        <li><a href="#health">Health</a></li>
+        <li><a href="#health">Health &amp; Nutrition</a></li>
         <li><a href="#general-knowledge">General Knowledge</a></li>
         <li><a href="#computer-ai">Computer &amp; AI</a></li>
         <li><a href="#resources">Resources</a></li>
@@ -2804,9 +3094,11 @@
     <div class="footer-col">
       <h4>About</h4>
       <ul>
+        <li><a href="#about">About</a></li>
         <li><a href="#mission">Our Mission</a></li>
-        <li><a href="#mission">The Team</a></li>
+        <li><a href="#team">The Team</a></li>
         <li><a href="mailto:hello.thelearnersladder@gmail.com?subject=Article%20Submission">Write for Us</a></li>
+        <li><a href="mailto:hello.thelearnersladder@gmail.com?subject=Site%20Feedback">Give Feedback</a></li>
         <li><a href="mailto:hello.thelearnersladder@gmail.com">Contact Us</a></li>
       </ul>
     </div>
